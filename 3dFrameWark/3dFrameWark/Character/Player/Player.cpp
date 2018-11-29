@@ -23,7 +23,9 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 	m_state_timer{ 0.0f },
 	m_yaw{ 0.0f },
 	m_yawroate{ 0.0f },
-	m_jumpCount{ 2 }
+	m_jumpCount{ 2 },
+	m_accel{ 1.0f },
+	m_amausaGauge{ 0.0f }
 {
 	world_ = &world;
 	m_name = "Player";
@@ -56,7 +58,8 @@ void Player::draw() const
 	bodyCapsule_.draw(get_pose());
 	DrawFormatStringF(0.0f, 0.0f, 1, "(%f,%f,%f)", m_position.x, m_position.y, m_position.z);
 	DrawFormatStringF(0.0f, 20.0f, 1, "(%d)", (int)m_state);
-	DrawFormatStringF(0.0f, 40.0f, 1, "(%f)", m_state_timer);
+	DrawFormatStringF(100.0f, 20.0f, 1, "(%f)", m_state_timer);
+	DrawFormatStringF(0.0f, 40.0f, 1, "(%f)", m_amausaGauge);
 	draw_weapon();
 }
 
@@ -91,6 +94,9 @@ void Player::update_state(float deltaTime)
 	case PlayerStateName::Attack2:
 		attack2(deltaTime);
 		break;
+	case PlayerStateName::Attack3:
+		attack2(deltaTime);
+		break;
 	case PlayerStateName::Damage:
 		damage(deltaTime);
 		break;
@@ -113,6 +119,7 @@ void Player::move(float deltaTime)
 {
 	if (GamePad::trigger(GamePad::X) && m_state != PlayerStateName::Attack)
 	{
+		m_amausaGauge += 2.0f;
 		world_->add_actor(ActorGroup::PlayerAction, new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
 		change_state(PlayerStateName::Attack, 1);
 		return;
@@ -175,8 +182,11 @@ void Player::move(float deltaTime)
 
 void Player::attack(float deltaTime)
 {
+	attackMove(deltaTime, Vector3::Zero);
 	if (m_state_timer < mesh_.get_motion_end_time() && GamePad::trigger(GamePad::X))
 	{
+		m_amausaGauge += 2.0f;
+		m_accel = 1.0f;
 		world_->add_actor(ActorGroup::PlayerAction,
 			new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
 		change_state(PlayerStateName::Attack2, 4);
@@ -184,14 +194,46 @@ void Player::attack(float deltaTime)
 	}
 	else if (m_state_timer >= mesh_.get_motion_end_time() *2.0f)
 	{
+		m_accel = 1.0f;
 		move(deltaTime);
 	}
 }
 
 void Player::attack2(float deltaTime)
 {
-	if (m_state_timer >= mesh_.get_motion_end_time())
+	attackMove(deltaTime, Vector3::Zero);
+	if (m_state_timer < mesh_.get_motion_end_time() && GamePad::trigger(GamePad::X))
+	{
+		m_amausaGauge += 2.0f;
+		m_accel = 1.0f;
+		world_->add_actor(ActorGroup::PlayerAction,
+			new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
+		change_state(PlayerStateName::Attack2, 1);
+		return;
+	}
+	else if (m_state_timer >= mesh_.get_motion_end_time())
+	{
+		m_accel = 1.0f;
 		move(deltaTime);
+	}
+}
+
+void Player::attack3(float deltaTime)
+{
+	attackMove(deltaTime, Vector3::Zero);
+	if (m_state_timer >= mesh_.get_motion_end_time() *2.0f)
+	{
+		m_accel = 1.0f;
+		move(deltaTime);
+	}
+}
+
+void Player::attackMove(float deltaTime, const Vector3 & l_movePoint)
+{
+	m_prevposition = m_position;
+	m_position += (get_pose().Forward())*m_accel * deltaTime;
+
+	m_accel = MathHelper::Clamp(m_accel -= 0.1f*deltaTime, 0.0f, 1.0f);
 }
 
 void Player::damage(float deltaTime)

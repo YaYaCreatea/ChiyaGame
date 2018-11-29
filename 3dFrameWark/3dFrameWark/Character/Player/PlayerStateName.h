@@ -8,6 +8,7 @@ enum class PlayerStateName
 	Attack2,
 	Damage,
 	Jump,
+	Attack3
 };
 
 enum

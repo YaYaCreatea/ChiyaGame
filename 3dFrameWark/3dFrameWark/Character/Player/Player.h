@@ -37,6 +37,10 @@ private:
 
 	void attack2(float deltaTime);
 
+	void attack3(float deltaTime);
+
+	void attackMove(float deltaTime, const Vector3& l_movePoint);
+
 	//ダメージ中
 	void damage(float deltaTime);
 
@@ -72,6 +76,10 @@ private:
 	int m_weapon;			//武器モデル
 
 	float m_state_timer;	//状態タイマー
+
+	float m_accel;
+
+	float m_amausaGauge;
 };
 
 #endif

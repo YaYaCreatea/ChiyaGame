@@ -56,6 +56,7 @@ void Player::draw() const
 	bodyCapsule_.draw(get_pose());
 	DrawFormatStringF(0.0f, 0.0f, 1, "(%f,%f,%f)", m_position.x, m_position.y, m_position.z);
 	DrawFormatStringF(0.0f, 20.0f, 1, "(%d)", (int)m_state);
+	DrawFormatStringF(0.0f, 40.0f, 1, "(%f)", m_state_timer);
 	draw_weapon();
 }
 

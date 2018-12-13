@@ -38,7 +38,7 @@ void TpsCamera::update(float deltaTime)
 
 		m_yawAngle += deltaTime * (inputx_ / 500);
 		m_pitchAngle =
-			MathHelper::Clamp(m_pitchAngle += deltaTime * (inputy_ / 1000), -40.0f, 40.0f);
+			MathHelper::Clamp(m_pitchAngle -= deltaTime * (inputy_ / 1000), -40.0f, 40.0f);
 
 		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
 		m_rotation.NormalizeRotationMatrix();

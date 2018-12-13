@@ -26,6 +26,9 @@ public:
 	//スケルトンの変換行列を計算する
 	void transform(const Matrix& l_world);
 
+	//スケルトンの変換行列を計算する
+	void transform(const Matrix& l_world,int l_no, Vector3 m_pi);
+
 	//変換行列を取得
 	const Matrix& get_bone_matrix(int l_no)const;
 

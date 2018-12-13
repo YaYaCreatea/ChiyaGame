@@ -5,6 +5,7 @@
 
 #include "../../Utility/Input/GamePad/GamePad.h"
 #include "../../StaticMesh/StaticMesh.h"
+#include "../../SkeletalMesh/SkeletalMesh.h"
 #include "../../Utility/MathHelper/MathHelper.h"
 #include "../../Utility/Quaternion/Quaternion.h"
 #include "../../EventMessage.h"
@@ -25,7 +26,10 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 	m_yawroate{ 0.0f },
 	m_jumpCount{ 2 },
 	m_accel{ 1.0f },
-	m_amausaGauge{ 0.0f }
+	m_amausaGauge{ 0.0f },
+	m_pi{ Vector3::Zero },
+	m_testTime{ 0.0f },
+	isUp{ false }
 {
 	world_ = &world;
 	m_name = "Player";
@@ -49,17 +53,33 @@ void Player::update(float deltaTime)
 	mesh_.update(deltaTime);
 
 	//s—ñ‚ÌÝ’è
+	if (!isUp)
+	{
+		if (m_testTime >= 1.0f)isUp = true;
+		m_testTime += (deltaTime / 50.0f);
+	}
+	else
+	{
+		if (m_testTime <= 0.0f)isUp = false;
+		m_testTime -= (deltaTime / 50.0f);
+	}
+	m_pi = Vector3::Lerp(Vector3{ 0.0f,-0.2f,0.0f }, Vector3{ 0.0f,0.2f,0.0f }, m_testTime / 1.0f);
+
+
 	mesh_.transform(get_pose());
+	mesh_.transform(get_pose(), 151, m_pi);
+	mesh_.transform(get_pose(), 157, m_pi);
 }
 
 void Player::draw() const
 {
 	mesh_.draw();
-	bodyCapsule_.draw(get_pose());
+	//bodyCapsule_.draw(get_pose());
 	DrawFormatStringF(0.0f, 0.0f, 1, "(%f,%f,%f)", m_position.x, m_position.y, m_position.z);
 	DrawFormatStringF(0.0f, 20.0f, 1, "(%d)", (int)m_state);
 	DrawFormatStringF(100.0f, 20.0f, 1, "(%f)", m_state_timer);
 	DrawFormatStringF(0.0f, 40.0f, 1, "(%f)", m_amausaGauge);
+	DrawFormatStringF(0.0f, 60.0f, 1, "(%f)", m_testTime);
 	draw_weapon();
 }
 

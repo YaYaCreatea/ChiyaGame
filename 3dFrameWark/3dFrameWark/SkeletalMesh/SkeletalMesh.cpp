@@ -123,6 +123,11 @@ void SkeletalMesh::get_world_matrices(Matrix world_matrices[])
 		world_matrices[i] = world_matrices_[i];
 }
 
+void SkeletalMesh::get_world_matrices(Matrix world_matrices[], int lkey)
+{
+	world_matrices[lkey] = world_matrices_[lkey];
+}
+
 //ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚Ìİ’è
 void SkeletalMesh::set_world_matrices(const Matrix world_matrices[])
 {

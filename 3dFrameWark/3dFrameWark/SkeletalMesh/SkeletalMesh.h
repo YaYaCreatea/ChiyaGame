@@ -44,6 +44,10 @@ public:
 	//ワールド変換行列の取得
 	static void get_world_matrices(Matrix world_matrices[]);
 
+	//ワールド変換行列の取得
+	static void get_world_matrices(Matrix world_matrices[],int lkey);
+
+
 	//ワールド変換行列の設定
 	static void set_world_matrices(const Matrix world_matrices[]);
 

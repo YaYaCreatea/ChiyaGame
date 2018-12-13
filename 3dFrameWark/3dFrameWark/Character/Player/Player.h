@@ -70,6 +70,10 @@ private:
 
 	Vector3 m_test;
 
+	Vector3 m_pi;
+	float m_testTime;
+	bool isUp;
+
 	PlayerStateName m_state;//ó‘Ô
 
 	int m_motion;			//ƒ‚[ƒVƒ‡ƒ“”Ô†

@@ -28,6 +28,7 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 	m_accel{ 1.0f },
 	m_amausaGauge{ 0.0f },
 	m_pi{ Vector3::Zero },
+	m_piVelo{ Vector3::Zero },
 	m_testTime{ 0.0f },
 	isUp{ false }
 {
@@ -43,8 +44,8 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 void Player::update(float deltaTime)
 {
 	update_state(deltaTime);
-	m_position.x = MathHelper::Clamp(m_position.x, -75.0f, 75.0f);
-	m_position.z = MathHelper::Clamp(m_position.z, -151.0f, 156.0f);
+	/*m_position.x = MathHelper::Clamp(m_position.x, -75.0f, 75.0f);
+	m_position.z = MathHelper::Clamp(m_position.z, -151.0f, 156.0f);*/
 
 	//モーション変更
 	mesh_.change_motion(m_motion);
@@ -52,23 +53,26 @@ void Player::update(float deltaTime)
 	//アニメーション更新
 	mesh_.update(deltaTime);
 
-	//行列の設定
-	if (!isUp)
-	{
-		if (m_testTime >= 1.0f)isUp = true;
-		m_testTime += (deltaTime / 50.0f);
-	}
-	else
-	{
-		if (m_testTime <= 0.0f)isUp = false;
-		m_testTime -= (deltaTime / 50.0f);
-	}
-	m_pi = Vector3::Lerp(Vector3{ 0.0f,-0.2f,0.0f }, Vector3{ 0.0f,0.2f,0.0f }, m_testTime / 1.0f);
+	////行列の設定
+	//if (!isUp)
+	//{
+	//	if (m_testTime >= 1.0f)isUp = true;
+	//	m_testTime += (deltaTime / 50.0f);
+	//}
+	//else
+	//{
+	//	if (m_testTime <= 0.0f)isUp = false;
+	//	m_testTime -= (deltaTime / 50.0f);
+	//}
+	//m_pi = Vector3::Lerp(Vector3{ 0.0f,-0.2f,0.0f }, Vector3{ 0.0f,0.2f,0.0f }, m_testTime / 1.0f);
 
+	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
 
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 151, m_pi);
 	mesh_.transform(get_pose(), 157, m_pi);
+
+	CollisionMesh::collide_sphere(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 }
 
 void Player::draw() const
@@ -80,6 +84,8 @@ void Player::draw() const
 	DrawFormatStringF(100.0f, 20.0f, 1, "(%f)", m_state_timer);
 	DrawFormatStringF(0.0f, 40.0f, 1, "(%f)", m_amausaGauge);
 	DrawFormatStringF(0.0f, 60.0f, 1, "(%f)", m_testTime);
+
+	DrawFormatStringF(0.0f, 80.0f, 1, "(%f,%f,%f)", m_pi.x, m_pi.y, m_pi.z);
 	draw_weapon();
 }
 
@@ -360,4 +366,18 @@ void Player::draw_weapon()const
 	StaticMesh::bind(m_weapon);
 	StaticMesh::transform(mesh_.get_bone_matrix(116));
 	StaticMesh::draw();
+}
+
+void Player::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
+{
+	//バネの伸び具合を計算
+	const auto stretch = m_pi - l_rest_position;
+	//バネの力を計算
+	const auto force = -l_stiffness * stretch;
+	//加速度を追加
+	const auto acceleration = (force / 10.0f) / l_mass;
+	//移動速度を計算
+	m_piVelo = l_friction * (m_piVelo + (acceleration*10.0f));
+	//座標の更新
+	m_pi += (m_piVelo);
 }

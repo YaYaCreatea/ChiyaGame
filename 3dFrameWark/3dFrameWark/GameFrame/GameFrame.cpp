@@ -25,10 +25,12 @@ void GameFrame::start()
 	SkeletalMesh::load(0, "asset/Chiya2/千夜.mv1");
 	//StaticMesh::load(0, "asset/w_magun01.mv1");
 	//StaticMesh::load(0, "asset/Sword.mv1");
-	StaticMesh::load(0, "asset/untitled.mv1");
+	StaticMesh::load(0, "asset/weapon/Spear.mv1");
+	StaticMesh::load(1, "asset/weapon/Gun/Gun.mv1");
+	StaticMesh::load(2, "asset/weapon/Katana/Katana.mv1");
 	//ステージモデルの読み込み
 	//CollisionMesh::load(0, "asset/castle/SampleStage_Castle.mv1");
-	CollisionMesh::load(0, "asset/Stage/屋上編集用.mv1");
+	CollisionMesh::load(0, "asset/Stage/test3.mv1");
 	//スカイボックスの読み込み
 	SkyBox::load(0, "asset/skybox/skydome.mv1");
 	//ビルボードの読み込み
@@ -38,8 +40,10 @@ void GameFrame::start()
 
 	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }));
 
-	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, Vector3::Zero, 0, 0));
+	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, Vector3::Zero, 0, 2));
 	world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
+
+	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));
 }
 
 void GameFrame::update(float deltaTime)

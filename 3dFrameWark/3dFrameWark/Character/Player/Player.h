@@ -56,6 +56,8 @@ private:
 	//•Ší‚Ì•`‰æ
 	void draw_weapon()const;
 
+	void oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass);
+
 private:
 	const float WALKSPEED{ 1.0f };
 	const float GRAVITY{ -0.04f };
@@ -71,6 +73,7 @@ private:
 	Vector3 m_test;
 
 	Vector3 m_pi;
+	Vector3 m_piVelo;
 	float m_testTime;
 	bool isUp;
 

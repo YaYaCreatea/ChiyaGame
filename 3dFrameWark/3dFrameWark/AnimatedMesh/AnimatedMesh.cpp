@@ -35,7 +35,7 @@ void AnimatedMesh::transform(const Matrix & l_world, int l_no, Vector3 m_pi)
 {
 	SkeletalMesh::bind(m_mesh);
 	SkeletalMesh::set_local_matrices(animation_.get_local_matrices().data());
-	SkeletalMesh::transform(l_world*Matrix(Matrix::Identity).Translation(m_pi));
+	SkeletalMesh::transform(Matrix(l_world.RotationMatrix()).Translation(m_pi));
 	SkeletalMesh::get_world_matrices(m_world_matrices.data(), l_no);
 }
 

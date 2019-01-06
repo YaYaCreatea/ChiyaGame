@@ -21,6 +21,9 @@ int Game::run()
 	//ウィンドウモードか
 	ChangeWindowMode(is_full_screen_ ? FALSE : TRUE);
 
+	// フルシーンアンチエイリアスを設定する
+	SetFullSceneAntiAliasingMode(4, 2);
+
 	//DXライブラリの初期化
 	if (DxLib_Init() == -1)
 		return -1;

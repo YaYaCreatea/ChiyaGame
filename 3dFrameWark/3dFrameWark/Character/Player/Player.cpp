@@ -30,7 +30,8 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 	m_pi{ Vector3::Zero },
 	m_piVelo{ Vector3::Zero },
 	m_testTime{ 0.0f },
-	isUp{ false }
+	isUp{ false },
+	m_isCombo{ false }
 {
 	world_ = &world;
 	m_name = "Player";
@@ -44,6 +45,7 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 void Player::update(float deltaTime)
 {
 	update_state(deltaTime);
+	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
 	/*m_position.x = MathHelper::Clamp(m_position.x, -75.0f, 75.0f);
 	m_position.z = MathHelper::Clamp(m_position.z, -151.0f, 156.0f);*/
 
@@ -66,11 +68,12 @@ void Player::update(float deltaTime)
 	//}
 	//m_pi = Vector3::Lerp(Vector3{ 0.0f,-0.2f,0.0f }, Vector3{ 0.0f,0.2f,0.0f }, m_testTime / 1.0f);
 
-	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
+
 
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 151, m_pi);
 	mesh_.transform(get_pose(), 157, m_pi);
+
 
 	CollisionMesh::collide_sphere(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 }
@@ -209,26 +212,48 @@ void Player::move(float deltaTime)
 void Player::attack(float deltaTime)
 {
 	attackMove(deltaTime, Vector3::Zero);
-	if (m_state_timer < mesh_.get_motion_end_time() && GamePad::trigger(GamePad::X))
+
+	if (GamePad::trigger(GamePad::X))
+		m_isCombo = true;
+
+	if (m_state_timer >= mesh_.get_motion_end_time() *2.0f)
 	{
-		m_amausaGauge += 2.0f;
-		m_accel = 1.0f;
-		world_->add_actor(ActorGroup::PlayerAction,
-			new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
-		change_state(PlayerStateName::Attack2, 4);
-		return;
+		if (m_isCombo)
+		{
+			m_amausaGauge += 2.0f;
+			m_accel = 1.0f;
+			world_->add_actor(ActorGroup::PlayerAction,
+				new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
+			change_state(PlayerStateName::Attack2, 8);
+		}
+		else
+		{
+			m_accel = 1.0f;
+			move(deltaTime);
+		}
+		m_isCombo = false;
 	}
-	else if (m_state_timer >= mesh_.get_motion_end_time() *2.0f)
-	{
-		m_accel = 1.0f;
-		move(deltaTime);
-	}
+
+	//if (m_state_timer < mesh_.get_motion_end_time() && GamePad::trigger(GamePad::X))
+	//{
+	//	
+	//	
+	//	world_->add_actor(ActorGroup::PlayerAction,
+	//		new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
+	//	change_state(PlayerStateName::Attack2, 8);
+	//	return;
+	//}
+	//else if (m_state_timer >= mesh_.get_motion_end_time() *2.0f)
+	//{
+	//	m_accel = 1.0f;
+	//	move(deltaTime);
+	//}
 }
 
 void Player::attack2(float deltaTime)
 {
 	attackMove(deltaTime, Vector3::Zero);
-	if (m_state_timer < mesh_.get_motion_end_time() && GamePad::trigger(GamePad::X))
+	/*if (m_state_timer < mesh_.get_motion_end_time() && GamePad::trigger(GamePad::X))
 	{
 		m_amausaGauge += 2.0f;
 		m_accel = 1.0f;
@@ -236,8 +261,8 @@ void Player::attack2(float deltaTime)
 			new_actor<Attack1>(m_position + (get_pose().Forward()*10.0f), 10.0f, get_pose()));
 		change_state(PlayerStateName::Attack2, 1);
 		return;
-	}
-	else if (m_state_timer >= mesh_.get_motion_end_time())
+	}*/
+	if (m_state_timer >= mesh_.get_motion_end_time()*2.0f)
 	{
 		m_accel = 1.0f;
 		move(deltaTime);
@@ -341,7 +366,7 @@ void Player::face_to_orientation(float deltaTime, float l_forward_velo)
 				m_position,
 				m_position + Vector3{ -l_direction2_inv.x,0.0f,l_direction2_inv.y },
 				get_pose().Up()),
-			0.3f*deltaTime
+			0.1f*deltaTime
 		);
 		//m_velocity += get_pose().Forward()*l_forward_velo;
 		m_prevposition = m_position;
@@ -371,13 +396,13 @@ void Player::draw_weapon()const
 void Player::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
 {
 	//バネの伸び具合を計算
-	const auto stretch = m_pi - l_rest_position;
+	const Vector3 stretch = m_pi - l_rest_position;
 	//バネの力を計算
-	const auto force = -l_stiffness * stretch;
+	const Vector3 force = -l_stiffness * stretch;
 	//加速度を追加
-	const auto acceleration = (force / 10.0f) / l_mass;
+	const Vector3 acceleration = (force / l_mass)*2.0f;
 	//移動速度を計算
-	m_piVelo = l_friction * (m_piVelo + (acceleration*10.0f));
+	m_piVelo = l_friction * (m_piVelo + acceleration);
 	//座標の更新
-	m_pi += (m_piVelo);
+	m_pi += m_piVelo;
 }

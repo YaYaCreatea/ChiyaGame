@@ -77,6 +77,8 @@ private:
 	float m_testTime;
 	bool isUp;
 
+	bool m_isCombo;
+
 	PlayerStateName m_state;//ó‘Ô
 
 	int m_motion;			//ƒ‚[ƒVƒ‡ƒ“”Ô†

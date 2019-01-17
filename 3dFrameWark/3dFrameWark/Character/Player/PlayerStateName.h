@@ -3,12 +3,12 @@
 
 enum class PlayerStateName
 {
+	Idle,
 	Move,
 	Attack,
-	Attack2,
+	Break,
 	Damage,
 	Jump,
-	Attack3
 };
 
 enum

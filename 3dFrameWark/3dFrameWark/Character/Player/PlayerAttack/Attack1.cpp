@@ -21,7 +21,7 @@ void Attack1::update(float deltaTime)
 
 void Attack1::draw() const
 {
-	//bodyCapsule_.draw(get_pose());
+	bodyCapsule_.draw(get_pose());
 }
 
 void Attack1::react(Actor & other)

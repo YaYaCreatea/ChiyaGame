@@ -5,6 +5,13 @@
 #include "../../AnimatedMesh/AnimatedMesh.h"
 
 #include "PlayerStateName.h"
+#include "PlayerActionBase.h"
+#include "PlayerActionBaseManager.h"
+#include "PlayerActionPtr.h"
+
+#include "PlayerParameters.h"
+
+#include <map>
 
 class TpsCamera;
 
@@ -59,10 +66,16 @@ private:
 	void oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass);
 
 private:
+	using ActionMap = std::map<PlayerStateName, PlayerActionBaseManager>;
+	ActionMap playerActions_;
+	//std::map<PlayerStateName, PlayerActionBase> playerActions_;
+
 	const float WALKSPEED{ 1.0f };
 	const float GRAVITY{ -0.04f };
-
+	
 	AnimatedMesh mesh_;		//アニメーションメッシュ
+
+	PlayerParameters parameters_;
 
 	Matrix m_cameraRoate;
 	float m_yaw;

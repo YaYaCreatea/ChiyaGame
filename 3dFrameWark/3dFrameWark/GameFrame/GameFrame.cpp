@@ -23,6 +23,7 @@ void GameFrame::start()
 
 	//3DÉÇÉfÉãÇÃì«Ç›çûÇ›
 	SkeletalMesh::load(0, "asset/Chiya2/êÁñÈ.mv1");
+	SkeletalMesh::load(1, "asset/Rize/ÉäÉ[.mv1");
 	//StaticMesh::load(0, "asset/w_magun01.mv1");
 	//StaticMesh::load(0, "asset/Sword.mv1");
 	StaticMesh::load(0, "asset/weapon/Spear.mv1");
@@ -42,7 +43,7 @@ void GameFrame::start()
 		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Player1"));
 
 	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, "Player0", Vector3::Zero, 0, 2));
-	world_.add_actor(ActorGroup::Enemy, new_actor<Player>(world_, "Player1", Vector3{ 0.0f,0.0f,-20.0f }, 0, 2));
+	world_.add_actor(ActorGroup::Enemy, new_actor<Player>(world_, "Player1", Vector3{ 0.0f,0.0f,-20.0f }, 1, 0));
 	//world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
 
 	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));

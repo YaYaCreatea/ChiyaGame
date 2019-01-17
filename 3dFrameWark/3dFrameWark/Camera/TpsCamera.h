@@ -7,7 +7,7 @@
 class TpsCamera :public Actor
 {
 public:
-	explicit TpsCamera(IWorld& world, const Vector3& l_position);
+	explicit TpsCamera(IWorld& world, const Vector3& l_position, std::string l_targetName);
 
 	virtual void update(float deltaTime)override;
 
@@ -18,6 +18,8 @@ private:
 
 private:
 	CameraStateID m_stateID;
+
+	std::string m_targetName;
 
 	Vector3 m_playerposition;
 	Matrix m_playerrotate;

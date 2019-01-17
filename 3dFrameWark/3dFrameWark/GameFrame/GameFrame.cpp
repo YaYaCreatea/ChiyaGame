@@ -8,7 +8,7 @@
 #include "../Character/Enemy/Enemy.h"
 
 GameFrame::GameFrame()
-	:Game{ 1024,768,false }
+	:Game{ 1280,720,false }
 {
 }
 
@@ -38,17 +38,18 @@ void GameFrame::start()
 
 	world_.initialize();
 
-	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }));
+	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f },"Player0"), 
+		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Player1"));
 
-	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, Vector3::Zero, 0, 2));
-	world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
+	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, "Player0", Vector3::Zero, 0, 2));
+	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, "Player1", Vector3{ 0.0f,0.0f,-20.0f }, 0, 2));
+	//world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
 
 	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));
 }
 
 void GameFrame::update(float deltaTime)
 {
-	GamePad::update();
 	world_.update(deltaTime);
 }
 
@@ -66,6 +67,10 @@ void GameFrame::draw()
 	CollisionMesh::draw();
 
 	world_.draw();
+
+	SkyBox::draw();
+	CollisionMesh::draw();
+	world_.draw2();
 
 	//ビルボードの描画
 	/*Graphics3D::blend_model(BlendMode::Add);

@@ -19,7 +19,7 @@ class Player :public Actor
 {
 public:
 	//コンストラクタ
-	Player(IWorld& world, const Vector3& l_position, int l_model, int l_weapon);
+	Player(IWorld& world, std::string l_name, const Vector3& l_position, int l_model, int l_weapon);
 
 	virtual void update(float deltaTime)override;
 
@@ -72,7 +72,7 @@ private:
 
 	const float WALKSPEED{ 1.0f };
 	const float GRAVITY{ -0.04f };
-	
+
 	AnimatedMesh mesh_;		//アニメーションメッシュ
 
 	PlayerParameters parameters_;

@@ -29,10 +29,11 @@ void GamePad::initialize()
 }
 
 //XV
-void GamePad::update()
+void GamePad::update(int l_inputType)
 {
 	previos_state_ = current_state_;
-	current_state_ = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	//current_state_ = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	current_state_ = GetJoypadInputState(l_inputType);
 }
 
 //‰Ÿ‚³‚ê‚Ä‚¢‚é‚©

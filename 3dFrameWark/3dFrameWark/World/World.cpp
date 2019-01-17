@@ -28,12 +28,19 @@ void World::update(float deltaTime)
 
 	actors_.remove();
 
-	camera_->update(deltaTime);
+	camera0_->update(deltaTime);
+	camera1_->update(deltaTime);
 }
 
 void World::draw() const
+{	
+	camera0_->draw();
+	actors_.draw();	
+}
+
+void World::draw2() const
 {
-	camera_->draw();
+	camera1_->draw();
 	actors_.draw();
 }
 
@@ -41,8 +48,10 @@ void World::handle_message(EventMessage message, void * param)
 {
 	listener_(message, param);
 
+	camera0_->handle_message(message, param);
 	actors_.handle_message(message, param);
-	camera_->handle_message(message, param);
+	
+	actors_.handle_message(message, param);	
 }
 
 void World::add_event_message_listener(EventMessageListener listener)
@@ -50,9 +59,10 @@ void World::add_event_message_listener(EventMessageListener listener)
 	listener_ = listener;
 }
 
-void World::add_camera(const ActorPtr & camera)
+void World::add_camera(const ActorPtr & camera, const ActorPtr& camera1)
 {
-	camera_ = camera;
+	camera0_ = camera;
+	camera1_ = camera1;
 }
 
 void World::add_light(const ActorPtr & light)
@@ -72,6 +82,16 @@ void World::add_actor(ActorGroup group, const ActorPtr & actor)
 ActorPtr World::find_actor(ActorGroup group, const std::string & l_name) const
 {
 	return actors_.find_actor(group, l_name);
+}
+
+ActorPtr World::get_camera0() const
+{
+	return camera0_;
+}
+
+ActorPtr World::get_camera1() const
+{
+	return camera1_;
 }
 
 unsigned int World::get_count_actor(ActorGroup group) const

@@ -23,7 +23,7 @@
 #include "PlayerAction/PlayerAction_Damage.h"
 
 
-Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weapon)
+Player::Player(IWorld& world, std::string l_name, const Vector3& l_position, int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
@@ -51,7 +51,7 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 	playerActions_[m_state].initialize();
 
 	world_ = &world;
-	m_name = "Player";
+	m_name = l_name;
 	m_position = l_position;
 	m_prevposition = m_position;
 
@@ -62,6 +62,11 @@ Player::Player(IWorld& world, const Vector3& l_position, int l_model, int l_weap
 void Player::update(float deltaTime)
 {
 	//update_state(deltaTime);
+	if (m_name == "Player0")
+		GamePad::update(DX_INPUT_PAD1);
+
+	else if (m_name == "Player1")
+		GamePad::update(DX_INPUT_PAD2);
 
 	playerActions_[m_state].update(
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
@@ -94,6 +99,20 @@ void Player::update(float deltaTime)
 
 
 	CollisionMesh::collide_sphere(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
+
+	if (m_name == "Player0")
+	{
+		auto l_camera0 = world_->get_camera0();
+		if (l_camera0 == nullptr)return;
+		m_cameraRoate = l_camera0->get_pose();
+	}
+
+	else if (m_name == "Player1")
+	{
+		auto l_camera1 = world_->get_camera1();
+		if (l_camera1 == nullptr)return;
+		m_cameraRoate = l_camera1->get_pose();
+	}
 }
 
 void Player::draw() const

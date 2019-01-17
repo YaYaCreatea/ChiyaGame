@@ -22,11 +22,13 @@ public:
 
 	void draw()const;
 
+	void draw2()const;
+
 	void handle_message(EventMessage message, void* param);
 
 	void add_event_message_listener(EventMessageListener listener);
 
-	void add_camera(const ActorPtr& camera);
+	void add_camera(const ActorPtr& camera, const ActorPtr& camera1);
 
 	void add_light(const ActorPtr& light);
 
@@ -35,6 +37,10 @@ public:
 	virtual void add_actor(ActorGroup group, const ActorPtr& actor)override;
 
 	virtual ActorPtr find_actor(ActorGroup group, const std::string& l_name)const override;
+
+	virtual ActorPtr get_camera0() const override;
+
+	virtual ActorPtr get_camera1() const override;
 
 	virtual unsigned int get_count_actor(ActorGroup group)const override;
 
@@ -47,7 +53,8 @@ public:
 
 private:
 	ActorGroupManager actors_;
-	ActorPtr camera_;
+	ActorPtr camera0_;
+	ActorPtr camera1_;
 	EventMessageListener listener_{ [](EventMessage,void*) {} };
 };
 

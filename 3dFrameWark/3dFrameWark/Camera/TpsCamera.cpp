@@ -12,14 +12,15 @@
 
 #include <math.h>
 
-TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position)
+TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position, std::string l_targetName)
 	:m_stateID{ CameraStateID::Normal },
 	m_playerposition{ Vector3::Zero },
 	m_playerrotate{ Matrix::Identity },
 	m_backDis{ 45.0f },
 	t{ 0.0f },
 	m_yawAngle{ 0.0f },
-	m_pitchAngle{ 0.0f }
+	m_pitchAngle{ 0.0f },
+	m_targetName{ l_targetName }
 {
 	world_ = &world;
 	m_name = "TpsCamera";
@@ -29,12 +30,15 @@ TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position)
 
 void TpsCamera::update(float deltaTime)
 {
-	auto l_player = world_->find_actor(ActorGroup::Player, "Player");
+	auto l_player = world_->find_actor(ActorGroup::Player, m_targetName);
 	if (l_player == nullptr)return;
 
 	if (m_stateID == CameraStateID::Normal)
 	{
-		GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_KEY_PAD1);
+		if (m_targetName == "Player0")
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_KEY_PAD1);
+		else if (m_targetName == "Player1")
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
 
 		m_yawAngle += deltaTime * (inputx_ / 500);
 		m_pitchAngle =
@@ -72,7 +76,7 @@ void TpsCamera::update(float deltaTime)
 			m_stateID = CameraStateID::Normal;
 		}
 	}
-	world_->send_message(EventMessage::CameraMatrix, &get_pose());
+	//world_->send_message(EventMessage::CameraMatrix, &get_pose());
 }
 
 void TpsCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
@@ -91,13 +95,24 @@ void TpsCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l
 
 void TpsCamera::draw() const
 {
+
+	if (m_targetName == "Player0")
+	{
+		Graphics3D::viewport(0, 0, 640, 720);
+		SetCameraScreenCenter(320.0f, 360.0f);
+	}
+	else if (m_targetName == "Player1")
+	{
+		Graphics3D::viewport(640, 0, 1280, 720);
+		SetCameraScreenCenter(960.0f, 360.0f);
+	}
+
+
 	Graphics3D::view_matrix(
 		get_pose().CreateLookAt(m_position, m_lookPos, Vector3::Up)
 	);
 
 	Graphics3D::projection_matrix(
-		Matrix::CreatePerspectiveFieldOfView(45.0f, 640.0f / 480.0f, 0.3f, 2000.0f)
+		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 0.3f, 2000.0f)
 	);
-
-	//DrawFormatStringF(0.0f, 20.0f, 1, "(%f)", t);
 }

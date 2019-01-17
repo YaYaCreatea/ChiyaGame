@@ -22,7 +22,7 @@ public:
 	static void initialize();
 
 	//更新
-	static void update();
+	static void update(int l_inputType);
 
 	//ボタンが押されているか
 	static bool state(int button);

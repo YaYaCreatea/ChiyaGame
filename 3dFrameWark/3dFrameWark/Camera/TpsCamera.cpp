@@ -20,7 +20,8 @@ TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position, std::string l_tar
 	t{ 0.0f },
 	m_yawAngle{ 0.0f },
 	m_pitchAngle{ 0.0f },
-	m_targetName{ l_targetName }
+	m_targetName{ l_targetName },
+	m_group{ ActorGroup::Neutral }
 {
 	world_ = &world;
 	m_name = "TpsCamera";
@@ -30,11 +31,18 @@ TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position, std::string l_tar
 
 void TpsCamera::update(float deltaTime)
 {
-	auto l_player = world_->find_actor(ActorGroup::Player, m_targetName);
+	if (m_targetName == "Player0")
+		m_group = ActorGroup::Player;
+	else if (m_targetName == "Player1")
+		m_group = ActorGroup::Enemy;
+
+	auto l_player = world_->find_actor(m_group, m_targetName);
 	if (l_player == nullptr)return;
 
 	if (m_stateID == CameraStateID::Normal)
 	{
+
+
 		if (m_targetName == "Player0")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_KEY_PAD1);
 		else if (m_targetName == "Player1")
@@ -62,7 +70,7 @@ void TpsCamera::update(float deltaTime)
 			//m_stateID = CameraStateID::Cut;
 		}
 	}
-	else if (m_stateID == CameraStateID::Cut)
+	/*else if (m_stateID == CameraStateID::Cut)
 	{
 		m_position = Vector3::Lerp(
 			l_player->get_position() + Vector3(3.0f, 10.0f, -20.0f),
@@ -75,7 +83,7 @@ void TpsCamera::update(float deltaTime)
 			t = 0.0f;
 			m_stateID = CameraStateID::Normal;
 		}
-	}
+	}*/
 	//world_->send_message(EventMessage::CameraMatrix, &get_pose());
 }
 

@@ -4,6 +4,8 @@
 #include "../Actor/Actor.h"
 #include "CameraStateID.h"
 
+#include "../ActorGroupManager/ActorGroup.h"
+
 class TpsCamera :public Actor
 {
 public:
@@ -34,6 +36,8 @@ private:
 	float t;
 
 	float m_yawAngle, m_pitchAngle;
+
+	ActorGroup m_group;
 };
 
 #endif

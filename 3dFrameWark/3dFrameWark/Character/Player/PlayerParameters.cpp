@@ -4,8 +4,9 @@ PlayerParameters::PlayerParameters()
 {
 }
 
-void PlayerParameters::Initialize()
+void PlayerParameters::Initialize(std::string l_name)
 {
+	m_name = l_name;
 	m_state_timer = 0.0f;
 	m_end_time = 0.0f;
 }
@@ -38,4 +39,19 @@ float PlayerParameters::Get_EndTime() const
 float PlayerParameters::Get_Gravity() const
 {
 	return GRAVITY;
+}
+
+void PlayerParameters::Set_MyGroup(ActorGroup l_myGoup)
+{
+	m_myGroup = l_myGoup;
+}
+
+ActorGroup PlayerParameters::Get_MyGroup() const
+{
+	return m_myGroup;
+}
+
+std::string PlayerParameters::Get_Name() const
+{
+	return m_name;
 }

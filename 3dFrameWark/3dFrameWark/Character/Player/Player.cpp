@@ -40,7 +40,7 @@ Player::Player(IWorld& world, std::string l_name, const Vector3& l_position, int
 	isUp{ false },
 	m_isCombo{ false }
 {
-	parameters_.Initialize();
+	//parameters_.Initialize();
 
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>());
@@ -63,7 +63,7 @@ void Player::update(float deltaTime)
 {
 	//update_state(deltaTime);
 	if (m_name == "Player0")
-		GamePad::update(DX_INPUT_PAD1);
+		GamePad::update(DX_INPUT_KEY_PAD1);
 
 	else if (m_name == "Player1")
 		GamePad::update(DX_INPUT_PAD2);
@@ -72,7 +72,7 @@ void Player::update(float deltaTime)
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
 		m_motion, m_cameraRoate);
 
-	parameters_.Add_StateTimer(1.0f*deltaTime);
+	parameters_.Add_StateTimer(1.0f*deltaTime);	
 
 	if (playerActions_[m_state].Get_NextActionFlag())
 	{
@@ -81,9 +81,6 @@ void Player::update(float deltaTime)
 	}
 
 	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
-	/*m_position.x = MathHelper::Clamp(m_position.x, -75.0f, 75.0f);
-	m_position.z = MathHelper::Clamp(m_position.z, -151.0f, 156.0f);*/
-
 
 	//ÉÇÅ[ÉVÉáÉìïœçX
 	mesh_.change_motion(m_motion);
@@ -141,6 +138,18 @@ void Player::handle_message(EventMessage message, void * param)
 
 void Player::react(Actor& other)
 {
+	if (other.get_name() == "Attack1"
+		&& m_state != PlayerStateName::Damage)
+	{
+		m_motion = 7;
+		m_state = PlayerStateName::Damage;
+		playerActions_[m_state].initialize();		
+		//mesh_.change_motion(m_motion);
+		//parameters_.Set_EndTime(mesh_.get_motion_end_time());
+		parameters_.Set_StateTimer(0.0f);
+		return;
+	}
+
 	m_test = get_bodyCapsule().PushedBack_CapsuleCapsule(other.get_bodyCapsule());
 	m_position = Vector3(m_prevposition.x, m_position.y, m_prevposition.z);
 

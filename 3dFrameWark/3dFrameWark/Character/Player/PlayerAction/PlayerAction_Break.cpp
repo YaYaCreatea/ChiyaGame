@@ -19,7 +19,10 @@ void PlayerAction_Break::ActionInitialize()
 	m_isCombo = false;
 }
 
-void PlayerAction_Break::ActionUpdate(float deltaTime, Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
+void PlayerAction_Break::ActionUpdate(
+	float deltaTime, 
+	Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose,
+	int & l_motion, Matrix & l_cameraRotation)
 {
 	l_prevposition = l_position;
 	l_position += (l_pose.Forward() / 2.0f) * deltaTime;

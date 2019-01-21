@@ -5,6 +5,8 @@
 
 #include "../Camera/TpsCamera.h"
 #include "../Character/Player/Player.h"
+#include "../Character/Player/_Chiya/Chiya.h"
+#include "../Character/Player/_Rize/Rize.h"
 #include "../Character/Enemy/Enemy.h"
 
 GameFrame::GameFrame()
@@ -19,7 +21,6 @@ void GameFrame::start()
 	CollisionMesh::initialize();
 	SkyBox::initialize();
 	Billboard::initialize();
-	GamePad::initialize();
 
 	//3DÉÇÉfÉãÇÃì«Ç›çûÇ›
 	SkeletalMesh::load(0, "asset/Chiya2/êÁñÈ.mv1");
@@ -39,11 +40,11 @@ void GameFrame::start()
 
 	world_.initialize();
 
-	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f },"Player0"), 
-		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Player1"));
+	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f },"Chiya"), 
+		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
 
-	world_.add_actor(ActorGroup::Player, new_actor<Player>(world_, "Player0", Vector3::Zero, 0, 2));
-	world_.add_actor(ActorGroup::Enemy, new_actor<Player>(world_, "Player1", Vector3{ 0.0f,0.0f,-20.0f }, 1, 0));
+	world_.add_actor(ActorGroup::Player, new_actor<Chiya>(world_, "Chiya", Vector3::Zero, 0, 2));
+	world_.add_actor(ActorGroup::Enemy, new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,-20.0f }, 1, 0));
 	//world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
 
 	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));
@@ -88,7 +89,6 @@ void GameFrame::end()
 	SkeletalMesh::erase(0);
 	StaticMesh::erase(0);
 
-	GamePad::finalize();
 	Billboard::finalize();
 	SkeletalMesh::finalize();
 	CollisionMesh::finalize();

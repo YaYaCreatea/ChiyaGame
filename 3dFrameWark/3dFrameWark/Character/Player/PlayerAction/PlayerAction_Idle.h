@@ -6,7 +6,7 @@
 class PlayerAction_Idle :public PlayerActionBase
 {
 public:
-	PlayerAction_Idle(IWorld& world);
+	PlayerAction_Idle(IWorld& world, PlayerParameters& parameter,InputState& input);
 	virtual void ActionInitialize()override;
 	virtual void ActionUpdate(
 		float deltaTime, 

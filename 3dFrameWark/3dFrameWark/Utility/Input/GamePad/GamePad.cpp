@@ -57,5 +57,5 @@ bool GamePad::release(int button)
 //I—¹ˆ—
 void GamePad::finalize()
 {
-	initialize();
+	//initialize();
 }

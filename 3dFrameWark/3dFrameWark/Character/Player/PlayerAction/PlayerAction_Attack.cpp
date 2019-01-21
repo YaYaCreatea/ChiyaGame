@@ -2,13 +2,15 @@
 
 #include "../../../World/IWorld.h"
 #include "../PlayerParameters.h"
+#include "../../../Utility/Input/InputState.h"
 
 #include "../PlayerAttack/Attack1.h"
 
-PlayerAction_Attack::PlayerAction_Attack(IWorld & world, PlayerParameters& parameter)
+PlayerAction_Attack::PlayerAction_Attack(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
 	world_ = &world;
 	parameters_ = &parameter;
+	input_ = &input;
 }
 
 void PlayerAction_Attack::ActionInitialize()
@@ -25,23 +27,37 @@ void PlayerAction_Attack::ActionUpdate(
 {
 	if (!m_isSpawn)
 	{
-		world_->add_actor(
-			ActorGroup::PlayerAction,
-			new_actor<Attack1>(l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
-		);
+		if (parameters_->Get_Name() == "Chiya")
+			world_->add_actor(
+				ActorGroup::PlayerAction,
+				new_actor<Attack1>(l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+			);
+		else if (parameters_->Get_Name() == "Rize")
+			world_->add_actor(
+				ActorGroup::EnemyAction,
+				new_actor<Attack1>(l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+			);
 		m_isSpawn = true;
 	}
 
-	if (GamePad::trigger(GamePad::X))
+	if (input_->Trigger(PAD_INPUT_3))
 		m_isCombo = true;
 
 	if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
 	{
 		if (m_isCombo)
 		{			
+			if (parameters_->Get_Name() == "Chiya")
+				m_nextActionID = (l_motion == (int)ChiyaAnmID::Combo1) ? PlayerStateName::Attack : PlayerStateName::Break;
+			else if (parameters_->Get_Name() == "Rize")
+				m_nextActionID = (l_motion == (int)RizeAnmID::Combo1) ? PlayerStateName::Attack : PlayerStateName::Attack;
+
+			if (parameters_->Get_Name() == "Chiya")
+				l_motion = (l_motion == (int)ChiyaAnmID::Combo1) ? (int)ChiyaAnmID::Combo2 : (int)ChiyaAnmID::Break;
+			else if (parameters_->Get_Name() == "Rize")
+				l_motion = (l_motion == (int)RizeAnmID::Combo1) ? (int)RizeAnmID::Combo2 : (int)RizeAnmID::Combo1;
+				
 			m_nextAction = true;
-			m_nextActionID = (l_motion == 1) ? PlayerStateName::Attack : PlayerStateName::Break;
-			l_motion = (l_motion == 1) ? 8 : 13;
 		}
 		else
 		{
@@ -49,4 +65,5 @@ void PlayerAction_Attack::ActionUpdate(
 			m_nextActionID = PlayerStateName::Idle;
 		}
 	}
+	
 }

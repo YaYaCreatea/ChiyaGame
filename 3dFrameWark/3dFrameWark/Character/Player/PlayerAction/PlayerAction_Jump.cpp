@@ -17,7 +17,10 @@ void PlayerAction_Jump::ActionInitialize()
 	m_jumpState = JumpState::Stand;
 }
 
-void PlayerAction_Jump::ActionUpdate(float deltaTime, Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
+void PlayerAction_Jump::ActionUpdate(
+	float deltaTime,
+	Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, 
+	Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
 {
 	switch (m_jumpState)
 	{
@@ -26,7 +29,10 @@ void PlayerAction_Jump::ActionUpdate(float deltaTime, Vector3 & l_position, Vect
 		{
 			l_velocity.y = 1.0f;
 			m_jumpState = JumpState::Jumping;
-			l_motion = 10;
+			if (parameters_->Get_Name() == "Chiya")
+				l_motion = (int)ChiyaAnmID::Jump;
+			else if (parameters_->Get_Name() == "Rize")
+				l_motion = (int)RizeAnmID::Jump;
 			parameters_->Set_StateTimer(0.0f);
 		}
 		break;
@@ -38,7 +44,10 @@ void PlayerAction_Jump::ActionUpdate(float deltaTime, Vector3 & l_position, Vect
 		{
 			l_position.y = 0.0f;
 			m_jumpState = JumpState::Landing;
-			l_motion = 11;
+			if (parameters_->Get_Name() == "Chiya")
+				l_motion = (int)ChiyaAnmID::Landing;
+			else if (parameters_->Get_Name() == "Rize")
+				l_motion = (int)RizeAnmID::Landing;
 			parameters_->Set_StateTimer(0.0f);
 		}
 		break;

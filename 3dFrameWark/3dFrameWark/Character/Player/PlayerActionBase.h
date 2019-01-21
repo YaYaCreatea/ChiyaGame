@@ -2,16 +2,16 @@
 #define _PLAYER_ACTION_BASE_H_
 
 #include "PlayerStateName.h"
+#include "CharacterAnimationID.h"
 #include "../../ActorGroupManager/ActorGroup.h"
 
 #include "../../Utility/Vector3/Vector3.h"
 #include "../../Utility/Vector2/Vector2.h"
 #include "../../Utility/Matrix/Matrix.h"
 
-#include "../../Utility/Input/GamePad/GamePad.h"
-
 class IWorld;
 class PlayerParameters;
+class InputState;
 
 class PlayerActionBase
 {
@@ -34,6 +34,7 @@ public:
 protected:
 	IWorld* world_{ nullptr };
 	PlayerParameters* parameters_{ nullptr };
+	InputState* input_{ nullptr };
 
 	bool m_nextAction;
 	PlayerStateName m_nextActionID;

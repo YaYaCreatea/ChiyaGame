@@ -1,8 +1,14 @@
 #include "PlayerAction_Move.h"
 
+#include "../../../World/IWorld.h"
+#include "../PlayerParameters.h"
+#include "../../../Utility/Input/InputState.h"
 
-PlayerAction_Move::PlayerAction_Move()
+PlayerAction_Move::PlayerAction_Move(IWorld& world, PlayerParameters& parameter, InputState& input)
 {
+	world_ = &world;
+	parameters_ = &parameter;
+	input_ = &input;
 }
 
 void PlayerAction_Move::ActionInitialize()
@@ -15,53 +21,71 @@ void PlayerAction_Move::ActionUpdate(
 	Vector3& l_position, Vector3& l_velocity, Vector3& l_prevposition, Matrix& l_rotation, Matrix l_pose,
 	int& l_motion, Matrix& l_cameraRotation)
 {
-	if (GamePad::trigger(GamePad::X))
+	if (input_->Trigger(PAD_INPUT_3))
 	{
 		//m_amausaGauge += 2.0f;
-		l_motion = 1;
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Combo1;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Combo1;
 		m_nextActionID = PlayerStateName::Attack;
 		m_nextAction = true;
 
 		return;
 	}
 
-	if (GamePad::trigger(GamePad::A))
-	{
-		//m_amausaGauge += 2.0f;
-		l_motion = 9;
-		m_nextActionID = PlayerStateName::Jump;
-		m_nextAction = true;
+	//if (GamePad::trigger(GamePad::A))
+	//{
+	//	//m_amausaGauge += 2.0f;
+	//	if (parameters_->Get_Name() == "Chiya")
+	//		l_motion = (int)ChiyaAnmID::JumpReady;
+	//	else if (parameters_->Get_Name() == "Rize")
+	//		l_motion = (int)RizeAnmID::JumpReady;
+	//	m_nextActionID = PlayerStateName::Jump;
+	//	m_nextAction = true;
 
-		return;
-	}
+	//	return;
+	//}
 
 	l_velocity = Vector3::Zero;
 	float l_forward_speed{ 0.0f };
 	float l_side_speed{ 0.0f };
 	float l_forward_velo{ 0.0f };
-	if (GamePad::state(GamePad::Up))
+	if (input_->Stay(PAD_INPUT_UP))
 	{
 		l_forward_speed = WALKSPEED;
 		l_forward_velo = WALKSPEED;
-		l_motion = 2;
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Move;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Move;
 	}
-	else if (GamePad::state(GamePad::Down))
+	else if (input_->Stay(PAD_INPUT_DOWN))
 	{
 		l_forward_speed = -WALKSPEED;
 		l_forward_velo = WALKSPEED;
-		l_motion = 2;
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Move;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Move;
 	}
-	if (GamePad::state(GamePad::Left))
+	if (input_->Stay(PAD_INPUT_LEFT))
 	{
 		l_side_speed = -WALKSPEED;
 		l_forward_velo = WALKSPEED;
-		l_motion = 2;
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Move;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Move;
 	}
-	else if (GamePad::state(GamePad::Right))
+	else if (input_->Stay(PAD_INPUT_RIGHT))
 	{
 		l_side_speed = WALKSPEED;
 		l_forward_velo = WALKSPEED;
-		l_motion = 2;
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Move;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Move;
 	}
 
 	if (l_forward_speed == 0.0f&&l_side_speed == 0.0f)

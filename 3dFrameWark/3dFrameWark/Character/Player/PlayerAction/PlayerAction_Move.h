@@ -6,7 +6,7 @@
 class PlayerAction_Move :public PlayerActionBase
 {
 public:
-	PlayerAction_Move();
+	PlayerAction_Move(IWorld& world, PlayerParameters& parameter, InputState& input);
 	virtual void ActionInitialize()override;
 	virtual void ActionUpdate(
 		float deltaTime, 

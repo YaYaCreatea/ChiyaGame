@@ -6,7 +6,7 @@
 class PlayerAction_Attack :public PlayerActionBase
 {
 public:
-	PlayerAction_Attack(IWorld& world, PlayerParameters& parameter);
+	PlayerAction_Attack(IWorld& world, PlayerParameters& parameter, InputState& input);
 	virtual void ActionInitialize()override;
 	virtual void ActionUpdate(
 		float deltaTime,

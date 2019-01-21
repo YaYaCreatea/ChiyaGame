@@ -68,7 +68,6 @@ private:
 private:
 	using ActionMap = std::map<PlayerStateName, PlayerActionBaseManager>;
 	ActionMap playerActions_;
-	//std::map<PlayerStateName, PlayerActionBase> playerActions_;
 
 	const float WALKSPEED{ 1.0f };
 	const float GRAVITY{ -0.04f };

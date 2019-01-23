@@ -1,12 +1,16 @@
 #include "PlayerParameters.h"
 
+#include "../../Utility/MathHelper/MathHelper.h"
+
 PlayerParameters::PlayerParameters()
 {
 }
 
-void PlayerParameters::Initialize(std::string l_name)
+void PlayerParameters::Initialize(std::string l_name, int l_Hp)
 {
 	m_name = l_name;
+	m_Hp = l_Hp;
+	m_HpMax = l_Hp;
 	m_state_timer = 0.0f;
 	m_end_time = 0.0f;
 }
@@ -54,4 +58,19 @@ ActorGroup PlayerParameters::Get_MyGroup() const
 std::string PlayerParameters::Get_Name() const
 {
 	return m_name;
+}
+
+void PlayerParameters::Damage_HP(int l_damageHp)
+{
+	m_Hp = MathHelper::Clamp(m_Hp - l_damageHp, 0, m_HpMax);
+}
+
+int PlayerParameters::Get_HP() const
+{
+	return m_Hp;
+}
+
+int PlayerParameters::Get_MaxHP() const
+{
+	return m_HpMax;
 }

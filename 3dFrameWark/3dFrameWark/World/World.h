@@ -4,6 +4,9 @@
 #include "IWorld.h"
 #include "../ActorGroupManager/ActorGroupManager.h"
 
+#include "../CollisionMesh/CollisionMesh.h"
+#include "../SkyBox/SkyBox.h"
+
 #include <functional>
 
 enum class EventMessage;

@@ -23,7 +23,7 @@ void Graphics2D::draw_sprite(int id, const Vector2 & position)
 	sprite_map_[id].draw(position);
 }
 
-void Graphics2D::draw_sprite(int id, const Vector2 & position, int x, int y, int w, int h)
+void Graphics2D::draw_sprite_rect(int id, const Vector2 & position, int x, int y, int w, int h)
 {
 	sprite_map_[id].draw(position, x, y, w, h);
 }

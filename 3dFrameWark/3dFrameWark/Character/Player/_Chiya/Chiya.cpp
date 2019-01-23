@@ -6,6 +6,9 @@
 #include "../../../Utility/Input/GamePad/GamePad.h"
 #include "../../../StaticMesh/StaticMesh.h"
 #include "../../../SkeletalMesh/SkeletalMesh.h"
+
+#include "../../../Graphics2D/Graphics2D.h"
+
 #include "../../../Utility/MathHelper/MathHelper.h"
 #include "../../../Utility/Quaternion/Quaternion.h"
 #include "../../../EventMessage.h"
@@ -18,6 +21,8 @@
 #include "../PlayerAction/PlayerAction_Break.h"
 #include "../PlayerAction/PlayerAction_Jump.h"
 #include "../PlayerAction/PlayerAction_Damage.h"
+#include "../PlayerAction/PlayerAction_DamageBreak.h"
+#include "../PlayerAction/PlayerAction_Down.h"
 
 #include "../CharacterAnimationID.h"
 
@@ -35,16 +40,18 @@ Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, int
 	m_position = l_position;
 	m_prevposition = m_position;
 
-	parameters_.Initialize(m_name);
+	parameters_.Initialize(m_name, 50);
 
 	input_.initialize(DX_INPUT_KEY_PAD1);
 
-	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_,input_));
+	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Attack].add(new_action<PlayerAction_Attack>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Break].add(new_action<PlayerAction_Break>(world, parameters_));
 	playerActions_[PlayerStateName::Jump].add(new_action<PlayerAction_Jump>(world, parameters_));
 	playerActions_[PlayerStateName::Damage].add(new_action<PlayerAction_Damage>(world, parameters_));
+	playerActions_[PlayerStateName::DamageBreak].add(new_action<PlayerAction_DamageBreak>(world, parameters_));
+	playerActions_[PlayerStateName::Down].add(new_action<PlayerAction_Down>(world, parameters_));
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };
@@ -91,18 +98,55 @@ void Chiya::draw() const
 {
 	mesh_.draw();
 	draw_weapon();
+	Graphics2D::draw_sprite_rect(0, Vector2{ 50.0f,30.0f }, 0, 0, (327 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 48);
+	Graphics2D::draw_sprite(1, Vector2{ 0.0f,0.0f });
 }
 
 void Chiya::react(Actor & other)
 {
-	if (other.get_name() == "Attack1"
-		&& m_state != PlayerStateName::Damage)
+	if (parameters_.Get_HP() > 0)
 	{
-		m_motion = (int)ChiyaAnmID::Damage;
-		m_state = PlayerStateName::Damage;
-		playerActions_[m_state].initialize();
-		parameters_.Set_StateTimer(0.0f);
-		return;
+		if (other.get_name() == "Attack"
+			&& m_state != PlayerStateName::Damage)
+		{
+			m_motion = (int)ChiyaAnmID::Damage;
+			m_state = PlayerStateName::Damage;
+			playerActions_[m_state].initialize();
+			parameters_.Set_StateTimer(0.0f);
+			parameters_.Damage_HP(1);
+
+			if (parameters_.Get_HP() <= 0)
+			{
+				m_motion = (int)ChiyaAnmID::Idle;
+				m_state = PlayerStateName::Down;
+				playerActions_[m_state].initialize();
+				parameters_.Set_StateTimer(0.0f);
+				return;
+			}
+
+			return;
+		}
+
+		else if (other.get_name() == "BreakAttack"
+			&& m_state != PlayerStateName::Damage)
+		{
+			m_motion = (int)ChiyaAnmID::DamageBreak;
+			m_state = PlayerStateName::DamageBreak;
+			playerActions_[m_state].initialize();
+			parameters_.Set_StateTimer(0.0f);
+			parameters_.Damage_HP(2);
+
+			if (parameters_.Get_HP() <= 0)
+			{
+				m_motion = (int)ChiyaAnmID::Idle;
+				m_state = PlayerStateName::Down;
+				playerActions_[m_state].initialize();
+				parameters_.Set_StateTimer(0.0f);
+				return;
+			}
+
+			return;
+		}
 	}
 
 	m_position = Vector3(m_prevposition.x, m_position.y, m_prevposition.z);

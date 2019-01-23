@@ -30,6 +30,11 @@ void GameFrame::start()
 	StaticMesh::load(0, "asset/weapon/Spear.mv1");
 	StaticMesh::load(1, "asset/weapon/Gun/Gun.mv1");
 	StaticMesh::load(2, "asset/weapon/Katana/Katana.mv1");
+
+	//UIリソース読み込み
+	Graphics2D::load_sprite(0, "asset/2Dsprite/PlayerUI/HpGauge.png");
+	Graphics2D::load_sprite(1, "asset/2Dsprite/GamePlay/BackFrame.png");
+
 	//ステージモデルの読み込み
 	//CollisionMesh::load(0, "asset/castle/SampleStage_Castle.mv1");
 	CollisionMesh::load(0, "asset/Stage/test3.mv1");
@@ -40,11 +45,11 @@ void GameFrame::start()
 
 	world_.initialize();
 
-	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f },"Chiya"), 
+	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
 		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
 
 	world_.add_actor(ActorGroup::Player, new_actor<Chiya>(world_, "Chiya", Vector3::Zero, 0, 2));
-	world_.add_actor(ActorGroup::Enemy, new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,-20.0f }, 1, 0));
+	world_.add_actor(ActorGroup::Enemy, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, 1, 0));
 	//world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
 
 	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));
@@ -59,20 +64,14 @@ void GameFrame::draw()
 {
 	//画面のクリア
 	Graphics3D::clear();
-
 	//スカイボックスの描画
 	SkyBox::bind(0);
-	SkyBox::draw();
 
 	//ステージの描画
 	CollisionMesh::bind(0);
-	CollisionMesh::draw();
 
-	world_.draw();
-
-	SkyBox::draw();
-	CollisionMesh::draw();
-	world_.draw2();
+	world_.draw();	
+	world_.draw2();				
 
 	//ビルボードの描画
 	/*Graphics3D::blend_model(BlendMode::Add);
@@ -94,4 +93,5 @@ void GameFrame::end()
 	CollisionMesh::finalize();
 	SkyBox::finalize();
 	Graphics3D::finalize();
+	Graphics2D::finalize();
 }

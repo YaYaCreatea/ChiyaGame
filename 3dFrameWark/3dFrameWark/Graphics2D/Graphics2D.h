@@ -23,7 +23,7 @@ public:
 	static void draw_sprite(int id, const Vector2& position);
 
 	//•`‰æ(‰æ‘œ‚Ì1•”•ª‚ğ•`‰æ)
-	static void draw_sprite(int id, const Vector2& position, int x, int y, int w, int h);
+	static void draw_sprite_rect(int id, const Vector2& position, int x, int y, int w, int h);
 
 	//•`‰æ(•ªŠ„”Ô†w’è)
 	static void draw_sprite(int id, int div_no, const Vector2& position, const Vector2& center = Vector2::Zero, const Vector2& scale = Vector2::One, float rotation = 0.0f);

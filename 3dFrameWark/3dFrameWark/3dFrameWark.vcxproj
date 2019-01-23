@@ -142,6 +142,8 @@
     <ClInclude Include="Camera\TpsCamera.h" />
     <ClInclude Include="Character\Enemy\Enemy.h" />
     <ClInclude Include="Character\Player\CharacterAnimationID.h" />
+    <ClInclude Include="Character\Player\PlayerAction\PlayerAction_DamageBreak.h" />
+    <ClInclude Include="Character\Player\PlayerAction\PlayerAction_Down.h" />
     <ClInclude Include="Character\Player\_Chiya\Chiya.h" />
     <ClInclude Include="Character\Player\PlayerActionBase.h" />
     <ClInclude Include="Character\Player\PlayerActionBaseManager.h" />
@@ -194,6 +196,8 @@
     <ClCompile Include="Billboard\Billboard.cpp" />
     <ClCompile Include="Camera\TpsCamera.cpp" />
     <ClCompile Include="Character\Enemy\Enemy.cpp" />
+    <ClCompile Include="Character\Player\PlayerAction\PlayerAction_DamageBreak.cpp" />
+    <ClCompile Include="Character\Player\PlayerAction\PlayerAction_Down.cpp" />
     <ClCompile Include="Character\Player\_Chiya\Chiya.cpp" />
     <ClCompile Include="Character\Player\PlayerActionBase.cpp" />
     <ClCompile Include="Character\Player\PlayerActionBaseManager.cpp" />

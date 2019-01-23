@@ -7,7 +7,7 @@ class Attack1 :public Actor
 {
 public:
 
-	Attack1(const Vector3& l_position,float l_radius, const Matrix & matrix);
+	Attack1(std::string l_name,const Vector3& l_position,float l_radius, const Matrix & matrix);
 
 	virtual void update(float deltaTime)override;
 

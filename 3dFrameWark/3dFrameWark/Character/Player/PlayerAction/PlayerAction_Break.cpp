@@ -20,18 +20,18 @@ void PlayerAction_Break::ActionInitialize()
 }
 
 void PlayerAction_Break::ActionUpdate(
-	float deltaTime, 
+	float deltaTime,
 	Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose,
 	int & l_motion, Matrix & l_cameraRotation)
 {
 	l_prevposition = l_position;
 	l_position += (l_pose.Forward() / 2.0f) * deltaTime;
-	
-	if (!m_isSpawn)
+
+	if (!m_isSpawn&&parameters_->Get_StateTimer() >= 35.0f)
 	{
 		world_->add_actor(
 			ActorGroup::PlayerAction,
-			new_actor<Attack1>(l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+			new_actor<Attack1>("BreakAttack",l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
 		);
 		m_isSpawn = true;
 	}

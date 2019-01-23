@@ -35,12 +35,16 @@ void World::update(float deltaTime)
 void World::draw() const
 {	
 	camera0_->draw();
+	SkyBox::draw();
+	CollisionMesh::draw();
 	actors_.draw();	
 }
 
 void World::draw2() const
 {
 	camera1_->draw();
+	SkyBox::draw();
+	CollisionMesh::draw();
 	actors_.draw();
 }
 

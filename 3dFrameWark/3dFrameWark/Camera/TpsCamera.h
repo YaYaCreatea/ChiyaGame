@@ -6,6 +6,8 @@
 
 #include "../ActorGroupManager/ActorGroup.h"
 
+#include "../Graphics3D/Graphics3D.h"
+
 class TpsCamera :public Actor
 {
 public:

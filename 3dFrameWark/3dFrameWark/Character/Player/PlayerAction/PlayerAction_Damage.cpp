@@ -24,7 +24,7 @@ void PlayerAction_Damage::ActionUpdate(
 	int & l_motion, Matrix & l_cameraRotation)
 {
 	l_prevposition = l_position;
-	l_position += (-l_pose.Forward() / 10.0f) * deltaTime;
+	//l_position += (-l_pose.Forward() / 10.0f) * deltaTime;
 
 	if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
 	{

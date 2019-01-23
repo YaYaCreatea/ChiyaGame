@@ -34,17 +34,17 @@ void PlayerAction_Idle::ActionUpdate(
 		return;
 	}
 
-	//if (GamePad::trigger(GamePad::A))
-	//{
-	//	if (parameters_->Get_Name() == "Chiya")
-	//		l_motion = (int)ChiyaAnmID::JumpReady;
-	//	else if (parameters_->Get_Name() == "Rize")
-	//		l_motion = (int)RizeAnmID::JumpReady;
-	//	m_nextActionID = PlayerStateName::Jump;
-	//	m_nextAction = true;
+	if (input_->Trigger(PAD_INPUT_1))
+	{
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::JumpReady;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::JumpReady;
+		m_nextActionID = PlayerStateName::Jump;
+		m_nextAction = true;
 
-	//	return;
-	//}
+		return;
+	}
 
 	if (parameters_->Get_Name() == "Chiya")
 		l_motion = (int)ChiyaAnmID::Idle;

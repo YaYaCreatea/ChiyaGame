@@ -34,18 +34,18 @@ void PlayerAction_Move::ActionUpdate(
 		return;
 	}
 
-	//if (GamePad::trigger(GamePad::A))
-	//{
-	//	//m_amausaGauge += 2.0f;
-	//	if (parameters_->Get_Name() == "Chiya")
-	//		l_motion = (int)ChiyaAnmID::JumpReady;
-	//	else if (parameters_->Get_Name() == "Rize")
-	//		l_motion = (int)RizeAnmID::JumpReady;
-	//	m_nextActionID = PlayerStateName::Jump;
-	//	m_nextAction = true;
+	if (input_->Trigger(PAD_INPUT_1))
+	{
+		//m_amausaGauge += 2.0f;
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::JumpReady;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::JumpReady;
+		m_nextActionID = PlayerStateName::Jump;
+		m_nextAction = true;
 
-	//	return;
-	//}
+		return;
+	}
 
 	l_velocity = Vector3::Zero;
 	float l_forward_speed{ 0.0f };

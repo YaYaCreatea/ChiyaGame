@@ -3,6 +3,7 @@
 
 #include "../Game/Game.h"
 #include "../Graphics3D/Graphics3D.h"
+#include "../Graphics2D/Graphics2D.h"
 #include "../SkeletalMesh/SkeletalMesh.h"
 #include "../StaticMesh/StaticMesh.h"
 #include "../CollisionMesh/CollisionMesh.h"

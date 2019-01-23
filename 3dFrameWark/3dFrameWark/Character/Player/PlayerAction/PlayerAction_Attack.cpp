@@ -28,16 +28,35 @@ void PlayerAction_Attack::ActionUpdate(
 	if (!m_isSpawn)
 	{
 		if (parameters_->Get_Name() == "Chiya")
+		{
 			world_->add_actor(
 				ActorGroup::PlayerAction,
-				new_actor<Attack1>(l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+				new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
 			);
+			m_isSpawn = true;
+		}
 		else if (parameters_->Get_Name() == "Rize")
-			world_->add_actor(
-				ActorGroup::EnemyAction,
-				new_actor<Attack1>(l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
-			);
-		m_isSpawn = true;
+		{
+			if (l_motion == (int)RizeAnmID::Combo1)
+			{
+				world_->add_actor(
+					ActorGroup::EnemyAction,
+					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose)
+				);
+				m_isSpawn = true;
+			}
+			else if (l_motion == (int)RizeAnmID::Combo2)
+			{
+				if (parameters_->Get_StateTimer() >= 30.0f)
+				{
+					world_->add_actor(
+						ActorGroup::EnemyAction,
+						new_actor<Attack1>("Attack", l_position, 18.0f, l_pose)
+					);
+					m_isSpawn = true;
+				}
+			}
+		}
 	}
 
 	if (input_->Trigger(PAD_INPUT_3))
@@ -46,7 +65,7 @@ void PlayerAction_Attack::ActionUpdate(
 	if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
 	{
 		if (m_isCombo)
-		{			
+		{
 			if (parameters_->Get_Name() == "Chiya")
 				m_nextActionID = (l_motion == (int)ChiyaAnmID::Combo1) ? PlayerStateName::Attack : PlayerStateName::Break;
 			else if (parameters_->Get_Name() == "Rize")
@@ -56,7 +75,7 @@ void PlayerAction_Attack::ActionUpdate(
 				l_motion = (l_motion == (int)ChiyaAnmID::Combo1) ? (int)ChiyaAnmID::Combo2 : (int)ChiyaAnmID::Break;
 			else if (parameters_->Get_Name() == "Rize")
 				l_motion = (l_motion == (int)RizeAnmID::Combo1) ? (int)RizeAnmID::Combo2 : (int)RizeAnmID::Combo1;
-				
+
 			m_nextAction = true;
 		}
 		else
@@ -65,5 +84,5 @@ void PlayerAction_Attack::ActionUpdate(
 			m_nextActionID = PlayerStateName::Idle;
 		}
 	}
-	
+
 }

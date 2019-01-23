@@ -6,6 +6,7 @@
 #include "../EventMessage.h"
 
 #include "../Graphics3D/Graphics3D.h"
+#include "../Graphics2D/Graphics2D.h"
 #include "../Utility/Input/GamePad/GamePad.h"
 #include "../Utility/MathHelper/MathHelper.h"
 #include "../Utility//Quaternion/Quaternion.h"
@@ -101,18 +102,22 @@ void TpsCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l
 
 void TpsCamera::draw() const
 {
-
 	if (m_targetName == "Chiya")
 	{
 		Graphics3D::viewport(0, 0, 640, 720);
 		SetCameraScreenCenter(320.0f, 360.0f);
+
+		
 	}
 	else if (m_targetName == "Rize")
 	{
 		Graphics3D::viewport(640, 0, 1280, 720);
 		SetCameraScreenCenter(960.0f, 360.0f);
+
+		
 	}
 
+	
 
 	Graphics3D::view_matrix(
 		get_pose().CreateLookAt(m_position, m_lookPos, Vector3::Up)

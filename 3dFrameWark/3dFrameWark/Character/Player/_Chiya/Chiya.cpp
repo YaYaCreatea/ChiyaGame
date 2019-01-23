@@ -23,6 +23,7 @@
 #include "../PlayerAction/PlayerAction_Damage.h"
 #include "../PlayerAction/PlayerAction_DamageBreak.h"
 #include "../PlayerAction/PlayerAction_Down.h"
+#include "../PlayerAction/PlayerAction_DownIdle.h"
 
 #include "../CharacterAnimationID.h"
 
@@ -52,6 +53,7 @@ Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, int
 	playerActions_[PlayerStateName::Damage].add(new_action<PlayerAction_Damage>(world, parameters_));
 	playerActions_[PlayerStateName::DamageBreak].add(new_action<PlayerAction_DamageBreak>(world, parameters_));
 	playerActions_[PlayerStateName::Down].add(new_action<PlayerAction_Down>(world, parameters_));
+	playerActions_[PlayerStateName::DownIdle].add(new_action<PlayerAction_DownIdle>(world, parameters_));
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };
@@ -82,6 +84,8 @@ void Chiya::update(float deltaTime)
 
 	//アニメーション更新
 	mesh_.update(deltaTime);
+
+
 
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 151, m_pi);
@@ -117,7 +121,7 @@ void Chiya::react(Actor & other)
 
 			if (parameters_.Get_HP() <= 0)
 			{
-				m_motion = (int)ChiyaAnmID::Idle;
+				m_motion = (int)ChiyaAnmID::Down;
 				m_state = PlayerStateName::Down;
 				playerActions_[m_state].initialize();
 				parameters_.Set_StateTimer(0.0f);
@@ -138,7 +142,7 @@ void Chiya::react(Actor & other)
 
 			if (parameters_.Get_HP() <= 0)
 			{
-				m_motion = (int)ChiyaAnmID::Idle;
+				m_motion = (int)ChiyaAnmID::Down;
 				m_state = PlayerStateName::Down;
 				playerActions_[m_state].initialize();
 				parameters_.Set_StateTimer(0.0f);

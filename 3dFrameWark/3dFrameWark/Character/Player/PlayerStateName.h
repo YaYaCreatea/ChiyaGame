@@ -11,6 +11,7 @@ enum class PlayerStateName
 	DamageBreak,
 	Jump,
 	Down,
+	DownIdle,
 };
 
 enum

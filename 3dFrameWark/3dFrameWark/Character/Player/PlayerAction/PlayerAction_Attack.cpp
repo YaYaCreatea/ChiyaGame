@@ -5,6 +5,7 @@
 #include "../../../Utility/Input/InputState.h"
 
 #include "../PlayerAttack/Attack1.h"
+#include "../PlayerAttack/AttackBullet.h"
 
 PlayerAction_Attack::PlayerAction_Attack(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
@@ -64,17 +65,17 @@ void PlayerAction_Attack::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::EnemyAction,
-					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose)
+					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f), 5.0f, l_pose)
 				);
 				m_isSpawn = true;
 			}
 			else if (l_motion == (int)SyaroAnmID::Combo2)
 			{
-				if (parameters_->Get_StateTimer() >= 30.0f)
+				if (parameters_->Get_StateTimer() >= 20.0f)
 				{
 					world_->add_actor(
 						ActorGroup::EnemyAction,
-						new_actor<Attack1>("Attack", l_position, 18.0f, l_pose)
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f), 5.0f, l_pose)
 					);
 					m_isSpawn = true;
 				}

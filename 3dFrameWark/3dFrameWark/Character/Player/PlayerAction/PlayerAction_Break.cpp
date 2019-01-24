@@ -7,6 +7,7 @@
 #include "../../../Utility/MathHelper/MathHelper.h"
 
 #include "../PlayerAttack/Attack1.h"
+#include "../PlayerAttack/AttackBullet.h"
 
 PlayerAction_Break::PlayerAction_Break(IWorld & world, PlayerParameters & parameter, InputState& input)
 {
@@ -133,7 +134,7 @@ void PlayerAction_Break::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::EnemyAction,
-					new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 5.0f, l_pose)
 				);
 			}
 

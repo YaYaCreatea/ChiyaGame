@@ -146,6 +146,7 @@
     <ClInclude Include="Character\Player\PlayerAction\PlayerAction_Dash.h" />
     <ClInclude Include="Character\Player\PlayerAction\PlayerAction_Down.h" />
     <ClInclude Include="Character\Player\PlayerAction\PlayerAction_DownIdle.h" />
+    <ClInclude Include="Character\Player\PlayerAttack\AttackBullet.h" />
     <ClInclude Include="Character\Player\_Chiya\Chiya.h" />
     <ClInclude Include="Character\Player\PlayerActionBase.h" />
     <ClInclude Include="Character\Player\PlayerActionBaseManager.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_Dash.cpp" />
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_Down.cpp" />
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_DownIdle.cpp" />
+    <ClCompile Include="Character\Player\PlayerAttack\AttackBullet.cpp" />
     <ClCompile Include="Character\Player\_Chiya\Chiya.cpp" />
     <ClCompile Include="Character\Player\PlayerActionBase.cpp" />
     <ClCompile Include="Character\Player\PlayerActionBaseManager.cpp" />

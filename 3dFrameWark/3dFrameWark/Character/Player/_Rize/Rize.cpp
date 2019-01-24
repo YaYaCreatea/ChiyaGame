@@ -24,6 +24,7 @@
 #include "../PlayerAction/PlayerAction_DamageBreak.h"
 #include "../PlayerAction/PlayerAction_Down.h"
 #include "../PlayerAction/PlayerAction_DownIdle.h"
+#include "../PlayerAction/PlayerAction_Dash.h"
 
 #include "../CharacterAnimationID.h"
 
@@ -41,19 +42,20 @@ Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, int l
 	m_position = l_position;
 	m_prevposition = m_position;
 
-	parameters_.Initialize(m_name, 1);
+	parameters_.Initialize(m_name, 50);
 
 	input_.initialize(DX_INPUT_PAD2);
 
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Attack].add(new_action<PlayerAction_Attack>(world, parameters_, input_));
-	playerActions_[PlayerStateName::Break].add(new_action<PlayerAction_Break>(world, parameters_));
+	playerActions_[PlayerStateName::Break].add(new_action<PlayerAction_Break>(world, parameters_,input_));
 	playerActions_[PlayerStateName::Jump].add(new_action<PlayerAction_Jump>(world, parameters_));
 	playerActions_[PlayerStateName::Damage].add(new_action<PlayerAction_Damage>(world, parameters_));
 	playerActions_[PlayerStateName::DamageBreak].add(new_action<PlayerAction_DamageBreak>(world, parameters_));
 	playerActions_[PlayerStateName::Down].add(new_action<PlayerAction_Down>(world, parameters_));
 	playerActions_[PlayerStateName::DownIdle].add(new_action<PlayerAction_DownIdle>(world, parameters_));
+	playerActions_[PlayerStateName::Dash].add(new_action<PlayerAction_Dash>(world, parameters_));
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };

@@ -46,6 +46,19 @@ void PlayerAction_Idle::ActionUpdate(
 		return;
 	}
 
+	if (input_->Trigger(PAD_INPUT_6))
+	{
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::DamageBreak;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::DamageBreak;
+		m_nextActionID = PlayerStateName::Dash;
+		m_nextAction = true;
+
+		return;
+	}
+
+
 	if (parameters_->Get_Name() == "Chiya")
 		l_motion = (int)ChiyaAnmID::Idle;
 	else if (parameters_->Get_Name() == "Rize")

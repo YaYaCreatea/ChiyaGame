@@ -3,10 +3,18 @@
 
 #include "../PlayerActionBase.h"
 
+enum class BreakState
+{
+	Ready,
+	Charge,
+	ChargeMax,
+	Break
+};
+
 class PlayerAction_Break :public PlayerActionBase
 {
 public:
-	PlayerAction_Break(IWorld& world, PlayerParameters& parameter);
+	PlayerAction_Break(IWorld& world, PlayerParameters& parameter, InputState& input);
 	virtual void ActionInitialize()override;
 	virtual void ActionUpdate(
 		float deltaTime,
@@ -14,8 +22,10 @@ public:
 		int& l_motion, Matrix& l_cameraRotation)override;
 
 private:
+	BreakState m_breakState;
 	bool m_isSpawn;
-	bool m_isCombo;
+	float m_charge;
+	
 };
 
 #endif

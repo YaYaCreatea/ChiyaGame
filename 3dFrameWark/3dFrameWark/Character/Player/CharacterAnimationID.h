@@ -30,6 +30,10 @@ enum class RizeAnmID
 	DamageBreak,
 	Down,
 	DownIdle,
+	BreakReady,
+	BreakCharge,
+	BreakChargeMax,
+	Break,
 };
 
 #endif

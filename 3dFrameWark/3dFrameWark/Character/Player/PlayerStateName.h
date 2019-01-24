@@ -12,6 +12,7 @@ enum class PlayerStateName
 	Jump,
 	Down,
 	DownIdle,
+	Dash,
 };
 
 enum

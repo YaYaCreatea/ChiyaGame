@@ -29,7 +29,7 @@ bool InputState::Stay(int button) const
 	{
 		return true;
 	}
-	else
+	else if((m_currentState & button) == 0)
 		return false;
 }
 

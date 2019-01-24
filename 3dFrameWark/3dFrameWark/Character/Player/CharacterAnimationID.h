@@ -15,6 +15,7 @@ enum class ChiyaAnmID
 	DamageBreak,
 	Down,
 	DownIdle,
+	Dash,
 };
 
 enum class RizeAnmID
@@ -34,6 +35,7 @@ enum class RizeAnmID
 	BreakCharge,
 	BreakChargeMax,
 	Break,
+	Dash,
 };
 
 #endif

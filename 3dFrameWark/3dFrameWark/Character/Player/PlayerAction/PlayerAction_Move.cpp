@@ -50,9 +50,9 @@ void PlayerAction_Move::ActionUpdate(
 	if (input_->Trigger(PAD_INPUT_6))
 	{
 		if (parameters_->Get_Name() == "Chiya")
-			l_motion = (int)ChiyaAnmID::DamageBreak;
+			l_motion = (int)ChiyaAnmID::Dash;
 		else if (parameters_->Get_Name() == "Rize")
-			l_motion = (int)RizeAnmID::DamageBreak;
+			l_motion = (int)RizeAnmID::Dash;
 		m_nextActionID = PlayerStateName::Dash;
 		m_nextAction = true;
 

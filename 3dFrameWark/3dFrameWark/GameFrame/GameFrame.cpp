@@ -7,6 +7,7 @@
 #include "../Character/Player/Player.h"
 #include "../Character/Player/_Chiya/Chiya.h"
 #include "../Character/Player/_Rize/Rize.h"
+#include "../Character/Player/_Syaro/Syaro.h"
 #include "../Character/Enemy/Enemy.h"
 
 GameFrame::GameFrame()
@@ -25,6 +26,7 @@ void GameFrame::start()
 	//3DÉÇÉfÉãÇÃì«Ç›çûÇ›
 	SkeletalMesh::load(0, "asset/Chiya2/êÁñÈ.mv1");
 	SkeletalMesh::load(1, "asset/Rize/ÉäÉ[.mv1");
+	SkeletalMesh::load(1, "asset/Syaro/ÉVÉÉÉç.mv1");
 	//StaticMesh::load(0, "asset/w_magun01.mv1");
 	//StaticMesh::load(0, "asset/Sword.mv1");
 	StaticMesh::load(0, "asset/weapon/Spear.mv1");
@@ -45,12 +47,14 @@ void GameFrame::start()
 
 	world_.initialize();
 
+	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
+	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
 	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
-		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
+		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"));
 
 	world_.add_actor(ActorGroup::Player, new_actor<Chiya>(world_, "Chiya", Vector3::Zero, 0, 2));
-	world_.add_actor(ActorGroup::Enemy, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, 1, 0));
-	//world_.add_actor(ActorGroup::Enemy, new_actor<Enemy>(world_, Vector3{ 0.0f,0.0f,-30.0f }, 0));
+	//world_.add_actor(ActorGroup::Enemy, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, 1, 0));
+	world_.add_actor(ActorGroup::Enemy, new_actor<Syaro>(world_, "Syaro", Vector3{ 20.0f,0.0f,0.0f }, 1, 1));
 
 	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));
 }

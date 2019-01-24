@@ -28,6 +28,8 @@ void PlayerAction_Idle::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Combo1;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Combo1;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Combo1;
 		m_nextActionID = PlayerStateName::Attack;
 		m_nextAction = true;
 
@@ -40,6 +42,8 @@ void PlayerAction_Idle::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::JumpReady;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::JumpReady;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::JumpReady;
 		m_nextActionID = PlayerStateName::Jump;
 		m_nextAction = true;
 
@@ -52,6 +56,8 @@ void PlayerAction_Idle::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Dash;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Dash;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Dash;
 		m_nextActionID = PlayerStateName::Dash;
 		m_nextAction = true;
 
@@ -63,6 +69,8 @@ void PlayerAction_Idle::ActionUpdate(
 		l_motion = (int)ChiyaAnmID::Idle;
 	else if (parameters_->Get_Name() == "Rize")
 		l_motion = (int)RizeAnmID::Idle;
+	else if (parameters_->Get_Name() == "Syaro")
+		l_motion = (int)SyaroAnmID::Idle;
 
 	//if (GamePad::state(GamePad::Up))
 	//{

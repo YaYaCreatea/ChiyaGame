@@ -34,7 +34,7 @@ void TpsCamera::update(float deltaTime)
 {
 	if (m_targetName == "Chiya")
 		m_group = ActorGroup::Player;
-	else if (m_targetName == "Rize")
+	else if (m_targetName == "Rize"|| m_targetName == "Syaro")
 		m_group = ActorGroup::Enemy;
 
 	auto l_player = world_->find_actor(m_group, m_targetName);
@@ -44,7 +44,7 @@ void TpsCamera::update(float deltaTime)
 	{
 		if (m_targetName == "Chiya")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_KEY_PAD1);
-		else if (m_targetName == "Rize")
+		else if (m_targetName == "Rize" || m_targetName == "Syaro")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
 
 		m_yawAngle += deltaTime * (inputx_ / 500);
@@ -109,7 +109,7 @@ void TpsCamera::draw() const
 
 		
 	}
-	else if (m_targetName == "Rize")
+	else if (m_targetName == "Rize" || m_targetName == "Syaro")
 	{
 		Graphics3D::viewport(640, 0, 1280, 720);
 		SetCameraScreenCenter(960.0f, 360.0f);

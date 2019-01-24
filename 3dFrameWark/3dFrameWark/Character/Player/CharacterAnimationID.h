@@ -38,4 +38,23 @@ enum class RizeAnmID
 	Dash,
 };
 
+enum class SyaroAnmID
+{
+	Idle,
+	Move,
+	Combo1,
+	Combo2,
+	JumpReady,
+	Jump,
+	Landing,
+	Damage,
+	DamageBreak,
+	Down,
+	DownIdle,
+	BreakReady,
+	Break,
+	Dash,
+};
+
+
 #endif

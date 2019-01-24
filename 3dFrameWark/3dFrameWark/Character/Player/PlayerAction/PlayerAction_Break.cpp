@@ -113,5 +113,40 @@ void PlayerAction_Break::ActionUpdate(
 		}
 
 	}
+
+	else if (parameters_->Get_Name() == "Syaro")
+	{
+
+		switch (m_breakState)
+		{
+		case BreakState::Ready:
+			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
+			{
+				m_breakState = BreakState::Break;
+				l_motion = (int)SyaroAnmID::Break;
+				parameters_->Set_StateTimer(0.0f);
+			}
+			break;
+		case BreakState::Break:
+
+			if (((int)parameters_->Get_StateTimer() % 10) == 0)
+			{
+				world_->add_actor(
+					ActorGroup::EnemyAction,
+					new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+				);
+			}
+
+			l_prevposition = l_position;
+			l_position += (l_pose.Forward()*m_charge) * deltaTime;
+
+			if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
+			{
+				m_nextAction = true;
+			}
+			break;
+		}
+
+	}
 }
 

@@ -35,6 +35,8 @@ void PlayerAction_Jump::ActionUpdate(
 				l_motion = (int)ChiyaAnmID::Jump;
 			else if (parameters_->Get_Name() == "Rize")
 				l_motion = (int)RizeAnmID::Jump;
+			else if (parameters_->Get_Name() == "Syaro")
+				l_motion = (int)SyaroAnmID::Jump;
 			parameters_->Set_StateTimer(0.0f);
 		}
 		break;
@@ -50,6 +52,8 @@ void PlayerAction_Jump::ActionUpdate(
 				l_motion = (int)ChiyaAnmID::Landing;
 			else if (parameters_->Get_Name() == "Rize")
 				l_motion = (int)RizeAnmID::Landing;
+			else if (parameters_->Get_Name() == "Syaro")
+				l_motion = (int)SyaroAnmID::Landing;
 			parameters_->Set_StateTimer(0.0f);
 		}
 		break;

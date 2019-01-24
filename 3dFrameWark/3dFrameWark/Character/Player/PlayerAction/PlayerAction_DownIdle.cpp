@@ -21,4 +21,6 @@ void PlayerAction_DownIdle::ActionUpdate(float deltaTime, Vector3 & l_position, 
 		l_motion = (int)ChiyaAnmID::DownIdle;
 	else if (parameters_->Get_Name() == "Rize")
 		l_motion = (int)RizeAnmID::DownIdle;
+	else if (parameters_->Get_Name() == "Syaro")
+		l_motion = (int)SyaroAnmID::DownIdle;
 }

@@ -28,6 +28,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Combo1;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Combo1;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Combo1;
 		m_nextActionID = PlayerStateName::Attack;
 		m_nextAction = true;
 
@@ -41,6 +43,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::JumpReady;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::JumpReady;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::JumpReady;
 		m_nextActionID = PlayerStateName::Jump;
 		m_nextAction = true;
 
@@ -53,6 +57,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Dash;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Dash;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Dash;
 		m_nextActionID = PlayerStateName::Dash;
 		m_nextAction = true;
 
@@ -71,6 +77,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Move;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Move;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Move;
 	}
 	else if (input_->Stay(PAD_INPUT_DOWN))
 	{
@@ -80,6 +88,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Move;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Move;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Move;
 	}
 	if (input_->Stay(PAD_INPUT_LEFT))
 	{
@@ -89,6 +99,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Move;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Move;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Move;
 	}
 	else if (input_->Stay(PAD_INPUT_RIGHT))
 	{
@@ -98,6 +110,8 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)ChiyaAnmID::Move;
 		else if (parameters_->Get_Name() == "Rize")
 			l_motion = (int)RizeAnmID::Move;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Move;
 	}
 
 	if (l_forward_speed == 0.0f&&l_side_speed == 0.0f)

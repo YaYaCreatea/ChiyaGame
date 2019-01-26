@@ -160,6 +160,7 @@
     <ClInclude Include="Character\Player\PlayerAttack\Attack1.h" />
     <ClInclude Include="Character\Player\PlayerParameters.h" />
     <ClInclude Include="Character\Player\PlayerStateName.h" />
+    <ClInclude Include="Character\Player\_Cocoa\Cocoa.h" />
     <ClInclude Include="Character\Player\_Rize\Rize.h" />
     <ClInclude Include="Character\Player\_Syaro\Syaro.h" />
     <ClInclude Include="CollisionDetection\BoundingCapsule\BoundingCapsule.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_Move.cpp" />
     <ClCompile Include="Character\Player\PlayerAttack\Attack1.cpp" />
     <ClCompile Include="Character\Player\PlayerParameters.cpp" />
+    <ClCompile Include="Character\Player\_Cocoa\Cocoa.cpp" />
     <ClCompile Include="Character\Player\_Rize\Rize.cpp" />
     <ClCompile Include="Character\Player\_Syaro\Syaro.cpp" />
     <ClCompile Include="CollisionDetection\BoundingCapsule\BoundingCapsule.cpp" />

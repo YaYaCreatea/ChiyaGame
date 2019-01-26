@@ -31,6 +31,8 @@ void PlayerAction_Dash::ActionUpdate(float deltaTime, Vector3 & l_position, Vect
 			l_motion = (int)RizeAnmID::Combo1;
 		else if (parameters_->Get_Name() == "Syaro")
 			l_motion = (int)SyaroAnmID::Combo1;
+		else if (parameters_->Get_Name() == "Cocoa")
+			l_motion = (int)CocoaAnmID::Combo1;
 		m_nextActionID = PlayerStateName::Attack;
 		m_nextAction = true;
 
@@ -45,6 +47,8 @@ void PlayerAction_Dash::ActionUpdate(float deltaTime, Vector3 & l_position, Vect
 			l_motion = (int)RizeAnmID::JumpReady;
 		else if (parameters_->Get_Name() == "Syaro")
 			l_motion = (int)SyaroAnmID::JumpReady;
+		else if (parameters_->Get_Name() == "Cocoa")
+			l_motion = (int)CocoaAnmID::JumpReady;
 		m_nextActionID = PlayerStateName::Jump;
 		m_nextAction = true;
 

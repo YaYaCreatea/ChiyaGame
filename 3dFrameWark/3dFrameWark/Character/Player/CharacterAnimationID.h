@@ -56,5 +56,24 @@ enum class SyaroAnmID
 	Dash,
 };
 
+enum class CocoaAnmID
+{
+	Idle,
+	Move,
+	Combo1,
+	Combo2,
+	JumpReady,
+	Jump,
+	Landing,
+	Damage,
+	DamageBreak,
+	Down,
+	DownIdle,
+	BreakReady,
+	Break,
+	BreakEnd,
+	Dash,
+};
+
 
 #endif

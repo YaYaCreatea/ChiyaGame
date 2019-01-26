@@ -8,7 +8,8 @@ enum class BreakState
 	Ready,
 	Charge,
 	ChargeMax,
-	Break
+	Break,
+	End,
 };
 
 class PlayerAction_Break :public PlayerActionBase
@@ -25,6 +26,7 @@ private:
 	BreakState m_breakState;
 	bool m_isSpawn;
 	float m_charge;
+	float m_yawRotation;
 };
 
 #endif

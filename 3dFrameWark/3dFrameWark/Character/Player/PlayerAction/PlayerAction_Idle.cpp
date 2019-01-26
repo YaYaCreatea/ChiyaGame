@@ -32,6 +32,8 @@ void PlayerAction_Idle::ActionUpdate(
 			l_motion = (int)RizeAnmID::Combo1;
 		else if (parameters_->Get_Name() == "Syaro")
 			l_motion = (int)SyaroAnmID::Combo1;
+		else if (parameters_->Get_Name() == "Cocoa")
+			l_motion = (int)CocoaAnmID::Combo1;
 		m_nextActionID = PlayerStateName::Attack;
 		m_nextAction = true;
 
@@ -46,6 +48,8 @@ void PlayerAction_Idle::ActionUpdate(
 			l_motion = (int)RizeAnmID::JumpReady;
 		else if (parameters_->Get_Name() == "Syaro")
 			l_motion = (int)SyaroAnmID::JumpReady;
+		else if (parameters_->Get_Name() == "Cocoa")
+			l_motion = (int)CocoaAnmID::JumpReady;
 		m_nextActionID = PlayerStateName::Jump;
 		m_nextAction = true;
 
@@ -60,6 +64,8 @@ void PlayerAction_Idle::ActionUpdate(
 			l_motion = (int)RizeAnmID::Dash;
 		else if (parameters_->Get_Name() == "Syaro")
 			l_motion = (int)SyaroAnmID::Dash;
+		else if (parameters_->Get_Name() == "Cocoa")
+			l_motion = (int)CocoaAnmID::Dash;
 		m_nextActionID = PlayerStateName::Dash;
 		m_nextAction = true;
 
@@ -73,23 +79,8 @@ void PlayerAction_Idle::ActionUpdate(
 		l_motion = (int)RizeAnmID::Idle;
 	else if (parameters_->Get_Name() == "Syaro")
 		l_motion = (int)SyaroAnmID::Idle;
-
-	//if (GamePad::state(GamePad::Up))
-	//{
-	//	m_nextAction = true;
-	//}
-	//else if (GamePad::state(GamePad::Down))
-	//{
-	//	m_nextAction = true;
-	//}
-	//if (GamePad::state(GamePad::Left))
-	//{
-	//	m_nextAction = true;
-	//}
-	//else if (GamePad::state(GamePad::Right))
-	//{
-	//	m_nextAction = true;
-	//}
+	else if (parameters_->Get_Name() == "Cocoa")
+		l_motion = (int)CocoaAnmID::Idle;
 
 	if (input_->Stay(PAD_INPUT_UP))
 	{

@@ -25,6 +25,7 @@ void PlayerAction_Break::ActionInitialize()
 	m_breakState = BreakState::Ready;
 	m_isSpawn = false;
 	m_charge = 0.0f;
+	m_yawRotation = 0.0f;
 }
 
 void PlayerAction_Break::ActionUpdate(
@@ -131,13 +132,14 @@ void PlayerAction_Break::ActionUpdate(
 
 		case BreakState::Break:
 
-			float l_yawRotation = 0.0f;
+			m_yawRotation = 0.0f;
 			if (input_->Stay(PAD_INPUT_LEFT))
-				l_yawRotation = -0.2f;
+				m_yawRotation = -0.2f;
 			else if (input_->Stay(PAD_INPUT_RIGHT))
-				l_yawRotation = 0.2f;
+				m_yawRotation = 0.2f;
 
-			l_rotation *= Matrix::CreateRotationY(l_yawRotation);
+			l_rotation *= Matrix::CreateRotationY(m_yawRotation);
+			l_prevposition = l_position;
 
 			if (((int)parameters_->Get_StateTimer() % 10) == 0)
 			{
@@ -147,9 +149,6 @@ void PlayerAction_Break::ActionUpdate(
 				);
 			}
 
-			l_prevposition = l_position;
-			l_position += (l_pose.Forward()*m_charge) * deltaTime;
-
 			if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
 			{
 				m_nextAction = true;
@@ -157,6 +156,56 @@ void PlayerAction_Break::ActionUpdate(
 			break;
 		}
 
+	}
+
+	else if (parameters_->Get_Name() == "Cocoa")
+	{
+		switch (m_breakState)
+		{
+		case BreakState::Ready:
+
+			m_yawRotation = 0.0f;
+			if (input_->Stay(PAD_INPUT_LEFT))
+				m_yawRotation = -0.2f;
+			else if (input_->Stay(PAD_INPUT_RIGHT))
+				m_yawRotation = 0.2f;
+			l_rotation *= Matrix::CreateRotationY(m_yawRotation);
+			l_prevposition = l_position;
+
+			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
+			{
+				m_breakState = BreakState::Break;
+				l_motion = (int)CocoaAnmID::Break;
+				parameters_->Set_StateTimer(0.0f);
+			}
+			break;
+
+		case BreakState::Break:
+
+			if (!m_isSpawn&&parameters_->Get_StateTimer() >= 10.0f)
+			{
+				world_->add_actor(
+					ActorGroup::EnemyAction,
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*12.0f), 15.0f, l_pose)
+				);
+				m_isSpawn = true;
+			}
+
+			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
+			{
+				m_breakState = BreakState::End;
+				l_motion = (int)CocoaAnmID::BreakEnd;
+				parameters_->Set_StateTimer(0.0f);
+			}
+			break;
+
+		case BreakState::End:
+			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
+			{
+				m_nextAction = true;
+			}
+			break;
+		}
 	}
 }
 

@@ -8,6 +8,7 @@
 #include "../Character/Player/_Chiya/Chiya.h"
 #include "../Character/Player/_Rize/Rize.h"
 #include "../Character/Player/_Syaro/Syaro.h"
+#include "../Character/Player/_Cocoa/Cocoa.h"
 #include "../Character/Enemy/Enemy.h"
 
 GameFrame::GameFrame()
@@ -26,7 +27,8 @@ void GameFrame::start()
 	//3Dモデルの読み込み
 	SkeletalMesh::load(0, "asset/Chiya2/千夜.mv1");
 	SkeletalMesh::load(1, "asset/Rize/リゼ.mv1");
-	SkeletalMesh::load(1, "asset/Syaro/シャロ.mv1");
+	SkeletalMesh::load(2, "asset/Syaro/シャロ.mv1");
+	SkeletalMesh::load(3, "asset/Cocoa/ココア.mv1");
 	//StaticMesh::load(0, "asset/w_magun01.mv1");
 	//StaticMesh::load(0, "asset/Sword.mv1");
 	StaticMesh::load(0, "asset/weapon/Spear.mv1");
@@ -36,9 +38,11 @@ void GameFrame::start()
 	//UIリソース読み込み
 	Graphics2D::load_sprite(0, "asset/2Dsprite/PlayerUI/HpGauge.png");
 	Graphics2D::load_sprite(1, "asset/2Dsprite/GamePlay/BackFrame.png");
+	Graphics2D::load_sprite(2, "asset/2Dsprite/GamePlay/BackFrame_Chiya.png");
+	Graphics2D::load_sprite(3, "asset/2Dsprite/GamePlay/BackFrame_Rize.png");
+	Graphics2D::load_sprite(4, "asset/2Dsprite/GamePlay/BackFrame_Syaro.png");
 
 	//ステージモデルの読み込み
-	//CollisionMesh::load(0, "asset/castle/SampleStage_Castle.mv1");
 	CollisionMesh::load(0, "asset/Stage/test3.mv1");
 	//スカイボックスの読み込み
 	SkyBox::load(0, "asset/skybox/skydome.mv1");
@@ -49,12 +53,15 @@ void GameFrame::start()
 
 	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
 	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
+	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
+	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"));
 	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
-		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"));
+		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Cocoa"));
 
 	world_.add_actor(ActorGroup::Player, new_actor<Chiya>(world_, "Chiya", Vector3::Zero, 0, 2));
 	//world_.add_actor(ActorGroup::Enemy, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, 1, 0));
-	world_.add_actor(ActorGroup::Enemy, new_actor<Syaro>(world_, "Syaro", Vector3{ 20.0f,0.0f,0.0f }, 1, 1));
+	//world_.add_actor(ActorGroup::Enemy, new_actor<Syaro>(world_, "Syaro", Vector3{ 20.0f,0.0f,0.0f }, 2, 1));
+	world_.add_actor(ActorGroup::Enemy, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,0.0f }, 3));
 
 	//ChangeLightTypeDir(VGet(1.0f, -1.0f, 1.0f));
 }

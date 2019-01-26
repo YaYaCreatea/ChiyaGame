@@ -109,7 +109,7 @@ void Chiya::draw() const
 	mesh_.draw();
 	draw_weapon();
 	Graphics2D::draw_sprite_rect(0, Vector2{ 50.0f,30.0f }, 0, 0, (327 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 48);
-	Graphics2D::draw_sprite(1, Vector2{ 0.0f,0.0f });
+	Graphics2D::draw_sprite(2, Vector2{ 0.0f,0.0f });
 }
 
 void Chiya::react(Actor & other)

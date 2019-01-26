@@ -34,7 +34,8 @@ void TpsCamera::update(float deltaTime)
 {
 	if (m_targetName == "Chiya")
 		m_group = ActorGroup::Player;
-	else if (m_targetName == "Rize"|| m_targetName == "Syaro")
+	else if (m_targetName == "Rize" || m_targetName == "Syaro"
+		|| m_targetName == "Cocoa")
 		m_group = ActorGroup::Enemy;
 
 	auto l_player = world_->find_actor(m_group, m_targetName);
@@ -44,7 +45,7 @@ void TpsCamera::update(float deltaTime)
 	{
 		if (m_targetName == "Chiya")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_KEY_PAD1);
-		else if (m_targetName == "Rize" || m_targetName == "Syaro")
+		else if (m_targetName == "Rize" || m_targetName == "Syaro" || m_targetName == "Cocoa")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
 
 		m_yawAngle += deltaTime * (inputx_ / 500);
@@ -107,17 +108,13 @@ void TpsCamera::draw() const
 		Graphics3D::viewport(0, 0, 640, 720);
 		SetCameraScreenCenter(320.0f, 360.0f);
 
-		
+
 	}
-	else if (m_targetName == "Rize" || m_targetName == "Syaro")
+	else if (m_targetName == "Rize" || m_targetName == "Syaro" || m_targetName == "Cocoa")
 	{
 		Graphics3D::viewport(640, 0, 1280, 720);
 		SetCameraScreenCenter(960.0f, 360.0f);
-
-		
 	}
-
-	
 
 	Graphics3D::view_matrix(
 		get_pose().CreateLookAt(m_position, m_lookPos, Vector3::Up)

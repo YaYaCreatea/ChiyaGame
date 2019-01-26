@@ -81,6 +81,29 @@ void PlayerAction_Attack::ActionUpdate(
 				}
 			}
 		}
+
+		else if (parameters_->Get_Name() == "Cocoa")
+		{
+			if (l_motion == (int)CocoaAnmID::Combo1)
+			{
+				world_->add_actor(
+					ActorGroup::EnemyAction,
+					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+				);
+				m_isSpawn = true;
+			}
+			else if (l_motion == (int)CocoaAnmID::Combo2)
+			{
+				if (parameters_->Get_StateTimer() >= 20.0f)
+				{
+					world_->add_actor(
+						ActorGroup::EnemyAction,
+						new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 10.0f, l_pose)
+					);
+					m_isSpawn = true;
+				}
+			}
+		}
 	}
 
 	if (input_->Trigger(PAD_INPUT_3))
@@ -100,6 +123,8 @@ void PlayerAction_Attack::ActionUpdate(
 				m_nextActionID = (l_motion == (int)RizeAnmID::Combo1) ? PlayerStateName::Attack : PlayerStateName::Break;
 			else if (parameters_->Get_Name() == "Syaro")
 				m_nextActionID = (l_motion == (int)SyaroAnmID::Combo1) ? PlayerStateName::Attack : PlayerStateName::Break;
+			else if (parameters_->Get_Name() == "Cocoa")
+				m_nextActionID = (l_motion == (int)CocoaAnmID::Combo1) ? PlayerStateName::Attack : PlayerStateName::Break;
 
 			if (parameters_->Get_Name() == "Chiya")
 				l_motion = (l_motion == (int)ChiyaAnmID::Combo1) ? (int)ChiyaAnmID::Combo2 : (int)ChiyaAnmID::Break;
@@ -107,6 +132,8 @@ void PlayerAction_Attack::ActionUpdate(
 				l_motion = (l_motion == (int)RizeAnmID::Combo1) ? (int)RizeAnmID::Combo2 : (int)RizeAnmID::BreakReady;
 			else if (parameters_->Get_Name() == "Syaro")
 				l_motion = (l_motion == (int)SyaroAnmID::Combo1) ? (int)SyaroAnmID::Combo2 : (int)SyaroAnmID::BreakReady;
+			else if (parameters_->Get_Name() == "Cocoa")
+				l_motion = (l_motion == (int)CocoaAnmID::Combo1) ? (int)CocoaAnmID::Combo2 : (int)CocoaAnmID::BreakReady;
 
 			m_nextAction = true;
 		}

@@ -109,7 +109,7 @@ void Syaro::draw() const
 	mesh_.draw();
 	draw_weapon();
 	Graphics2D::draw_sprite_rect(0, Vector2{ 690.0f,30.0f }, 0, 0, (327 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 48);
-	Graphics2D::draw_sprite(1, Vector2{ 640.0f,0.0f });
+	Graphics2D::draw_sprite(4, Vector2{ 640.0f,0.0f });
 }
 
 void Syaro::react(Actor & other)

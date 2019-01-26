@@ -25,6 +25,8 @@ public:
 	static bool collide_line(const Vector3&start, const Vector3& end, Vector3*point = nullptr, Vector3*normal = nullptr);
 	//球体との衝突判定
 	static bool collide_sphere(const Vector3& center, const Vector3&center2, float radius, Vector3* result = nullptr);
+	//カプセルとの衝突判定
+	static bool collide_capsule(const Vector3& center, const Vector3&center2, float radius, Vector3* result = nullptr);
 
 private:
 	//衝突判定用のモデルハンドラ

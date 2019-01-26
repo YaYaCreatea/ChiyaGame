@@ -116,3 +116,51 @@ bool CollisionMesh::collide_sphere(const Vector3 & center, const Vector3&center2
 	MV1CollResultPolyDimTerminate(coll_poly);
 	return true;
 }
+
+bool CollisionMesh::collide_capsule(const Vector3 & center, const Vector3 & center2, float radius, Vector3 * result)
+{
+	//カプセルとメッシュの衝突判定
+	const auto coll_poly = MV1CollCheck_Capsule(model_, 0, center, center2, radius);
+	//衝突していなければ終了
+	if (coll_poly.HitNum == 0)
+	{
+		//衝突判定データの削除
+		MV1CollResultPolyDimTerminate(coll_poly);
+		return false;
+	}
+	VECTOR result_center = center;
+	//ポリゴンの平面上に球体の位置を補正する
+	for (int i = 0; i < coll_poly.HitNum; ++i)
+	{
+		//平面上の座標の最近点座標を求める
+		PLANE_POINT_RESULT plane_point_result;
+		Plane_Point_Analyse(&coll_poly.Dim[i].Position[0], &coll_poly.Dim[i].Normal, &result_center, &plane_point_result);
+		//三角形の内部に平面上の座標の最近点座標があるかどうか調べる
+		if (CollisionTriangle(
+			coll_poly.Dim[i].Position[0],
+			coll_poly.Dim[i].Position[1],
+			coll_poly.Dim[i].Position[2]).is_inside(plane_point_result.Plane_MinDist_Pos))
+		{
+			//法線ベクトルの方向へ球体を押し出す
+			const auto distance = std::sqrt(plane_point_result.Plane_Pnt_MinDist_Square);
+			const auto offset = VScale(coll_poly.Dim[i].Normal, radius - distance);
+			result_center = VAdd(result_center, offset);
+		}
+	}
+	//ポリゴンのエッジに重なっている場合に位置を補正する
+	for (int i = 0; i < coll_poly.HitNum; ++i)
+	{
+		CollisionTriangle(
+			coll_poly.Dim[i].Position[0],
+			coll_poly.Dim[i].Position[1],
+			coll_poly.Dim[i].Position[2]).collide_edge_and_sphere(result_center, radius, &result_center);
+	}
+	//補正後の座標を設定
+	if (result != nullptr)
+	{
+		*result = Vector3(result_center.x, result->y, result_center.z);
+	}
+	//衝突判定データの削除
+	MV1CollResultPolyDimTerminate(coll_poly);
+	return true;
+}

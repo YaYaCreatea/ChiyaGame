@@ -50,12 +50,12 @@ Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, int
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Attack].add(new_action<PlayerAction_Attack>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Break].add(new_action<PlayerAction_Break>(world, parameters_, input_));
-	playerActions_[PlayerStateName::Jump].add(new_action<PlayerAction_Jump>(world, parameters_));
+	playerActions_[PlayerStateName::Jump].add(new_action<PlayerAction_Jump>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Damage].add(new_action<PlayerAction_Damage>(world, parameters_));
 	playerActions_[PlayerStateName::DamageBreak].add(new_action<PlayerAction_DamageBreak>(world, parameters_));
 	playerActions_[PlayerStateName::Down].add(new_action<PlayerAction_Down>(world, parameters_));
 	playerActions_[PlayerStateName::DownIdle].add(new_action<PlayerAction_DownIdle>(world, parameters_));
-	playerActions_[PlayerStateName::Dash].add(new_action<PlayerAction_Dash>(world, parameters_));
+	playerActions_[PlayerStateName::Dash].add(new_action<PlayerAction_Dash>(world, parameters_, input_));
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };
@@ -64,6 +64,12 @@ Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, int
 void Syaro::update(float deltaTime)
 {
 	input_.update();
+
+	if (m_position.y > 0.0f&&m_state != PlayerStateName::Jump)
+	{
+		m_velocity.y += parameters_.Get_Gravity() * deltaTime;
+		m_position += m_velocity * deltaTime;
+	}
 
 	playerActions_[m_state].update(
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
@@ -91,7 +97,7 @@ void Syaro::update(float deltaTime)
 	//mesh_.transform(get_pose(), 120, m_pi);
 	//mesh_.transform(get_pose(), 126, m_pi);
 
-	CollisionMesh::collide_sphere(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
+	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 
 	auto l_camera1 = world_->get_camera1();
 	if (l_camera1 == nullptr)return;

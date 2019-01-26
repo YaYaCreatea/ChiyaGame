@@ -54,14 +54,14 @@ void TpsCamera::update(float deltaTime)
 		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
 		m_rotation.NormalizeRotationMatrix();
 
-		const Vector3& l_backPosition = -(m_rotation.Forward().Normalize()* 35.0f);
+		const Vector3& l_backPosition = -(m_rotation.Forward().Normalize()* 40.0f);
 		const Vector3& l_upPosition = Vector3{ 0.0f, 25.0f, 0.0f };
 		m_to_target = l_player->get_position() - m_position;
 		m_position = l_player->get_position() + l_backPosition + l_upPosition;
 		//move(l_player->get_position() + l_backPosition + l_upPosition, 0.5f, 0.1f, 2.0f);
 		m_lookPos = Vector3{
 			l_player->get_position().x,
-			l_player->get_position().y + 15.0f,
+			l_player->get_position().y + 16.0f,
 			l_player->get_position().z };
 
 		if (GamePad::trigger(GamePad::X))

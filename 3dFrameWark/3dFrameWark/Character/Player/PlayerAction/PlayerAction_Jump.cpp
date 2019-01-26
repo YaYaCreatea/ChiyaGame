@@ -2,11 +2,13 @@
 
 #include "../../../World/IWorld.h"
 #include "../PlayerParameters.h"
+#include "../../../Utility/Input/InputState.h"
 
-PlayerAction_Jump::PlayerAction_Jump(IWorld & world, PlayerParameters& parameter)
+PlayerAction_Jump::PlayerAction_Jump(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
 	world_ = &world;
 	parameters_ = &parameter;
+	input_ = &input;
 }
 
 void PlayerAction_Jump::ActionInitialize()
@@ -23,6 +25,19 @@ void PlayerAction_Jump::ActionUpdate(
 	Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
 {
 	l_prevposition = l_position;
+	if (input_->Trigger(PAD_INPUT_2))
+	{
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Damage;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Damage;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Damage;
+		m_nextActionID = PlayerStateName::Damage;
+		m_nextAction = true;
+
+		return;
+	}
 
 	switch (m_jumpState)
 	{
@@ -65,4 +80,5 @@ void PlayerAction_Jump::ActionUpdate(
 		}
 		break;
 	}
+	
 }

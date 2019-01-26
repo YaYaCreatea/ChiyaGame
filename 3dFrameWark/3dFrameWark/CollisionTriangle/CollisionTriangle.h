@@ -16,6 +16,9 @@ public:
 	//三角形の辺と球体の衝突判定
 	bool collide_edge_and_sphere(const VECTOR& center, float radius, VECTOR*result = nullptr);
 
+	//三角形の辺とカプセルの衝突判定
+	bool collide_edge_and_capsule(const VECTOR& center, const VECTOR& center2, float radius, VECTOR*result = nullptr);
+
 private:
 	//三角形の頂点
 	VECTOR points_[3];

@@ -22,6 +22,8 @@ void PlayerAction_Idle::ActionUpdate(
 	Vector3& l_position, Vector3& l_velocity, Vector3& l_prevposition, Matrix& l_rotation, Matrix l_pose,
 	int& l_motion, Matrix& l_cameraRotation)
 {
+	l_velocity = Vector3{ 0.0f,l_velocity.y,0.0f };
+
 	if (input_->Trigger(PAD_INPUT_3))
 	{
 		if (parameters_->Get_Name() == "Chiya")

@@ -13,7 +13,7 @@ enum class JumpState
 class PlayerAction_Jump :public PlayerActionBase
 {
 public:
-	PlayerAction_Jump(IWorld& world, PlayerParameters& parameter);
+	PlayerAction_Jump(IWorld& world, PlayerParameters& parameter, InputState& input);
 	virtual void ActionInitialize()override;
 	virtual void ActionUpdate(
 		float deltaTime,

@@ -6,7 +6,7 @@
 class PlayerAction_Dash :public PlayerActionBase
 {
 public:
-	PlayerAction_Dash(IWorld& world, PlayerParameters& parameter);
+	PlayerAction_Dash(IWorld& world, PlayerParameters& parameter, InputState& input);
 	virtual void ActionInitialize()override;
 	virtual void ActionUpdate(
 		float deltaTime,

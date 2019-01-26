@@ -65,7 +65,7 @@ void PlayerAction_Attack::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::EnemyAction,
-					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f), 5.0f, l_pose)
+					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 				);
 				m_isSpawn = true;
 			}
@@ -75,7 +75,7 @@ void PlayerAction_Attack::ActionUpdate(
 				{
 					world_->add_actor(
 						ActorGroup::EnemyAction,
-						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f), 5.0f, l_pose)
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 					);
 					m_isSpawn = true;
 				}

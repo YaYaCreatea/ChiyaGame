@@ -46,7 +46,7 @@ void PlayerAction_Break::ActionUpdate(
 			m_isSpawn = true;
 		}
 
-		if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
+		if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 4.0f)
 		{
 			m_nextAction = true;
 		}
@@ -118,7 +118,6 @@ void PlayerAction_Break::ActionUpdate(
 
 	else if (parameters_->Get_Name() == "Syaro")
 	{
-
 		switch (m_breakState)
 		{
 		case BreakState::Ready:
@@ -129,6 +128,7 @@ void PlayerAction_Break::ActionUpdate(
 				parameters_->Set_StateTimer(0.0f);
 			}
 			break;
+
 		case BreakState::Break:
 
 			float l_yawRotation = 0.0f;
@@ -143,7 +143,7 @@ void PlayerAction_Break::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::EnemyAction,
-					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 5.0f, l_pose)
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 				);
 			}
 

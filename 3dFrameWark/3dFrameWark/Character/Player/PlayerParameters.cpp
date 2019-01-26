@@ -13,6 +13,7 @@ void PlayerParameters::Initialize(std::string l_name, int l_Hp)
 	m_HpMax = l_Hp;
 	m_state_timer = 0.0f;
 	m_end_time = 0.0f;
+	m_breakDirection = Vector3::Zero;
 }
 
 void PlayerParameters::Set_StateTimer(float l_state_timer)
@@ -73,4 +74,14 @@ int PlayerParameters::Get_HP() const
 int PlayerParameters::Get_MaxHP() const
 {
 	return m_HpMax;
+}
+
+void PlayerParameters::Set_BreakDirection(Vector3 l_direction)
+{
+	m_breakDirection = l_direction;
+}
+
+Vector3 PlayerParameters::Get_BreakDirection() const
+{
+	return m_breakDirection;
 }

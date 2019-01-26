@@ -4,6 +4,7 @@
 #include <string>
 
 #include "../../ActorGroupManager/ActorGroup.h"
+#include "../../Utility/Vector3/Vector3.h"
 
 class PlayerParameters
 {
@@ -29,6 +30,9 @@ public:
 	int Get_HP()const;
 	int Get_MaxHP()const;
 
+	void Set_BreakDirection(Vector3 l_direction);
+	Vector3 Get_BreakDirection()const;
+
 private:
 	ActorGroup m_myGroup;
 
@@ -41,6 +45,8 @@ private:
 	const float GRAVITY{ -0.04f };
 	float m_state_timer;
 	float m_end_time;
+
+	Vector3 m_breakDirection;
 
 };
 

@@ -5,6 +5,7 @@
 
 #include "../../../Utility/Input/InputState.h"
 #include "../../../Utility/MathHelper/MathHelper.h"
+#include"../../../Utility/Quaternion/Quaternion.h"
 
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
@@ -129,6 +130,14 @@ void PlayerAction_Break::ActionUpdate(
 			}
 			break;
 		case BreakState::Break:
+
+			float l_yawRotation = 0.0f;
+			if (input_->Stay(PAD_INPUT_LEFT))
+				l_yawRotation = -0.2f;
+			else if (input_->Stay(PAD_INPUT_RIGHT))
+				l_yawRotation = 0.2f;
+
+			l_rotation *= Matrix::CreateRotationY(l_yawRotation);
 
 			if (((int)parameters_->Get_StateTimer() % 10) == 0)
 			{

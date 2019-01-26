@@ -25,7 +25,6 @@ private:
 	BreakState m_breakState;
 	bool m_isSpawn;
 	float m_charge;
-	
 };
 
 #endif

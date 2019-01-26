@@ -74,8 +74,8 @@ void GameFrame::draw()
 	//ステージの描画
 	CollisionMesh::bind(0);
 
-	world_.draw();	
-	world_.draw2();				
+	world_.draw();
+	world_.draw2();
 
 	//ビルボードの描画
 	/*Graphics3D::blend_model(BlendMode::Add);

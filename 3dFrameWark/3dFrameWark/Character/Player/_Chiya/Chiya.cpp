@@ -139,6 +139,7 @@ void Chiya::react(Actor & other)
 			m_motion = (int)ChiyaAnmID::DamageBreak;
 			m_state = PlayerStateName::DamageBreak;
 			playerActions_[m_state].initialize();
+			parameters_.Set_BreakDirection(other.get_pose().Forward());
 			parameters_.Set_StateTimer(0.0f);
 			parameters_.Damage_HP(2);
 

@@ -11,20 +11,41 @@ World::World()
 void World::initialize()
 {
 	clear();
-	actors_.add(ActorGroup::Player);
-	actors_.add(ActorGroup::PlayerAction);
-	actors_.add(ActorGroup::Enemy);
-	actors_.add(ActorGroup::EnemyAction);
+	actors_.add(ActorGroup::Chiya);
+	actors_.add(ActorGroup::ChiyaAction);
+	actors_.add(ActorGroup::Rize);
+	actors_.add(ActorGroup::RizeAction);
+	actors_.add(ActorGroup::Syaro);
+	actors_.add(ActorGroup::SyaroAction);
+	actors_.add(ActorGroup::Cocoa);
+	actors_.add(ActorGroup::CocoaAction);
 	actors_.add(ActorGroup::Neutral);
+	actors_.add(ActorGroup::Effect);
 }
 
 void World::update(float deltaTime)
 {
 	actors_.update(deltaTime);
 
-	actors_.collide(ActorGroup::Player, ActorGroup::Enemy);
-	actors_.collide(ActorGroup::Player, ActorGroup::EnemyAction);
-	actors_.collide(ActorGroup::PlayerAction, ActorGroup::Enemy);
+	actors_.collide(ActorGroup::Chiya, ActorGroup::Rize);
+	actors_.collide(ActorGroup::Chiya, ActorGroup::Syaro);
+	actors_.collide(ActorGroup::Chiya, ActorGroup::Cocoa);
+	actors_.collide(ActorGroup::Rize, ActorGroup::Syaro);
+	actors_.collide(ActorGroup::Rize, ActorGroup::Cocoa);
+	actors_.collide(ActorGroup::Syaro, ActorGroup::Cocoa);
+
+	actors_.collide(ActorGroup::Chiya, ActorGroup::RizeAction);
+	actors_.collide(ActorGroup::Chiya, ActorGroup::SyaroAction);
+	actors_.collide(ActorGroup::Chiya, ActorGroup::CocoaAction);
+	actors_.collide(ActorGroup::Rize, ActorGroup::ChiyaAction);
+	actors_.collide(ActorGroup::Rize, ActorGroup::SyaroAction);
+	actors_.collide(ActorGroup::Rize, ActorGroup::CocoaAction);
+	actors_.collide(ActorGroup::Syaro, ActorGroup::ChiyaAction);
+	actors_.collide(ActorGroup::Syaro, ActorGroup::RizeAction);
+	actors_.collide(ActorGroup::Syaro, ActorGroup::CocoaAction);
+	actors_.collide(ActorGroup::Cocoa, ActorGroup::ChiyaAction);
+	actors_.collide(ActorGroup::Cocoa, ActorGroup::RizeAction);
+	actors_.collide(ActorGroup::Cocoa, ActorGroup::SyaroAction);
 
 	actors_.remove();
 

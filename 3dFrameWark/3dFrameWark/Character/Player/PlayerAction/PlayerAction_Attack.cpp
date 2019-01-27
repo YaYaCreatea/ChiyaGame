@@ -31,17 +31,18 @@ void PlayerAction_Attack::ActionUpdate(
 		if (parameters_->Get_Name() == "Chiya")
 		{
 			world_->add_actor(
-				ActorGroup::PlayerAction,
+				ActorGroup::ChiyaAction,
 				new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
 			);
 			m_isSpawn = true;
 		}
+
 		else if (parameters_->Get_Name() == "Rize")
 		{
 			if (l_motion == (int)RizeAnmID::Combo1)
 			{
 				world_->add_actor(
-					ActorGroup::EnemyAction,
+					ActorGroup::RizeAction,
 					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose)
 				);
 				m_isSpawn = true;
@@ -51,7 +52,7 @@ void PlayerAction_Attack::ActionUpdate(
 				if (parameters_->Get_StateTimer() >= 30.0f)
 				{
 					world_->add_actor(
-						ActorGroup::EnemyAction,
+						ActorGroup::RizeAction,
 						new_actor<Attack1>("Attack", l_position, 18.0f, l_pose)
 					);
 					m_isSpawn = true;
@@ -64,7 +65,7 @@ void PlayerAction_Attack::ActionUpdate(
 			if (l_motion == (int)SyaroAnmID::Combo1)
 			{
 				world_->add_actor(
-					ActorGroup::EnemyAction,
+					ActorGroup::SyaroAction,
 					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 				);
 				m_isSpawn = true;
@@ -74,7 +75,7 @@ void PlayerAction_Attack::ActionUpdate(
 				if (parameters_->Get_StateTimer() >= 20.0f)
 				{
 					world_->add_actor(
-						ActorGroup::EnemyAction,
+						ActorGroup::SyaroAction,
 						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 					);
 					m_isSpawn = true;
@@ -87,7 +88,7 @@ void PlayerAction_Attack::ActionUpdate(
 			if (l_motion == (int)CocoaAnmID::Combo1)
 			{
 				world_->add_actor(
-					ActorGroup::EnemyAction,
+					ActorGroup::CocoaAction,
 					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 				);
 				m_isSpawn = true;
@@ -97,7 +98,7 @@ void PlayerAction_Attack::ActionUpdate(
 				if (parameters_->Get_StateTimer() >= 20.0f)
 				{
 					world_->add_actor(
-						ActorGroup::EnemyAction,
+						ActorGroup::CocoaAction,
 						new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 10.0f, l_pose)
 					);
 					m_isSpawn = true;

@@ -41,7 +41,7 @@ void PlayerAction_Break::ActionUpdate(
 		if (!m_isSpawn&&parameters_->Get_StateTimer() >= 35.0f)
 		{
 			world_->add_actor(
-				ActorGroup::PlayerAction,
+				ActorGroup::ChiyaAction,
 				new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
 			);
 			m_isSpawn = true;
@@ -100,7 +100,7 @@ void PlayerAction_Break::ActionUpdate(
 			if (((int)parameters_->Get_StateTimer() % 6) == 0)
 			{
 				world_->add_actor(
-					ActorGroup::EnemyAction,
+					ActorGroup::RizeAction,
 					new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
 				);
 			}
@@ -144,7 +144,7 @@ void PlayerAction_Break::ActionUpdate(
 			if (((int)parameters_->Get_StateTimer() % 10) == 0)
 			{
 				world_->add_actor(
-					ActorGroup::EnemyAction,
+					ActorGroup::SyaroAction,
 					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
 				);
 			}
@@ -185,7 +185,7 @@ void PlayerAction_Break::ActionUpdate(
 			if (!m_isSpawn&&parameters_->Get_StateTimer() >= 10.0f)
 			{
 				world_->add_actor(
-					ActorGroup::EnemyAction,
+					ActorGroup::CocoaAction,
 					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up), 15.0f, l_pose)
 				);
 				m_isSpawn = true;

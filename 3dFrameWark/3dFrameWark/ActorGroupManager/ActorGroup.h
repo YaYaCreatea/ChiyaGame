@@ -3,10 +3,14 @@
 
 enum class ActorGroup
 {
-	Player,
-	Enemy,
-	PlayerAction,
-	EnemyAction,
+	Chiya,
+	Rize,
+	Syaro,
+	Cocoa,
+	ChiyaAction,
+	RizeAction,
+	SyaroAction,
+	CocoaAction,
 	Neutral,
 	Effect,
 };

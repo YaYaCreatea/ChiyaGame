@@ -33,10 +33,13 @@ TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position, std::string l_tar
 void TpsCamera::update(float deltaTime)
 {
 	if (m_targetName == "Chiya")
-		m_group = ActorGroup::Player;
-	else if (m_targetName == "Rize" || m_targetName == "Syaro"
-		|| m_targetName == "Cocoa")
-		m_group = ActorGroup::Enemy;
+		m_group = ActorGroup::Chiya;
+	else if (m_targetName == "Rize")
+		m_group = ActorGroup::Rize;
+	else if(m_targetName == "Syaro")
+		m_group = ActorGroup::Syaro;
+	else if(m_targetName == "Cocoa")
+		m_group = ActorGroup::Cocoa;
 
 	auto l_player = world_->find_actor(m_group, m_targetName);
 	if (l_player == nullptr)return;

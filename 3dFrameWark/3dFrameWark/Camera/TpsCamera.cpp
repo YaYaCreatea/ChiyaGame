@@ -121,6 +121,6 @@ void TpsCamera::draw() const
 	);
 
 	Graphics3D::projection_matrix(
-		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 0.3f, 2000.0f)
+		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 1.0f, 1000.0f)
 	);
 }

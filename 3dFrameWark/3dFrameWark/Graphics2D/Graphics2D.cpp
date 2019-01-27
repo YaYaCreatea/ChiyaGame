@@ -28,6 +28,11 @@ void Graphics2D::draw_sprite_rect(int id, const Vector2 & position, int x, int y
 	sprite_map_[id].draw(position, x, y, w, h);
 }
 
+void Graphics2D::draw_sprite_RCS(int id, const Vector2 & position, int x, int y, int w, int h, const Vector2 & center, const Vector2 & scale)
+{
+	sprite_map_[id].draw(position, x, y, w, h, center, scale);
+}
+
 void Graphics2D::draw_sprite(int id, int div_no, const Vector2 & position, const Vector2 & center, const Vector2 & scale, float rotation)
 {
 	sprite_map_[id].draw(div_no, position, center, scale, rotation);

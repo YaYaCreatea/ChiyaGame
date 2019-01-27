@@ -2,18 +2,7 @@
 #define _GAME_FRAME_H_
 
 #include "../Game/Game.h"
-#include "../Graphics3D/Graphics3D.h"
-#include "../Graphics2D/Graphics2D.h"
-#include "../SkeletalMesh/SkeletalMesh.h"
-#include "../StaticMesh/StaticMesh.h"
-#include "../CollisionMesh/CollisionMesh.h"
-#include "../SkyBox/SkyBox.h"
-#include "../Billboard/Billboard.h"
-#include "../Utility/Matrix/Matrix.h"
-#include "../Utility/Vector3/Vector3.h"
-#include "../Utility/Input/GamePad/GamePad.h"
-
-#include "../World/World.h"
+#include "../SceneManager/SceneManager.h"
 
 class GameFrame :public Game
 {
@@ -36,7 +25,8 @@ private:
 	void end()override;
 
 private:
-	World world_;
+	//World world_;
+	SceneManager sceneManager_;
 };
 
 #endif

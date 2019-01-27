@@ -27,6 +27,7 @@
 #include "../PlayerAction/PlayerAction_Dash.h"
 
 #include "../CharacterAnimationID.h"
+#include "../../../assetsID/AssetsID.h"
 
 Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
@@ -42,7 +43,7 @@ Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, int
 	m_position = l_position;
 	m_prevposition = m_position;
 
-	parameters_.Initialize(m_name, 50);
+	parameters_.Initialize(m_name, 51);
 
 	input_.initialize(DX_INPUT_KEY_PAD1);
 
@@ -108,8 +109,8 @@ void Chiya::draw() const
 {
 	mesh_.draw();
 	draw_weapon();
-	Graphics2D::draw_sprite_rect(0, Vector2{ 50.0f,30.0f }, 0, 0, (327 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 48);
-	Graphics2D::draw_sprite(2, Vector2{ 0.0f,0.0f });
+	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	Graphics2D::draw_sprite((int)SpriteID::Frame_Chiya, Vector2{ 0.0f,0.0f });
 }
 
 void Chiya::react(Actor & other)

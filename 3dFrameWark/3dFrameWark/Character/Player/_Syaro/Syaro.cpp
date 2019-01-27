@@ -27,6 +27,8 @@
 #include "../PlayerAction/PlayerAction_Dash.h"
 
 #include "../CharacterAnimationID.h"
+#include "../../../assetsID/AssetsID.h"
+
 
 Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
@@ -42,7 +44,7 @@ Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, int
 	m_position = l_position;
 	m_prevposition = m_position;
 
-	parameters_.Initialize(m_name, 50);
+	parameters_.Initialize(m_name, 30);
 
 	input_.initialize(DX_INPUT_PAD2);
 
@@ -108,8 +110,8 @@ void Syaro::draw() const
 {
 	mesh_.draw();
 	draw_weapon();
-	Graphics2D::draw_sprite_rect(0, Vector2{ 690.0f,30.0f }, 0, 0, (327 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 48);
-	Graphics2D::draw_sprite(4, Vector2{ 640.0f,0.0f });
+	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	Graphics2D::draw_sprite((int)SpriteID::Frame_Syaro, Vector2{ 640.0f,0.0f });
 }
 
 void Syaro::react(Actor & other)

@@ -186,7 +186,7 @@ void PlayerAction_Break::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::EnemyAction,
-					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*12.0f), 15.0f, l_pose)
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*15.0f), 15.0f, l_pose)
 				);
 				m_isSpawn = true;
 			}

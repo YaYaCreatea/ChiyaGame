@@ -28,6 +28,9 @@ public:
 	//•`‰æ(‰æ‘œ‚Ìˆê•”•ª‚ğ•`‰æ)
 	void draw(const Vector2& position, int x, int y, int width, int height)const;
 
+	//•`‰æ(‹éŒ`{’†S{ƒTƒCƒY)
+	void draw(const Vector2& position, int x, int y, int width, int height, const Vector2& center, const Vector2& scale)const;
+
 	//•`‰æ(•ªŠ„”Ô†w’è)
 	void draw(int no, const Vector2& position, const Vector2& center, const Vector2& scale, float rotation)const;
 

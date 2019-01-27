@@ -137,6 +137,7 @@
     <ClInclude Include="AnimatedMesh\AnimatedMesh.h" />
     <ClInclude Include="AnimatedSprite\AnimatedSprite.h" />
     <ClInclude Include="Animation\Animation.h" />
+    <ClInclude Include="assetsID\AssetsID.h" />
     <ClInclude Include="Billboard\Billboard.h" />
     <ClInclude Include="Camera\CameraStateID.h" />
     <ClInclude Include="Camera\TpsCamera.h" />
@@ -173,6 +174,13 @@
     <ClInclude Include="Graphics2D\Graphics2D.h" />
     <ClInclude Include="Graphics3D\Graphics3D.h" />
     <ClInclude Include="ModelAsset\ModelAsset.h" />
+    <ClInclude Include="SceneManager\SceneManager.h" />
+    <ClInclude Include="Scene\IScene.h" />
+    <ClInclude Include="Scene\IScenePtr.h" />
+    <ClInclude Include="Scene\NullScene\NullScene.h" />
+    <ClInclude Include="Scene\Play\GamePlay.h" />
+    <ClInclude Include="Scene\SceneID.h" />
+    <ClInclude Include="Scene\Title\Title.h" />
     <ClInclude Include="SkeletalMesh\SkeletalMesh.h" />
     <ClInclude Include="SkyBox\SkyBox.h" />
     <ClInclude Include="StaticMesh\StaticMesh.h" />
@@ -230,6 +238,10 @@
     <ClCompile Include="Graphics3D\Graphics3D.cpp" />
     <ClCompile Include="Main\main.cpp" />
     <ClCompile Include="ModelAsset\ModelAsset.cpp" />
+    <ClCompile Include="SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Scene\NullScene\NullScene.cpp" />
+    <ClCompile Include="Scene\Play\GamePlay.cpp" />
+    <ClCompile Include="Scene\Title\Title.cpp" />
     <ClCompile Include="SkeletalMesh\SkeletalMesh.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />
     <ClCompile Include="StaticMesh\StaticMesh.cpp" />

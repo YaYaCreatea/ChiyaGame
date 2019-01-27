@@ -48,6 +48,11 @@ void AnimatedSprite::draw(const Vector2 & position, int x, int y, int width, int
 	DrawRectGraphF(position.x, position.y, x, y, width, height, graph_, TRUE, FALSE);
 }
 
+void AnimatedSprite::draw(const Vector2 & position, int x, int y, int width, int height, const Vector2 & center, const Vector2 & scale) const
+{
+	DrawRectRotaGraph3F(position.x, position.y, x, y, width, height, center.x, center.y, scale.x, scale.y, 0.0f, graph_, TRUE);
+}
+
 //•`‰æ
 void AnimatedSprite::draw(int no, const Vector2 & position, const Vector2 & center, const Vector2 & scale, float rotation) const
 {

@@ -120,7 +120,7 @@ bool CollisionMesh::collide_sphere(const Vector3 & center, const Vector3&center2
 bool CollisionMesh::collide_capsule(const Vector3 & center, const Vector3 & center2, float radius, Vector3 * result)
 {
 	//カプセルとメッシュの衝突判定
-	const auto coll_poly = MV1CollCheck_Capsule(model_, 0, center, center2, radius);
+	const auto coll_poly = MV1CollCheck_Capsule(model_, -1, center, center2, radius);
 	//衝突していなければ終了
 	if (coll_poly.HitNum == 0)
 	{
@@ -162,5 +162,7 @@ bool CollisionMesh::collide_capsule(const Vector3 & center, const Vector3 & cent
 	}
 	//衝突判定データの削除
 	MV1CollResultPolyDimTerminate(coll_poly);
+
+
 	return true;
 }

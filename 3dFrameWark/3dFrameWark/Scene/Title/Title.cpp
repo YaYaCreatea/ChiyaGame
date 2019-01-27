@@ -1,10 +1,16 @@
 #include "Title.h"
 #include "../SceneID.h"
 
+#include "../../Utility/Vector2/Vector2.h"
+#include "../../assetsID/AssetsID.h"
+
 void Title::start()
 {
 	m_isEnd = false;
 	input_.initialize(DX_INPUT_KEY_PAD1);
+
+	Graphics2D::initialize();
+	Graphics2D::load_sprite((int)SpriteID::TitleBack, "asset/2Dsprite/Title/TitleBack.png");
 }
 
 void Title::update(float deltaTime)
@@ -16,6 +22,7 @@ void Title::update(float deltaTime)
 
 void Title::draw() const
 {
+	Graphics2D::draw_sprite((int)SpriteID::TitleBack, Vector2::Zero);
 }
 
 bool Title::is_end() const
@@ -30,4 +37,5 @@ SceneID Title::next() const
 
 void Title::end()
 {
+	Graphics2D::finalize();
 }

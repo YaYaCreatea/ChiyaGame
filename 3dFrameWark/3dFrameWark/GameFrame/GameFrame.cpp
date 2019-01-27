@@ -13,7 +13,7 @@ void GameFrame::start()
 {
 	sceneManager_.Add_Scece(SceneID::Title, new_scene<Title>());
 	sceneManager_.Add_Scece(SceneID::Game, new_scene<GamePlay>());
-	sceneManager_.Change_Scene(SceneID::Game);
+	sceneManager_.Change_Scene(SceneID::Title);
 }
 
 void GameFrame::update(float deltaTime)

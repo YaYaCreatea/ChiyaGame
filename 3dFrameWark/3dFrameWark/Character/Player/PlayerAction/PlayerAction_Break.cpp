@@ -166,9 +166,9 @@ void PlayerAction_Break::ActionUpdate(
 
 			m_yawRotation = 0.0f;
 			if (input_->Stay(PAD_INPUT_LEFT))
-				m_yawRotation = -0.2f;
+				m_yawRotation = -1.0f;
 			else if (input_->Stay(PAD_INPUT_RIGHT))
-				m_yawRotation = 0.2f;
+				m_yawRotation = 1.0f;
 			l_rotation *= Matrix::CreateRotationY(m_yawRotation);
 			l_prevposition = l_position;
 
@@ -186,7 +186,7 @@ void PlayerAction_Break::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::EnemyAction,
-					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*15.0f), 15.0f, l_pose)
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up), 15.0f, l_pose)
 				);
 				m_isSpawn = true;
 			}

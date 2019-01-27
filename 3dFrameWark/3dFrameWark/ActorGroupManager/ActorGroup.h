@@ -8,6 +8,7 @@ enum class ActorGroup
 	PlayerAction,
 	EnemyAction,
 	Neutral,
+	Effect,
 };
 
 #endif

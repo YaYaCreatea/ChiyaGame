@@ -16,9 +16,13 @@ public:
 	virtual void react(Actor& other)override;
 
 private:
+	bool StageReact();
+
+private:
 	float m_radius;
 	float m_timer;
 	float m_bulletSpeed;
+	float m_angle;
 	
 };
 

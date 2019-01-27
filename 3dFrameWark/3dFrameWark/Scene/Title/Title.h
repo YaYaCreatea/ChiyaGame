@@ -4,6 +4,7 @@
 #include "../../Scene/IScene.h"
 
 #include "../../Utility/Input/InputState.h"
+#include "../../Graphics2D/Graphics2D.h"
 
 class Title :public IScene
 {

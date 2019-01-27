@@ -17,6 +17,7 @@
 void GamePlay::start()
 {
 	Graphics3D::initialize();
+	Graphics2D::initialize();
 	SkeletalMesh::initialize();
 	CollisionMesh::initialize();
 	SkyBox::initialize();
@@ -47,6 +48,7 @@ void GamePlay::start()
 	SkyBox::load(0, "asset/skybox/Dome_SS601.mv1");
 	//ビルボードの読み込み
 	Billboard::load(0, "asset/Particle02.png");
+	Billboard::load(1, "asset/2Dsprite/PlayerUI/HpGauge.png");
 
 	world_.initialize();
 
@@ -100,8 +102,16 @@ void GamePlay::end()
 
 	//モデルデータの削除
 	SkeletalMesh::erase(0);
+	SkeletalMesh::erase(1);
+	SkeletalMesh::erase(2);
+	SkeletalMesh::erase(3);
 	StaticMesh::erase(0);
+	StaticMesh::erase(1);
+	StaticMesh::erase(2);
 	CollisionMesh::erase(0);
+	SkyBox::erase(0);
+	Billboard::erase(0);
+	Billboard::erase(1);
 
 	Billboard::finalize();
 	SkeletalMesh::finalize();

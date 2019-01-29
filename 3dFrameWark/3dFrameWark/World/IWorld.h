@@ -21,6 +21,10 @@ public:
 
 	virtual ActorPtr get_camera1() const = 0;
 
+	virtual ActorPtr get_camera2() const = 0;
+
+	virtual ActorPtr get_camera3() const = 0;
+
 	virtual unsigned int get_count_actor(ActorGroup group)const = 0;
 
 	virtual void each_actor(ActorGroup group, std::function<void(const ActorPtr&)>fn)const = 0;

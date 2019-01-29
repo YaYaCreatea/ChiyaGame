@@ -112,7 +112,7 @@ void Rize::draw() const
 	mesh_.draw();
 	draw_weapon();
 	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
-	Graphics2D::draw_sprite((int)SpriteID::Frame_Rize, Vector2{ 640.0f,0.0f });
+	Graphics2D::draw_sprite_Frame4((int)SpriteID::Frame_Rize_4, Vector2{ 640.0f,0.0f });
 }
 
 void Rize::react(Actor & other)

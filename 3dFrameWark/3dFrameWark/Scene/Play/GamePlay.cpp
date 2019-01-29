@@ -40,6 +40,10 @@ void GamePlay::start()
 	Graphics2D::load_sprite((int)SpriteID::Frame_Syaro, "asset/2Dsprite/GamePlay/BackFrame_Syaro.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa, "asset/2Dsprite/GamePlay/BackFrame_Cocoa.png");
 	Graphics2D::load_sprite((int)SpriteID::HpGauge, "asset/2Dsprite/PlayerUI/HpGauge2.png");
+	Graphics2D::load_sprite((int)SpriteID::Frame_Chiya_4, "asset/2Dsprite/GamePlay/BackFrame_Chiya_4.png");
+	Graphics2D::load_sprite((int)SpriteID::Frame_Rize_4, "asset/2Dsprite/GamePlay/BackFrame_Rize_4.png");
+	Graphics2D::load_sprite((int)SpriteID::Frame_Syaro_4, "asset/2Dsprite/GamePlay/BackFrame_Syaro_4.png");
+	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa_4, "asset/2Dsprite/GamePlay/BackFrame_Cocoa_4.png");
 
 	//ステージモデルの読み込み
 	//CollisionMesh::load(0, "asset/Stage/test3.mv1");
@@ -56,13 +60,18 @@ void GamePlay::start()
 	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
 	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
 	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"));
+	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
+	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Cocoa"));
+
 	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
+		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"),
+		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"),
 		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Cocoa"));
 
 	world_.add_actor(ActorGroup::Chiya, new_actor<Chiya>(world_, "Chiya", Vector3::Zero, (int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana));
-	//world_.add_actor(ActorGroup::Rize, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, (int)ModelCharaID::Rize, (int)ModelWeaponID::Spear));
-	//world_.add_actor(ActorGroup::Syaro, new_actor<Syaro>(world_, "Syaro", Vector3{ 20.0f,0.0f,0.0f }, (int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun));
-	world_.add_actor(ActorGroup::Cocoa, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,0.0f }, (int)ModelCharaID::Cocoa));
+	world_.add_actor(ActorGroup::Rize, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, (int)ModelCharaID::Rize, (int)ModelWeaponID::Spear));
+	world_.add_actor(ActorGroup::Syaro, new_actor<Syaro>(world_, "Syaro", Vector3{ -20.0f,0.0f,0.0f }, (int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun));
+	world_.add_actor(ActorGroup::Cocoa, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,20.0f }, (int)ModelCharaID::Cocoa));
 
 	//ChangeLightTypeDir(VGet(0.0f, -1.0f, 0.0f));
 }
@@ -84,6 +93,8 @@ void GamePlay::draw() const
 
 	world_.draw();
 	world_.draw2();
+	world_.draw3();
+	world_.draw4();
 }
 
 bool GamePlay::is_end() const

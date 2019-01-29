@@ -24,6 +24,10 @@ enum class SpriteID
 	Frame_Cocoa,
 	HpGauge,
 	TitleBack,
+	Frame_Chiya_4,
+	Frame_Rize_4,
+	Frame_Syaro_4,
+	Frame_Cocoa_4,
 };
 
 #endif

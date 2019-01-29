@@ -27,11 +27,17 @@ public:
 
 	void draw2()const;
 
+	void draw3()const;
+
+	void draw4()const;
+
 	void handle_message(EventMessage message, void* param);
 
 	void add_event_message_listener(EventMessageListener listener);
 
 	void add_camera(const ActorPtr& camera, const ActorPtr& camera1);
+
+	void add_camera(const ActorPtr& camera, const ActorPtr& camera1, const ActorPtr& camera2, const ActorPtr& camera3);
 
 	void add_light(const ActorPtr& light);
 
@@ -44,6 +50,10 @@ public:
 	virtual ActorPtr get_camera0() const override;
 
 	virtual ActorPtr get_camera1() const override;
+
+	virtual ActorPtr get_camera2() const override;
+
+	virtual ActorPtr get_camera3() const override;
 
 	virtual unsigned int get_count_actor(ActorGroup group)const override;
 
@@ -58,6 +68,8 @@ private:
 	ActorGroupManager actors_;
 	ActorPtr camera0_;
 	ActorPtr camera1_;
+	ActorPtr camera2_;
+	ActorPtr camera3_;
 	EventMessageListener listener_{ [](EventMessage,void*) {} };
 };
 

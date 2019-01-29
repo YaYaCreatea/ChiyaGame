@@ -51,6 +51,8 @@ void World::update(float deltaTime)
 
 	camera0_->update(deltaTime);
 	camera1_->update(deltaTime);
+	camera2_->update(deltaTime);
+	camera3_->update(deltaTime);
 }
 
 void World::draw() const
@@ -64,6 +66,22 @@ void World::draw() const
 void World::draw2() const
 {
 	camera1_->draw();
+	SkyBox::draw();
+	CollisionMesh::draw();
+	actors_.draw();
+}
+
+void World::draw3() const
+{
+	camera2_->draw();
+	SkyBox::draw();
+	CollisionMesh::draw();
+	actors_.draw();
+}
+
+void World::draw4() const
+{
+	camera3_->draw();
 	SkyBox::draw();
 	CollisionMesh::draw();
 	actors_.draw();
@@ -88,6 +106,14 @@ void World::add_camera(const ActorPtr & camera, const ActorPtr& camera1)
 {
 	camera0_ = camera;
 	camera1_ = camera1;
+}
+
+void World::add_camera(const ActorPtr & camera, const ActorPtr & camera1, const ActorPtr & camera2, const ActorPtr & camera3)
+{
+	camera0_ = camera;
+	camera1_ = camera1;
+	camera2_ = camera2;
+	camera3_ = camera3;
 }
 
 void World::add_light(const ActorPtr & light)
@@ -117,6 +143,16 @@ ActorPtr World::get_camera0() const
 ActorPtr World::get_camera1() const
 {
 	return camera1_;
+}
+
+ActorPtr World::get_camera2() const
+{
+	return camera2_;
+}
+
+ActorPtr World::get_camera3() const
+{
+	return camera3_;
 }
 
 unsigned int World::get_count_actor(ActorGroup group) const

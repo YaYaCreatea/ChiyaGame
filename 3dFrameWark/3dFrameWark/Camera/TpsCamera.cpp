@@ -11,6 +11,8 @@
 #include "../Utility/MathHelper/MathHelper.h"
 #include "../Utility//Quaternion/Quaternion.h"
 
+#include "../assetsID/AssetsID.h"
+
 #include <math.h>
 
 TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position, std::string l_targetName)
@@ -47,9 +49,13 @@ void TpsCamera::update(float deltaTime)
 	if (m_stateID == CameraStateID::Normal)
 	{
 		if (m_targetName == "Chiya")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_KEY_PAD1);
-		else if (m_targetName == "Rize" || m_targetName == "Syaro" || m_targetName == "Cocoa")
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD1);
+		else if (m_targetName == "Rize")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
+		else if (m_targetName == "Syaro")
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD3);
+		else if (m_targetName == "Cocoa")
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD4);
 
 		m_yawAngle += deltaTime * (inputx_ / 500);
 		m_pitchAngle =
@@ -58,7 +64,7 @@ void TpsCamera::update(float deltaTime)
 		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
 		m_rotation.NormalizeRotationMatrix();
 
-		const Vector3& l_backPosition = -(m_rotation.Forward().Normalize()* 40.0f);
+		const Vector3& l_backPosition = -(m_rotation.Forward().Normalize()* 80.0f);
 		const Vector3& l_upPosition = Vector3{ 0.0f, 25.0f, 0.0f };
 		m_to_target = l_player->get_position() - m_position;
 		m_position = l_player->get_position() + l_backPosition + l_upPosition;
@@ -106,17 +112,36 @@ void TpsCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l
 
 void TpsCamera::draw() const
 {
-	if (m_targetName == "Chiya")
+	/*if (m_targetName == "Chiya")
 	{
 		Graphics3D::viewport(0, 0, 640, 720);
 		SetCameraScreenCenter(320.0f, 360.0f);
-
-
 	}
 	else if (m_targetName == "Rize" || m_targetName == "Syaro" || m_targetName == "Cocoa")
 	{
 		Graphics3D::viewport(640, 0, 1280, 720);
 		SetCameraScreenCenter(960.0f, 360.0f);
+	}*/
+
+	if (m_targetName == "Chiya")
+	{
+		Graphics3D::viewport(0, 0, 640, 360);
+		SetCameraScreenCenter(320.0f, 180.0f);
+	}
+	else if (m_targetName == "Rize")
+	{
+		Graphics3D::viewport(640, 0, 1280, 360);
+		SetCameraScreenCenter(960.0f, 180.0f);
+	}
+	else if (m_targetName == "Syaro")
+	{
+		Graphics3D::viewport(0, 360, 640, 720);
+		SetCameraScreenCenter(320.0f, 540.0f);
+	}
+	else if (m_targetName == "Cocoa")
+	{
+		Graphics3D::viewport(640, 360, 1280, 720);
+		SetCameraScreenCenter(960.0f, 540.0f);
 	}
 
 	Graphics3D::view_matrix(

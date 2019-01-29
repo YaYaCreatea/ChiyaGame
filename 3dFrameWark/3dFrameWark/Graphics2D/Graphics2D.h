@@ -28,6 +28,12 @@ public:
 	//描画(画像の1部分を描画)
 	static void draw_sprite_RCS(int id, const Vector2& position, int x, int y, int w, int h, const Vector2& center = Vector2::Zero, const Vector2& scale = Vector2::One);
 
+	//描画(フレーム用)
+	static void draw_sprite_Frame(int id, const Vector2& position, const Vector2& scale = Vector2::One);
+
+	//描画(フレーム用)
+	static void draw_sprite_Frame4(int id, const Vector2& position, const Vector2& scale = Vector2::One);
+
 	//描画(分割番号指定)
 	static void draw_sprite(int id, int div_no, const Vector2& position, const Vector2& center = Vector2::Zero, const Vector2& scale = Vector2::One, float rotation = 0.0f);
 

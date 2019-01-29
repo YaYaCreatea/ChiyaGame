@@ -7,7 +7,7 @@
 void Title::start()
 {
 	m_isEnd = false;
-	input_.initialize(DX_INPUT_KEY_PAD1);
+	input_.initialize(DX_INPUT_PAD1);
 
 	Graphics2D::initialize();
 	Graphics2D::load_sprite((int)SpriteID::TitleBack, "asset/2Dsprite/Title/TitleBack.png");

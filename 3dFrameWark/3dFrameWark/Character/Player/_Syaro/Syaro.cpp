@@ -30,7 +30,7 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, int l_model, int l_weapon)
+Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
 	input_{},
 	m_state{ PlayerStateName::Idle },
@@ -41,6 +41,7 @@ Syaro::Syaro(IWorld & world, std::string l_name, const Vector3 & l_position, int
 {
 	world_ = &world;
 	m_name = l_name;
+	m_rotation = l_rotate;
 	m_position = l_position;
 	m_prevposition = m_position;
 
@@ -111,7 +112,6 @@ void Syaro::draw() const
 	mesh_.draw();
 	draw_weapon();
 	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 50.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
-	Graphics2D::draw_sprite_Frame4((int)SpriteID::Frame_Syaro_4, Vector2{ 0.0f,360.0f });
 }
 
 void Syaro::react(Actor & other)

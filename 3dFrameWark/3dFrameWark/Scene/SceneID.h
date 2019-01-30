@@ -6,7 +6,8 @@ enum class SceneID
 	Null,
 	Title,
 	Select,
-	Game,
+	GameDuel,
+	GameFour,
 	Result,
 };
 

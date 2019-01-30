@@ -18,7 +18,7 @@ class Syaro :public Actor
 {
 public:
 	//コンストラクタ
-	Syaro(IWorld& world, std::string l_name, const Vector3& l_position, int l_model, int l_weapon);
+	Syaro(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_weapon);
 
 	virtual void update(float deltaTime)override;
 

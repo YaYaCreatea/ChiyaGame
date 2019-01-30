@@ -1,48 +1,48 @@
-#include "TpsCamera.h"
+#include "DuelCamera.h"
 
-#include "../World/IWorld.h"
+#include "../../World/IWorld.h"
 
-#include "../ActorGroupManager/ActorGroup.h"
-#include "../EventMessage.h"
+#include "../../ActorGroupManager/ActorGroup.h"
+#include "../../EventMessage.h"
 
-#include "../Graphics3D/Graphics3D.h"
-#include "../Graphics2D/Graphics2D.h"
-#include "../Utility/Input/GamePad/GamePad.h"
-#include "../Utility/MathHelper/MathHelper.h"
-#include "../Utility//Quaternion/Quaternion.h"
+#include "../../Graphics3D/Graphics3D.h"
+#include "../../Graphics2D/Graphics2D.h"
+#include "../../Utility/Input/GamePad/GamePad.h"
+#include "../../Utility/MathHelper/MathHelper.h"
+#include "../../Utility//Quaternion/Quaternion.h"
 
-#include "../assetsID/AssetsID.h"
+#include "../../assetsID/AssetsID.h"
 
 #include <math.h>
 
-TpsCamera::TpsCamera(IWorld& world, const Vector3& l_position, std::string l_targetName)
+DuelCamera::DuelCamera(IWorld & world, const Vector3 & l_position, float l_yawAngle, std::string l_targetName)
 	:m_stateID{ CameraStateID::Normal },
 	m_playerposition{ Vector3::Zero },
 	m_playerrotate{ Matrix::Identity },
 	m_backDis{ 45.0f },
 	t{ 0.0f },
-	m_yawAngle{ 0.0f },
+	m_yawAngle{ l_yawAngle },
 	m_pitchAngle{ 0.0f },
 	m_targetName{ l_targetName },
 	m_group{ ActorGroup::Neutral }
 {
 	world_ = &world;
-	m_name = "TpsCamera";
+	m_name = "DuelCamera";
 	m_position = l_position;
 	m_lookPos = Vector3::Zero;
-}
 
-void TpsCamera::update(float deltaTime)
-{
 	if (m_targetName == "Chiya")
 		m_group = ActorGroup::Chiya;
 	else if (m_targetName == "Rize")
 		m_group = ActorGroup::Rize;
-	else if(m_targetName == "Syaro")
+	else if (m_targetName == "Syaro")
 		m_group = ActorGroup::Syaro;
-	else if(m_targetName == "Cocoa")
+	else if (m_targetName == "Cocoa")
 		m_group = ActorGroup::Cocoa;
+}
 
+void DuelCamera::update(float deltaTime)
+{
 	auto l_player = world_->find_actor(m_group, m_targetName);
 	if (l_player == nullptr)return;
 
@@ -79,38 +79,9 @@ void TpsCamera::update(float deltaTime)
 			//m_stateID = CameraStateID::Cut;
 		}
 	}
-	/*else if (m_stateID == CameraStateID::Cut)
-	{
-		m_position = Vector3::Lerp(
-			l_player->get_position() + Vector3(3.0f, 10.0f, -20.0f),
-			l_player->get_position() + Vector3(4.0f, 10.0f, -30.0f),
-			t / 2.0f);
-		t += 0.2f*deltaTime;
-		if (GamePad::trigger(GamePad::B)
-			|| t >= 8.0f)
-		{
-			t = 0.0f;
-			m_stateID = CameraStateID::Normal;
-		}
-	}*/
-	//world_->send_message(EventMessage::CameraMatrix, &get_pose());
 }
 
-void TpsCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
-{
-	//バネの伸び具合を計算
-	const auto stretch = m_position - l_rest_position;
-	//バネの力を計算
-	const auto force = -l_stiffness * stretch;
-	//加速度を追加
-	const auto acceleration = force / l_mass;
-	//移動速度を計算
-	m_velocity = l_friction * (m_velocity + acceleration);
-	//座標の更新
-	m_position += m_velocity;
-}
-
-void TpsCamera::draw() const
+void DuelCamera::draw() const
 {
 	if (m_targetName == "Chiya")
 	{
@@ -123,26 +94,7 @@ void TpsCamera::draw() const
 		SetCameraScreenCenter(960.0f, 360.0f);
 	}
 
-	//if (m_targetName == "Chiya")
-	//{
-	//	Graphics3D::viewport(0, 0, 640, 360);
-	//	SetCameraScreenCenter(320.0f, 180.0f);
-	//}
-	//else if (m_targetName == "Rize")
-	//{
-	//	Graphics3D::viewport(640, 0, 1280, 360);
-	//	SetCameraScreenCenter(960.0f, 180.0f);
-	//}
-	//else if (m_targetName == "Syaro")
-	//{
-	//	Graphics3D::viewport(0, 360, 640, 720);
-	//	SetCameraScreenCenter(320.0f, 540.0f);
-	//}
-	//else if (m_targetName == "Cocoa")
-	//{
-	//	Graphics3D::viewport(640, 360, 1280, 720);
-	//	SetCameraScreenCenter(960.0f, 540.0f);
-	//}
+	
 
 	Graphics3D::view_matrix(
 		get_pose().CreateLookAt(m_position, m_lookPos, Vector3::Up)
@@ -151,4 +103,18 @@ void TpsCamera::draw() const
 	Graphics3D::projection_matrix(
 		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 1.0f, 1000.0f)
 	);
+}
+
+void DuelCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
+{
+	//バネの伸び具合を計算
+	const auto stretch = m_position - l_rest_position;
+	//バネの力を計算
+	const auto force = -l_stiffness * stretch;
+	//加速度を追加
+	const auto acceleration = force / l_mass;
+	//移動速度を計算
+	m_velocity = l_friction * (m_velocity + acceleration);
+	//座標の更新
+	m_position += m_velocity;
 }

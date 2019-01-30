@@ -22,9 +22,9 @@ void Attack1::update(float deltaTime)
 
 void Attack1::draw() const
 {
-	Billboard::bind(1);
-	Billboard::draw(m_position + Vector3{ 0.0f,5.0f,0.0f }, 50.0f, 0.5f, 0.5f,45.0f);
-	//bodyCapsule_.draw(get_pose());
+	//Billboard::bind(1);
+	//Billboard::draw(m_position + Vector3{ 0.0f,5.0f,0.0f }, 50.0f, 0.5f, 0.5f,45.0f);
+	bodyCapsule_.draw(get_pose());
 }
 
 void Attack1::react(Actor & other)

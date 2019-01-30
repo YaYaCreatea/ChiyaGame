@@ -29,17 +29,18 @@
 #include "../CharacterAnimationID.h"
 #include "../../../assetsID/AssetsID.h"
 
-Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, int l_model, int l_weapon)
+Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate,int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
 	input_{},
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
 	m_weapon{ l_weapon },
-	m_pi{ Vector3::Zero },
+	m_pi{ l_position + Vector3::Zero },
 	m_piVelo{ Vector3::Zero }
 {
 	world_ = &world;
 	m_name = l_name;
+	m_rotation = l_rotate;
 	m_position = l_position;
 	m_prevposition = m_position;
 
@@ -76,6 +77,8 @@ void Chiya::update(float deltaTime)
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
 		m_motion, m_cameraRoate);
 
+	//oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
+
 	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
 
 	parameters_.Add_StateTimer(1.0f*deltaTime);
@@ -95,8 +98,8 @@ void Chiya::update(float deltaTime)
 	mesh_.update(deltaTime);
 
 	mesh_.transform(get_pose());
-	mesh_.transform(get_pose(), 151, m_pi);
-	mesh_.transform(get_pose(), 157, m_pi);
+	mesh_.transform(get_pose(), 151, Vector3{ m_pi.x,m_pi.y,m_pi.z });
+	mesh_.transform(get_pose(), 157, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 
 	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 
@@ -110,9 +113,6 @@ void Chiya::draw() const
 	mesh_.draw();
 	draw_weapon();
 	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
-	Graphics2D::draw_sprite_Frame4((int)SpriteID::Frame_Chiya_4, Vector2{ 0.0f,0.0f });
-
-	DrawFormatStringF(0.0f, 0.0f, 1, "(%d)", GetJoypadNum());
 }
 
 void Chiya::react(Actor & other)
@@ -181,7 +181,7 @@ void Chiya::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float
 {
 	const Vector3 stretch = m_pi - l_rest_position;
 	const Vector3 force = -l_stiffness * stretch;
-	const Vector3 acceleration = (force / l_mass)*2.0f;
+	const Vector3 acceleration = force / l_mass;
 	m_piVelo = l_friction * (m_piVelo + acceleration);
 	m_pi += m_piVelo;
 }

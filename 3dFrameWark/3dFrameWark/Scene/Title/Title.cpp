@@ -32,7 +32,7 @@ bool Title::is_end() const
 
 SceneID Title::next() const
 {
-	return SceneID::Game;
+	return SceneID::Select;
 }
 
 void Title::end()

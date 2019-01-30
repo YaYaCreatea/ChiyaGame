@@ -31,6 +31,8 @@ int Game::run()
 	//•`‰ææ‚ğ— ‰æ–Ê‚É‚·‚é
 	SetDrawScreen(DX_SCREEN_BACK);
 
+	//SetBackgroundColor(0,255,0);
+
 	//ŠJn
 	start();
 

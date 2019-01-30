@@ -140,6 +140,10 @@
     <ClInclude Include="assetsID\AssetsID.h" />
     <ClInclude Include="Billboard\Billboard.h" />
     <ClInclude Include="Camera\CameraStateID.h" />
+    <ClInclude Include="Camera\DuelCamera\DuelCamera.h" />
+    <ClInclude Include="Camera\FourCamera\FourCamera.h" />
+    <ClInclude Include="Camera\FrameCamera\FrameCamera.h" />
+    <ClInclude Include="Camera\ModeSelectCamera\ModeSelectCamera.h" />
     <ClInclude Include="Camera\TpsCamera.h" />
     <ClInclude Include="Character\Player\CharacterAnimationID.h" />
     <ClInclude Include="Character\Player\PlayerAction\PlayerAction_DamageBreak.h" />
@@ -176,8 +180,11 @@
     <ClInclude Include="SceneManager\SceneManager.h" />
     <ClInclude Include="Scene\IScene.h" />
     <ClInclude Include="Scene\IScenePtr.h" />
+    <ClInclude Include="Scene\ModeSelect\ModeID.h" />
+    <ClInclude Include="Scene\ModeSelect\ModeSelect.h" />
     <ClInclude Include="Scene\NullScene\NullScene.h" />
-    <ClInclude Include="Scene\Play\GamePlay.h" />
+    <ClInclude Include="Scene\Play\Duel.h" />
+    <ClInclude Include="Scene\Play\Four.h" />
     <ClInclude Include="Scene\SceneID.h" />
     <ClInclude Include="Scene\Title\Title.h" />
     <ClInclude Include="SkeletalMesh\SkeletalMesh.h" />
@@ -206,6 +213,10 @@
     <ClCompile Include="AnimatedSprite\AnimatedSprite.cpp" />
     <ClCompile Include="Animation\Animation.cpp" />
     <ClCompile Include="Billboard\Billboard.cpp" />
+    <ClCompile Include="Camera\DuelCamera\DuelCamera.cpp" />
+    <ClCompile Include="Camera\FourCamera\FourCamera.cpp" />
+    <ClCompile Include="Camera\FrameCamera\FrameCamera.cpp" />
+    <ClCompile Include="Camera\ModeSelectCamera\ModeSelectCamera.cpp" />
     <ClCompile Include="Camera\TpsCamera.cpp" />
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_DamageBreak.cpp" />
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_Dash.cpp" />
@@ -237,8 +248,10 @@
     <ClCompile Include="Main\main.cpp" />
     <ClCompile Include="ModelAsset\ModelAsset.cpp" />
     <ClCompile Include="SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Scene\ModeSelect\ModeSelect.cpp" />
     <ClCompile Include="Scene\NullScene\NullScene.cpp" />
-    <ClCompile Include="Scene\Play\GamePlay.cpp" />
+    <ClCompile Include="Scene\Play\Duel.cpp" />
+    <ClCompile Include="Scene\Play\Four.cpp" />
     <ClCompile Include="Scene\Title\Title.cpp" />
     <ClCompile Include="SkeletalMesh\SkeletalMesh.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />

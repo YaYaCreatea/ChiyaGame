@@ -30,17 +30,18 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, int l_model, int l_weapon)
+Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
 	input_{},
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
 	m_weapon{ l_weapon },
-	m_pi{ Vector3::Zero },
+	m_pi{ l_position + Vector3::Zero },
 	m_piVelo{ Vector3::Zero }
 {
 	world_ = &world;
 	m_name = l_name;
+	m_rotation = l_rotate;
 	m_position = l_position;
 	m_prevposition = m_position;
 
@@ -51,7 +52,7 @@ Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, int l
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Attack].add(new_action<PlayerAction_Attack>(world, parameters_, input_));
-	playerActions_[PlayerStateName::Break].add(new_action<PlayerAction_Break>(world, parameters_,input_));
+	playerActions_[PlayerStateName::Break].add(new_action<PlayerAction_Break>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Jump].add(new_action<PlayerAction_Jump>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Damage].add(new_action<PlayerAction_Damage>(world, parameters_));
 	playerActions_[PlayerStateName::DamageBreak].add(new_action<PlayerAction_DamageBreak>(world, parameters_));
@@ -112,7 +113,6 @@ void Rize::draw() const
 	mesh_.draw();
 	draw_weapon();
 	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
-	Graphics2D::draw_sprite_Frame4((int)SpriteID::Frame_Rize_4, Vector2{ 640.0f,0.0f });
 }
 
 void Rize::react(Actor & other)
@@ -181,7 +181,7 @@ void Rize::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float 
 {
 	const Vector3 stretch = m_pi - l_rest_position;
 	const Vector3 force = -l_stiffness * stretch;
-	const Vector3 acceleration = (force / l_mass)*2.0f;
+	const Vector3 acceleration = force / l_mass;
 	m_piVelo = l_friction * (m_piVelo + acceleration);
 	m_pi += m_piVelo;
 }

@@ -51,6 +51,8 @@ void World::update(float deltaTime)
 
 	camera0_->update(deltaTime);
 	camera1_->update(deltaTime);
+
+	if (camera2_ == nullptr)return;
 	camera2_->update(deltaTime);
 	camera3_->update(deltaTime);
 }

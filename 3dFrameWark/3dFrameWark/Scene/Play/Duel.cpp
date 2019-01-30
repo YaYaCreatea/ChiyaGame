@@ -1,9 +1,9 @@
-#include "GamePlay.h"
+#include "Duel.h"
 
 #include "../../ActorGroupManager/ActorGroup.h"
 #include "../../EventMessage.h"
 
-#include "../../Camera/TpsCamera.h"
+#include "../../Camera/DuelCamera/DuelCamera.h"
 #include "../../Character/Player/Player.h"
 #include "../../Character/Player/_Chiya/Chiya.h"
 #include "../../Character/Player/_Rize/Rize.h"
@@ -14,7 +14,7 @@
 #include "../../assetsID/AssetsID.h"
 #include "../SceneID.h"
 
-void GamePlay::start()
+void Duel::start()
 {
 	Graphics3D::initialize();
 	Graphics2D::initialize();
@@ -46,7 +46,6 @@ void GamePlay::start()
 	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa_4, "asset/2Dsprite/GamePlay/BackFrame_Cocoa_4.png");
 
 	//ステージモデルの読み込み
-	//CollisionMesh::load(0, "asset/Stage/test3.mv1");
 	CollisionMesh::load(0, "asset/Stage/StageTest/Stage4.mv1");
 	//スカイボックスの読み込み
 	SkyBox::load(0, "asset/skybox/Dome_SS601.mv1");
@@ -56,33 +55,25 @@ void GamePlay::start()
 
 	world_.initialize();
 
-	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
-	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize"));
-	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
-	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"));
-	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
-	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Cocoa"));
+	world_.add_camera(new_actor<DuelCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Chiya"),
+		new_actor<DuelCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Rize"));
+	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Chiya"),
+	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Syaro"));
+	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Chiya"),
+	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Cocoa"));
 
-	world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Chiya"),
-		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Rize")/*,
-		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Syaro"),
-		new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, "Cocoa")*/);
-
-
-	world_.add_actor(ActorGroup::Chiya, new_actor<Chiya>(world_, "Chiya", Vector3::Zero, (int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana));
-	world_.add_actor(ActorGroup::Rize, new_actor<Rize>(world_, "Rize", Vector3{ 20.0f,0.0f,0.0f }, (int)ModelCharaID::Rize, (int)ModelWeaponID::Spear));
-	//world_.add_actor(ActorGroup::Syaro, new_actor<Syaro>(world_, "Syaro", Vector3{ -20.0f,0.0f,0.0f }, (int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun));
-	//world_.add_actor(ActorGroup::Cocoa, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,20.0f }, (int)ModelCharaID::Cocoa));
-
-	//ChangeLightTypeDir(VGet(0.0f, -1.0f, 0.0f));
+	world_.add_actor(ActorGroup::Chiya, new_actor<Chiya>(world_, "Chiya", Vector3{ 0.0f,0.0f,-540.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f), (int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana));
+	world_.add_actor(ActorGroup::Rize, new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,540.0f }, Matrix::Identity, (int)ModelCharaID::Rize, (int)ModelWeaponID::Spear));
+	//world_.add_actor(ActorGroup::Syaro, new_actor<Syaro>(world_, "Syaro", Vector3{ -20.0f,0.0f,0.0f },Matrix::Identity, (int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun));
+	//world_.add_actor(ActorGroup::Cocoa, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,20.0f },Matrix::Identity, (int)ModelCharaID::Cocoa));
 }
 
-void GamePlay::update(float deltaTime)
+void Duel::update(float deltaTime)
 {
 	world_.update(deltaTime);
 }
 
-void GamePlay::draw() const
+void Duel::draw() const
 {
 	//画面のクリア
 	Graphics3D::clear();
@@ -94,21 +85,21 @@ void GamePlay::draw() const
 
 	world_.draw();
 	world_.draw2();
-	//world_.draw3();
-	//world_.draw4();
+
+	frameCamera_.drawDuel();
 }
 
-bool GamePlay::is_end() const
+bool Duel::is_end() const
 {
 	return m_isEnd;
 }
 
-SceneID GamePlay::next() const
+SceneID Duel::next() const
 {
 	return SceneID::Title;
 }
 
-void GamePlay::end()
+void Duel::end()
 {
 	world_.clear();
 

@@ -27,9 +27,19 @@ void Actor::collide(Actor & other)
 	}
 }
 
+void Actor::set_IsDown(bool l_isDown)
+{
+	m_isDown = l_isDown;
+}
+
 void Actor::die()
 {
 	m_isdead = true;
+}
+
+bool Actor::get_IsDown() const
+{
+	return m_isDown;
 }
 
 bool Actor::is_dead() const

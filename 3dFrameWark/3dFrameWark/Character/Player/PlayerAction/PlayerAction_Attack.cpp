@@ -32,7 +32,7 @@ void PlayerAction_Attack::ActionUpdate(
 		{
 			world_->add_actor(
 				ActorGroup::ChiyaAction,
-				new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+				new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*6.0f), 8.0f, l_pose, 0.0f, 8.0f)
 			);
 			m_isSpawn = true;
 		}
@@ -43,7 +43,7 @@ void PlayerAction_Attack::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::RizeAction,
-					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose)
+					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose, 10.0f)
 				);
 				m_isSpawn = true;
 			}
@@ -53,7 +53,7 @@ void PlayerAction_Attack::ActionUpdate(
 				{
 					world_->add_actor(
 						ActorGroup::RizeAction,
-						new_actor<Attack1>("Attack", l_position, 18.0f, l_pose)
+						new_actor<Attack1>("Attack", l_position + Vector3{ 0.0f,-8.0f,0.0f }, 20.0f, l_pose)
 					);
 					m_isSpawn = true;
 				}

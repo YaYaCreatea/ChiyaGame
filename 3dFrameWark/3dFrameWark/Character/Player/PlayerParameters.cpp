@@ -14,6 +14,7 @@ void PlayerParameters::Initialize(std::string l_name, int l_Hp)
 	m_state_timer = 0.0f;
 	m_end_time = 0.0f;
 	m_breakDirection = Vector3::Zero;
+	m_isDown = false;
 }
 
 void PlayerParameters::Set_StateTimer(float l_state_timer)
@@ -84,4 +85,14 @@ void PlayerParameters::Set_BreakDirection(Vector3 l_direction)
 Vector3 PlayerParameters::Get_BreakDirection() const
 {
 	return m_breakDirection;
+}
+
+void PlayerParameters::DidDown()
+{
+	m_isDown = true;
+}
+
+bool PlayerParameters::Get_IsDown() const
+{
+	return m_isDown;
 }

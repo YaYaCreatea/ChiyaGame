@@ -27,6 +27,10 @@ public:
 
 	void collide(Actor& other);
 
+	void set_IsDown(bool l_isDown);
+
+	bool get_IsDown()const;
+
 	void die();
 
 	bool is_dead()const;
@@ -67,6 +71,7 @@ protected:
 
 	BoundingCapsule bodyCapsule_{};
 
+	bool m_isDown{ false };
 	bool m_isdead{ false };
 };
 

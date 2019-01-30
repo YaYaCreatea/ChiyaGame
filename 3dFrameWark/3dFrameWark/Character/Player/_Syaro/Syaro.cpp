@@ -100,6 +100,8 @@ void Syaro::update(float deltaTime)
 	//mesh_.transform(get_pose(), 120, m_pi);
 	//mesh_.transform(get_pose(), 126, m_pi);
 
+	set_IsDown(parameters_.Get_IsDown());
+
 	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 
 	auto l_camera2 = world_->get_camera2();

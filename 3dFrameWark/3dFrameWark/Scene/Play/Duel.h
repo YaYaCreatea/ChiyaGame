@@ -27,6 +27,9 @@ public:
 	void end()override;
 
 private:
+	void EndCheck();
+
+private:
 	World world_;
 	FrameCamera frameCamera_;
 

@@ -101,6 +101,8 @@ void Chiya::update(float deltaTime)
 	mesh_.transform(get_pose(), 151, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 	mesh_.transform(get_pose(), 157, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 
+	set_IsDown(parameters_.Get_IsDown());
+
 	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 
 	auto l_camera0 = world_->get_camera0();

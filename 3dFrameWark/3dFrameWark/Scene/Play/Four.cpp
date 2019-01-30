@@ -93,6 +93,8 @@ void Four::start()
 void Four::update(float deltaTime)
 {
 	world_.update(deltaTime);
+
+	EndCheck();
 }
 
 void Four::draw() const
@@ -120,7 +122,7 @@ bool Four::is_end() const
 
 SceneID Four::next() const
 {
-	return SceneID::Title;
+	return SceneID::Select;
 }
 
 void Four::end()
@@ -146,4 +148,44 @@ void Four::end()
 	SkyBox::finalize();
 	Graphics3D::finalize();
 	Graphics2D::finalize();
+}
+
+void Four::EndCheck()
+{
+	if (!world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown())
+	{
+		if (world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
+		{
+			m_isEnd = true;
+		}
+	}
+	else if (!world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown())
+	{
+		if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
+		{
+			m_isEnd = true;
+		}
+	}
+	else if (!world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown())
+	{
+		if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
+		{
+			m_isEnd = true;
+		}
+	}
+	else if (!world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
+	{
+		if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown()
+			&& world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown())
+		{
+			m_isEnd = true;
+		}
+	}
 }

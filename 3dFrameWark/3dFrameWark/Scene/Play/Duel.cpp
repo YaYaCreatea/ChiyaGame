@@ -71,6 +71,8 @@ void Duel::start()
 void Duel::update(float deltaTime)
 {
 	world_.update(deltaTime);
+
+	EndCheck();
 }
 
 void Duel::draw() const
@@ -96,7 +98,7 @@ bool Duel::is_end() const
 
 SceneID Duel::next() const
 {
-	return SceneID::Title;
+	return SceneID::Select;
 }
 
 void Duel::end()
@@ -122,4 +124,23 @@ void Duel::end()
 	SkyBox::finalize();
 	Graphics3D::finalize();
 	Graphics2D::finalize();
+}
+
+void Duel::EndCheck()
+{
+	if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+		|| world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown())
+	{
+		m_isEnd = true;
+	}
+	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+	//	|| world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown())
+	//{
+	//	m_isEnd = true;
+	//}
+	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+	//	|| world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
+	//{
+	//	m_isEnd = true;
+	//}
 }

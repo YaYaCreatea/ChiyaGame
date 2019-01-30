@@ -41,6 +41,9 @@ public:
 	void Set_BreakDirection(Vector3 l_direction);
 	Vector3 Get_BreakDirection()const;
 
+	void DidDown();
+	bool Get_IsDown()const;
+
 private:
 	ActorGroup m_myGroup;
 
@@ -55,6 +58,8 @@ private:
 	float m_end_time;
 
 	Vector3 m_breakDirection;
+
+	bool m_isDown;
 
 };
 

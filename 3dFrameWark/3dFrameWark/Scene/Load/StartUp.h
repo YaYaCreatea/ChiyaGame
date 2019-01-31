@@ -1,13 +1,14 @@
-#ifndef _TITLE_H_
-#define _TITLE_H_
+#ifndef _START_UP_H_
+#define _START_UP_H_
 
 #include "../../Scene/IScene.h"
 
-#include "../../Utility/Input/InputState.h"
+#include "../../AssetsLoad/StartUpLoad/StartUpLoad.h"
 
-class Title :public IScene
+class StartUp :public IScene
 {
 public:
+	StartUp(StartUpLoad& l_load);
 	void start()override;
 	void update(float deltaTime)override;
 	void draw()const override;
@@ -16,8 +17,10 @@ public:
 	void end()override;
 
 private:
-	InputState input_;
-	bool m_isEnd;	//èIóπÉtÉâÉO
+	StartUpLoad* load_{ nullptr };
+
+	bool m_isEnd;
+	float m_nextTimer;
 };
 
 #endif

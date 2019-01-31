@@ -32,6 +32,7 @@ enum class SpriteID
 	Frame_Rize_4,
 	Frame_Syaro_4,
 	Frame_Cocoa_4,
+	LoadGauge,
 };
 
 #endif

@@ -3,23 +3,15 @@
 
 #include "../../Scene/IScene.h"
 
-#include "../../Graphics3D/Graphics3D.h"
-#include "../../Graphics2D/Graphics2D.h"
-#include "../../SkeletalMesh/SkeletalMesh.h"
-#include "../../StaticMesh/StaticMesh.h"
-#include "../../CollisionMesh/CollisionMesh.h"
-#include "../../SkyBox/SkyBox.h"
-#include "../../Billboard/Billboard.h"
-#include "../../Utility/Matrix/Matrix.h"
-#include "../../Utility/Vector3/Vector3.h"
-
 #include "../../World/World.h"
-
 #include "../../Camera/FrameCamera/FrameCamera.h"
+
+#include "../../AssetsLoad/PlayLoad/PlayLoad.h"
 
 class Four :public IScene
 {
 public:
+	Four(PlayLoad& l_load);
 	void start()override;
 	void update(float deltaTime)override;
 	void draw()const override;
@@ -31,6 +23,8 @@ private:
 	void EndCheck();
 
 private:
+	PlayLoad* load_{ nullptr };
+
 	World world_;
 	FrameCamera frameCamera_;
 

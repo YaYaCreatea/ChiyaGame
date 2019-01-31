@@ -3,6 +3,10 @@
 
 #include "../Game/Game.h"
 #include "../SceneManager/SceneManager.h"
+#include "../Scene/SceneParameters.h"
+
+#include "../AssetsLoad/StartUpLoad/StartUpLoad.h"
+#include "../AssetsLoad/PlayLoad/PlayLoad.h"
 
 class GameFrame :public Game
 {
@@ -25,8 +29,11 @@ private:
 	void end()override;
 
 private:
-	//World world_;
 	SceneManager sceneManager_;
+	SceneParameters sceneParameters_;
+
+	StartUpLoad startUpload_;
+	PlayLoad playload_;
 };
 
 #endif

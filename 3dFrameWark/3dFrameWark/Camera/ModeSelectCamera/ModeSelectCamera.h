@@ -4,13 +4,16 @@
 #include "../../Utility/Matrix/Matrix.h"
 #include "../../Utility/Vector3/Vector3.h"
 
+//モードセレクト用カメラ
 class ModeSelectCamera
 {
 public:
 	ModeSelectCamera();
 	~ModeSelectCamera();
+	void initialize();
 	void update(float deltaTime);
 	void drawBack()const;
+	void finalize();
 
 	Matrix get_pose()const;
 

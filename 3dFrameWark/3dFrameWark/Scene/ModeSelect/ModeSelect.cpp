@@ -3,28 +3,23 @@
 #include "../../assetsID/AssetsID.h"
 
 #include "../../Utility/Vector2/Vector2.h"
+#include "../../Graphics2D/Graphics2D.h"
 
-#include "../../CollisionMesh/CollisionMesh.h"
-#include "../../SkyBox/SkyBox.h"
+ModeSelect::ModeSelect(SceneParameters & l_sceneParameters, StartUpLoad& l_load)
+{
+	sceneParameters_ = &l_sceneParameters;
+	load_ = &l_load;
+}
 
 void ModeSelect::start()
 {
 	m_modeID = ModeID::Duel;
-	m_nextSceneID = SceneID::GameDuel;
+	sceneParameters_->Set_NextSceneID(SceneID::GameDuel);
 
 	m_isEnd = false;
 	input_.initialize(DX_INPUT_PAD1);
 
-	CollisionMesh::initialize();
-	SkyBox::initialize();
-	CollisionMesh::load(0, "asset/Stage/StageTest/Stage4.mv1");
-	SkyBox::load(0, "asset/skybox/Dome_SS601.mv1");
-
-	Graphics2D::initialize();
-	Graphics2D::load_sprite((int)SpriteID::Mode1on1_Act, "asset/2Dsprite/ModeSelect/Mode1on1_Act.png");
-	Graphics2D::load_sprite((int)SpriteID::Mode1on1_Dact, "asset/2Dsprite/ModeSelect/Mode1on1_Dact.png");
-	Graphics2D::load_sprite((int)SpriteID::ModeFour_Act, "asset/2Dsprite/ModeSelect/ModeFour_Act.png");
-	Graphics2D::load_sprite((int)SpriteID::ModeFour_Dact, "asset/2Dsprite/ModeSelect/ModeFour_Dact.png");
+	camera_.initialize();
 }
 
 void ModeSelect::update(float deltaTime)
@@ -40,19 +35,19 @@ void ModeSelect::update(float deltaTime)
 	case ModeID::Duel:
 		if (input_.Trigger(PAD_INPUT_RIGHT))
 		{
-			m_nextSceneID = SceneID::GameFour;
+			sceneParameters_->Set_NextSceneID(SceneID::GameFour);
 			m_modeID = ModeID::Four;
 		}
 		break;
-	case ModeID::Four:		
+	case ModeID::Four:
 		if (input_.Trigger(PAD_INPUT_LEFT))
 		{
-			m_nextSceneID = SceneID::GameDuel;
+			sceneParameters_->Set_NextSceneID(SceneID::GameDuel);
 			m_modeID = ModeID::Duel;
 		}
 		break;
 	}
-	
+
 }
 
 void ModeSelect::draw() const
@@ -70,7 +65,7 @@ void ModeSelect::draw() const
 		Graphics2D::draw_sprite((int)SpriteID::ModeFour_Act, Vector2{ 640.0f,0.0f });
 		break;
 	}
-	
+
 }
 
 bool ModeSelect::is_end() const
@@ -80,15 +75,12 @@ bool ModeSelect::is_end() const
 
 SceneID ModeSelect::next() const
 {
-	return m_nextSceneID;
+	return SceneID::GameLoad;
 }
 
 void ModeSelect::end()
 {
-	CollisionMesh::erase(0);
-	SkyBox::erase(0);
-
-	Graphics2D::finalize();
-	CollisionMesh::finalize();
-	SkyBox::finalize();
+	camera_.finalize();
+	//タイトル～モードセレクトのリソースアンロード
+	load_->UnLoad();
 }

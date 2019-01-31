@@ -13,6 +13,14 @@ ModeSelectCamera::~ModeSelectCamera()
 {
 }
 
+void ModeSelectCamera::initialize()
+{
+	Graphics3D::initialize();
+	m_stageRotation = Matrix::Identity;
+	m_position = Vector3::Zero;
+}
+
+//çXêV
 void ModeSelectCamera::update(float deltaTime)
 {
 	m_stageRotation *= Matrix::CreateRotationY(deltaTime / 10.0f);
@@ -21,6 +29,7 @@ void ModeSelectCamera::update(float deltaTime)
 	m_position = m_stageRotation.Forward()*900.0f + Vector3{ 0.0f,400.0f,0.0f };
 }
 
+//îwåiï`âÊ
 void ModeSelectCamera::drawBack()const
 {
 	Graphics3D::viewport(0, 0, 1280, 720);
@@ -37,6 +46,11 @@ void ModeSelectCamera::drawBack()const
 	Graphics3D::projection_matrix(
 		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 4.0f, 1800.0f)
 	);
+}
+
+void ModeSelectCamera::finalize()
+{
+	Graphics3D::finalize();
 }
 
 Matrix ModeSelectCamera::get_pose() const

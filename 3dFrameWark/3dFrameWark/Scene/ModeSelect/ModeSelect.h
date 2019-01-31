@@ -3,17 +3,20 @@
 
 #include "../../Scene/IScene.h"
 
-#include "../../Utility/Input/InputState.h"
-#include "../../Graphics2D/Graphics2D.h"
-
 #include "../SceneID.h"
 #include "ModeID.h"
 
 #include "../../Camera/ModeSelectCamera/ModeSelectCamera.h"
+#include "../../Utility/Input/InputState.h"
+
+#include "../SceneParameters.h"
+
+#include "../../AssetsLoad/StartUpLoad/StartUpLoad.h"
 
 class ModeSelect :public IScene
 {
 public:
+	ModeSelect(SceneParameters& l_sceneParameters, StartUpLoad& l_load);
 	void start()override;
 	void update(float deltaTime)override;
 	void draw()const override;
@@ -22,10 +25,12 @@ public:
 	void end()override;
 
 private:
+	SceneParameters* sceneParameters_{ nullptr };
+	StartUpLoad* load_{ nullptr };
+
 	ModeSelectCamera camera_;
 
 	ModeID m_modeID;
-	SceneID m_nextSceneID;
 
 	InputState input_;
 	bool m_isEnd;	//èIóπÉtÉâÉO

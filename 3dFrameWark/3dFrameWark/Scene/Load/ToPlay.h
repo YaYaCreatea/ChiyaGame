@@ -1,17 +1,16 @@
-#ifndef _DUEL_H_
-#define _DUEL_H_
+#ifndef _TO_PLAY_H_
+#define _TO_PLAY_H_
 
 #include "../../Scene/IScene.h"
 
-#include "../../World/World.h"
-#include "../../Camera/FrameCamera/FrameCamera.h"
-
 #include "../../AssetsLoad/PlayLoad/PlayLoad.h"
 
-class Duel :public IScene
+#include "../SceneParameters.h"
+
+class ToPlay :public IScene
 {
 public:
-	Duel(PlayLoad& l_load);
+	ToPlay(SceneParameters& l_sceneParameters, PlayLoad& l_load);
 	void start()override;
 	void update(float deltaTime)override;
 	void draw()const override;
@@ -20,15 +19,11 @@ public:
 	void end()override;
 
 private:
-	void EndCheck();
-
-private:
+	SceneParameters* sceneParameters_{ nullptr };
 	PlayLoad* load_{ nullptr };
 
-	World world_;
-	FrameCamera frameCamera_;
-
-	bool m_isEnd;	//èIóπÉtÉâÉO
+	bool m_isEnd;
+	float m_nextTimer;
 };
 
 #endif

@@ -4,8 +4,10 @@
 enum class SceneID
 {
 	Null,
+	StartUp,
 	Title,
 	Select,
+	GameLoad,
 	GameDuel,
 	GameFour,
 	Result,

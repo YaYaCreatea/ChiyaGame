@@ -14,6 +14,7 @@ FrameCamera::~FrameCamera()
 {
 }
 
+//•`‰æ(Duel—p)
 void FrameCamera::drawDuel() const
 {
 	Graphics3D::viewport(0, 0, 1280, 720);
@@ -23,6 +24,7 @@ void FrameCamera::drawDuel() const
 	DrawFormatStringF(0.0f, 0.0f, 1, "(%d)", GetJoypadNum());
 }
 
+//•`‰æ(Four—p)
 void FrameCamera::drawFour() const
 {
 	Graphics3D::viewport(0, 0, 1280, 720);

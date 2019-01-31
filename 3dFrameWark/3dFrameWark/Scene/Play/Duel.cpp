@@ -15,7 +15,7 @@
 #include "../../Character/Player/_Rize/Rize.h"
 #include "../../Character/Player/_Syaro/Syaro.h"
 #include "../../Character/Player/_Cocoa/Cocoa.h"
-#include "../../Character/Enemy/Enemy.h"
+#include "../../Character/Enemy/Boss0/Boss0.h"
 
 
 Duel::Duel(PlayLoad & l_load)
@@ -40,6 +40,8 @@ void Duel::start()
 
 	world_.add_actor(ActorGroup::Chiya, new_actor<Chiya>(world_, "Chiya", Vector3{ 0.0f,0.0f,-540.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f), (int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana));
 	world_.add_actor(ActorGroup::Rize, new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,540.0f }, Matrix::Identity, (int)ModelCharaID::Rize, (int)ModelWeaponID::Spear));
+	world_.add_actor(ActorGroup::Boss, new_actor<Boss0>(world_, "Boss", Vector3{ 0.0f,0.0f,0.0f }, (int)ModelCharaID::Boss));
+
 	//world_.add_actor(ActorGroup::Syaro, new_actor<Syaro>(world_, "Syaro", Vector3{ -20.0f,0.0f,0.0f },Matrix::Identity, (int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun));
 	//world_.add_actor(ActorGroup::Cocoa, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,20.0f },Matrix::Identity, (int)ModelCharaID::Cocoa));
 }

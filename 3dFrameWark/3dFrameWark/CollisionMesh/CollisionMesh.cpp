@@ -54,7 +54,7 @@ void CollisionMesh::draw()
 //ü•ª‚Æ‚ÌÕ“Ë”»’è
 bool CollisionMesh::collide_line(const Vector3 & start, const Vector3 & end, Vector3 * point, Vector3 * normal)
 {
-	const auto coll_poly = MV1CollCheck_Line(model_, 0, start, end);
+	const auto coll_poly = MV1CollCheck_Line(model_, -1, start, end);
 	if (coll_poly.HitFlag == TRUE)
 	{
 		if (point != nullptr)
@@ -72,7 +72,7 @@ bool CollisionMesh::collide_line(const Vector3 & start, const Vector3 & end, Vec
 bool CollisionMesh::collide_sphere(const Vector3 & center, const Vector3&center2, float radius, Vector3 * result)
 {
 	//‹…‚ÆƒƒbƒVƒ…‚ÌÕ“Ë”»’è
-	const auto coll_poly = MV1CollCheck_Capsule(model_, 0, center, center2, radius);
+	const auto coll_poly = MV1CollCheck_Capsule(model_, -1, center, center2, radius);
 	//Õ“Ë‚µ‚Ä‚¢‚È‚¯‚ê‚ÎI—¹
 	if (coll_poly.HitNum == 0)
 	{

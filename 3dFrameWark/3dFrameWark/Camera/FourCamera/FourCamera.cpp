@@ -10,6 +10,7 @@
 #include "../../Utility/Input/GamePad/GamePad.h"
 #include "../../Utility/MathHelper/MathHelper.h"
 #include "../../Utility//Quaternion/Quaternion.h"
+#include "../../CollisionMesh/CollisionMesh.h"
 
 #include "../../assetsID/AssetsID.h"
 
@@ -68,16 +69,12 @@ void FourCamera::update(float deltaTime)
 		const Vector3& l_upPosition = Vector3{ 0.0f, 25.0f, 0.0f };
 		m_to_target = l_player->get_position() - m_position;
 		m_position = l_player->get_position() + l_backPosition + l_upPosition;
-		//move(l_player->get_position() + l_backPosition + l_upPosition, 0.5f, 0.1f, 2.0f);
 		m_lookPos = Vector3{
 			l_player->get_position().x,
 			l_player->get_position().y + 16.0f,
 			l_player->get_position().z };
 
-		if (GamePad::trigger(GamePad::X))
-		{
-			//m_stateID = CameraStateID::Cut;
-		}
+		CollisionMesh::collide_line(m_position, m_lookPos, &m_position);
 	}
 }
 

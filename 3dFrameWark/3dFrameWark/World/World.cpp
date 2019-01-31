@@ -3,6 +3,8 @@
 #include "../ActorGroupManager/ActorGroup.h"
 #include "../Actor/Actor.h"
 
+#include "../assetsID/AssetsID.h"
+
 World::World()
 {
 	initialize();
@@ -19,6 +21,8 @@ void World::initialize()
 	actors_.add(ActorGroup::SyaroAction);
 	actors_.add(ActorGroup::Cocoa);
 	actors_.add(ActorGroup::CocoaAction);
+	actors_.add(ActorGroup::Boss);
+	actors_.add(ActorGroup::BossBody);
 	actors_.add(ActorGroup::Neutral);
 	actors_.add(ActorGroup::Effect);
 }
@@ -30,9 +34,13 @@ void World::update(float deltaTime)
 	actors_.collide(ActorGroup::Chiya, ActorGroup::Rize);
 	actors_.collide(ActorGroup::Chiya, ActorGroup::Syaro);
 	actors_.collide(ActorGroup::Chiya, ActorGroup::Cocoa);
+	actors_.collide(ActorGroup::Chiya, ActorGroup::Boss);
 	actors_.collide(ActorGroup::Rize, ActorGroup::Syaro);
 	actors_.collide(ActorGroup::Rize, ActorGroup::Cocoa);
+	actors_.collide(ActorGroup::Rize, ActorGroup::Boss);
 	actors_.collide(ActorGroup::Syaro, ActorGroup::Cocoa);
+	actors_.collide(ActorGroup::Syaro, ActorGroup::Boss);
+	actors_.collide(ActorGroup::Cocoa, ActorGroup::Boss);
 
 	actors_.collide(ActorGroup::Chiya, ActorGroup::RizeAction);
 	actors_.collide(ActorGroup::Chiya, ActorGroup::SyaroAction);
@@ -46,6 +54,14 @@ void World::update(float deltaTime)
 	actors_.collide(ActorGroup::Cocoa, ActorGroup::ChiyaAction);
 	actors_.collide(ActorGroup::Cocoa, ActorGroup::RizeAction);
 	actors_.collide(ActorGroup::Cocoa, ActorGroup::SyaroAction);
+	actors_.collide(ActorGroup::Boss, ActorGroup::ChiyaAction);
+	actors_.collide(ActorGroup::Boss, ActorGroup::RizeAction);
+	actors_.collide(ActorGroup::Boss, ActorGroup::SyaroAction);
+	actors_.collide(ActorGroup::Boss, ActorGroup::CocoaAction);
+	actors_.collide(ActorGroup::BossBody, ActorGroup::ChiyaAction);
+	actors_.collide(ActorGroup::BossBody, ActorGroup::RizeAction);
+	actors_.collide(ActorGroup::BossBody, ActorGroup::SyaroAction);
+	actors_.collide(ActorGroup::BossBody, ActorGroup::CocoaAction);
 
 	actors_.remove();
 

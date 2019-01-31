@@ -11,6 +11,8 @@ enum class ActorGroup
 	RizeAction,
 	SyaroAction,
 	CocoaAction,
+	Boss,
+	BossBody,
 	Neutral,
 	Effect,
 };

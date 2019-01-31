@@ -7,6 +7,7 @@ enum class ModelCharaID
 	Rize,
 	Syaro,
 	Cocoa,
+	Boss,
 };
 
 enum class ModelWeaponID

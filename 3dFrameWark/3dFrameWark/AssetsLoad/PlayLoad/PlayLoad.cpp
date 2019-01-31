@@ -35,6 +35,7 @@ void PlayLoad::Load()
 	SkeletalMesh::load((int)ModelCharaID::Rize, "asset/Rize/リゼ.mv1");
 	SkeletalMesh::load((int)ModelCharaID::Syaro, "asset/Syaro/シャロ.mv1");
 	SkeletalMesh::load((int)ModelCharaID::Cocoa, "asset/Cocoa/ココア.mv1");
+	SkeletalMesh::load((int)ModelCharaID::Boss, "asset/Boss/怪獣.mv1");
 
 	//スタティックメッシュ読み込み
 	StaticMesh::load((int)ModelWeaponID::Spear, "asset/weapon/Spear.mv1");

@@ -7,6 +7,7 @@
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
 
+
 PlayerAction_Attack::PlayerAction_Attack(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
 	world_ = &world;
@@ -19,6 +20,7 @@ void PlayerAction_Attack::ActionInitialize()
 	m_nextAction = false;
 	m_isSpawn = false;
 	m_isCombo = false;
+	m_direction = Vector3::Zero;
 }
 
 void PlayerAction_Attack::ActionUpdate(
@@ -45,6 +47,10 @@ void PlayerAction_Attack::ActionUpdate(
 					ActorGroup::RizeAction,
 					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose, 10.0f)
 				);
+				//world_->add_actor(
+				//	ActorGroup::RizeAction,
+				//	new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+				//);
 				m_isSpawn = true;
 			}
 			else if (l_motion == (int)RizeAnmID::Combo2)
@@ -105,6 +111,27 @@ void PlayerAction_Attack::ActionUpdate(
 				}
 			}
 		}
+	}
+
+	if (parameters_->Get_IsLockOn())
+	{
+		if (parameters_->Get_Name() == "Chiya")
+		{
+			auto l_rize = world_->find_actor(ActorGroup::Rize, "Rize");
+			m_direction = l_rize->get_position() - l_position;
+		}
+		else if (parameters_->Get_Name() == "Rize")
+		{
+			auto l_chiya = world_->find_actor(ActorGroup::Chiya, "Chiya");
+			m_direction = l_chiya->get_position() - l_position;
+		}
+		m_direction.Normalize();
+
+		l_prevposition = l_position;
+		Vector3 l_directionOffset{ -m_direction.x,0.0f,m_direction.z };
+
+		l_rotation = Matrix::CreateLookAt(l_position, l_position - l_directionOffset, l_pose.Up());
+		l_position += (m_direction*1.4f) * deltaTime;
 	}
 
 	if (input_->Trigger(PAD_INPUT_3))

@@ -34,6 +34,17 @@ void Animation::change_motion(int l_motion)
 	m_lerpTimer = 0.0f;
 }
 
+void Animation::change_motion_same(int l_motion)
+{
+	m_prev_motion = m_motion;
+	m_prev_motionTimer = m_motionTimer;
+
+	m_motion = l_motion;
+	m_motionTimer = 0.0f;
+
+	m_lerpTimer = 0.0f;
+}
+
 int Animation::get_current_motion()
 {
 	return m_motion;

@@ -77,12 +77,12 @@
     <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -174,6 +174,8 @@
     <ClInclude Include="CollisionDetection\BoundingSphere\BoundingSphere.h" />
     <ClInclude Include="CollisionMesh\CollisionMesh.h" />
     <ClInclude Include="CollisionTriangle\CollisionTriangle.h" />
+    <ClInclude Include="EffectAsset\EffectAsset.h" />
+    <ClInclude Include="Effect\Effect.h" />
     <ClInclude Include="EventMessage.h" />
     <ClInclude Include="GameFrame\GameFrame.h" />
     <ClInclude Include="Game\Game.h" />
@@ -250,6 +252,8 @@
     <ClCompile Include="CollisionDetection\BoundingSphere\BoundingSphere.cpp" />
     <ClCompile Include="CollisionMesh\CollisionMesh.cpp" />
     <ClCompile Include="CollisionTriangle\CollisionTriangle.cpp" />
+    <ClCompile Include="EffectAsset\EffectAsset.cpp" />
+    <ClCompile Include="Effect\Effect.cpp" />
     <ClCompile Include="GameFrame\GameFrame.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Graphics2D\Graphics2D.cpp" />

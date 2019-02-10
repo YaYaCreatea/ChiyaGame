@@ -45,7 +45,8 @@ bool InputState::Trigger(int button) const
 
 bool InputState::Release(int button) const
 {
-	if ((~m_currentState&m_previousState&button) != 0)
+	if ((~m_currentState&m_previousState&button) != 0
+		|| (~m_currentState&~m_previousState&button) != 0)
 	{
 		return true;
 	}

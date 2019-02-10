@@ -16,6 +16,7 @@ public:
 private:
 	bool m_isSpawn;
 	bool m_isCombo;
+	Vector3 m_direction;
 };
 
 #endif

@@ -36,6 +36,8 @@ private:
 	//‚¨‚Á‚Ï‚¢—h‚ê
 	void oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass);
 
+	void lockOnCheck();
+
 private:
 
 	//ƒAƒNƒVƒ‡ƒ“ŠÇ—
@@ -64,6 +66,10 @@ private:
 	//‚¨‚Á‚Ï‚¢•Ï”
 	Vector3 m_pi;
 	Vector3 m_piVelo;
+
+	Vector3 m_direction;
+	Vector3 m_forward;
+	float m_distance;
 };
 
 #endif

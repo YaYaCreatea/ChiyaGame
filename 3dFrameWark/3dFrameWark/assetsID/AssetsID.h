@@ -34,6 +34,8 @@ enum class SpriteID
 	Frame_Syaro_4,
 	Frame_Cocoa_4,
 	LoadGauge,
+	LockOnAreaOff,
+	LockOnAreaOn,
 };
 
 #endif

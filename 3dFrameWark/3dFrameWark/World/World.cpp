@@ -5,6 +5,10 @@
 
 #include "../assetsID/AssetsID.h"
 
+#include <EffekseerForDXLib.h>
+#include "../Effect/Effect.h"
+
+
 World::World()
 {
 	initialize();
@@ -76,9 +80,11 @@ void World::update(float deltaTime)
 void World::draw() const
 {	
 	camera0_->draw();
+	// DXライブラリのカメラとEffekseerのカメラを同期する。
+	//Effekseer_Sync3DSetting();
 	SkyBox::draw();
 	CollisionMesh::draw();
-	actors_.draw();	
+	actors_.draw();
 }
 
 void World::draw2() const
@@ -86,7 +92,7 @@ void World::draw2() const
 	camera1_->draw();
 	SkyBox::draw();
 	CollisionMesh::draw();
-	actors_.draw();
+	actors_.draw();	
 }
 
 void World::draw3() const

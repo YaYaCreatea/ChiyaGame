@@ -19,6 +19,8 @@ public:
 	//モーション変更
 	void change_motion(int l_motion);
 
+	void change_motion_same(int l_motion);
+
 	//現在再生中のモーション
 	int get_current_motion();
 

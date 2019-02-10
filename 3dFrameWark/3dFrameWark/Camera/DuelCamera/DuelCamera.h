@@ -40,6 +40,8 @@ private:
 	float m_yawAngle, m_pitchAngle;
 
 	ActorGroup m_group;
+
+	Light light_;
 };
 
 #endif

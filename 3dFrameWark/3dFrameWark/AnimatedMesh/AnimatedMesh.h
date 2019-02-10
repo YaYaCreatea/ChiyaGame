@@ -23,6 +23,8 @@ public:
 	//モーション変更
 	void change_motion(int l_motion);
 
+	void change_motion_same(int l_motion);
+
 	//スケルトンの変換行列を計算する
 	void transform(const Matrix& l_world);
 

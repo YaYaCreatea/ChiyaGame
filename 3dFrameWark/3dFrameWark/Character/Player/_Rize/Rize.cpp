@@ -14,6 +14,10 @@
 
 
 #include "../../../Graphics2D/Graphics2D.h"
+#include "../../../Graphics3D/Graphics3D.h"
+
+#include "../../../Effect/Effect.h"
+
 
 #include "../PlayerAction/PlayerAction_Idle.h"
 #include "../PlayerAction/PlayerAction_Move.h"
@@ -29,6 +33,8 @@
 #include "../CharacterAnimationID.h"
 #include "../../../assetsID/AssetsID.h"
 
+#include <EffekseerForDXLib.h>
+
 
 Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
@@ -37,7 +43,10 @@ Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, Matri
 	m_motion{ 0 },
 	m_weapon{ l_weapon },
 	m_pi{ l_position + Vector3::Zero },
-	m_piVelo{ Vector3::Zero }
+	m_piVelo{ Vector3::Zero },
+	m_direction{ Vector3::Zero },
+	m_forward{ Vector3::Zero },
+	m_distance{ 0.0f }
 {
 	world_ = &world;
 	m_name = l_name;
@@ -62,7 +71,6 @@ Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, Matri
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };
-
 }
 
 void Rize::update(float deltaTime)
@@ -74,6 +82,8 @@ void Rize::update(float deltaTime)
 		m_velocity.y += parameters_.Get_Gravity() * deltaTime;
 		m_position += m_velocity * deltaTime;
 	}
+
+	lockOnCheck();
 
 	playerActions_[m_state].update(
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
@@ -89,12 +99,10 @@ void Rize::update(float deltaTime)
 		playerActions_[m_state].initialize();
 	}
 
-	//モーション変更
 	mesh_.change_motion(m_motion);
 
 	parameters_.Set_EndTime(mesh_.get_motion_end_time());
 
-	//アニメーション更新
 	mesh_.update(deltaTime);
 
 	mesh_.transform(get_pose());
@@ -103,7 +111,10 @@ void Rize::update(float deltaTime)
 
 	set_IsDown(parameters_.Get_IsDown());
 
-	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
+	CollisionMesh::collide_capsule(
+		m_position + Vector3{ 0.0f,3.0f,0.0f },
+		m_position + Vector3{ 0.0f,20.0f,0.0f },
+		3.0f, &m_position);
 
 	auto l_camera1 = world_->get_camera1();
 	if (l_camera1 == nullptr)return;
@@ -114,20 +125,32 @@ void Rize::draw() const
 {
 	mesh_.draw();
 	draw_weapon();
-	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+
+	if (!parameters_.Get_IsLockOn())
+		Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+	else
+		Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+
+	Graphics2D::draw_sprite_RCS(
+		(int)SpriteID::HpGauge, Vector2{ 690.0f,30.0f },
+		0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+		90, Vector2::Zero, Vector2{ 0.3f,0.3f });
 }
 
 void Rize::react(Actor & other)
 {
 	if (parameters_.Get_HP() > 0)
 	{
-		if (other.get_name() == "Attack"
-			&& m_state != PlayerStateName::Damage)
+		if (other.get_name() == "Attack"/*
+			&& m_state != PlayerStateName::Damage*/)
 		{
+			StartJoypadVibration(DX_INPUT_PAD2,250,200);
+
 			m_motion = (int)RizeAnmID::Damage;
 			m_state = PlayerStateName::Damage;
 			playerActions_[m_state].initialize();
 			parameters_.Set_StateTimer(0.0f);
+			mesh_.change_motion_same(m_motion);
 			parameters_.Damage_HP(1);
 
 			if (parameters_.Get_HP() <= 0)
@@ -142,9 +165,11 @@ void Rize::react(Actor & other)
 			return;
 		}
 
-		else if (other.get_name() == "BreakAttack"
-			&& m_state != PlayerStateName::Damage)
+		else if (other.get_name() == "BreakAttack"/*
+			&& m_state != PlayerStateName::Damage*/)
 		{
+			StartJoypadVibration(DX_INPUT_PAD2, 600, 200);
+
 			m_motion = (int)RizeAnmID::DamageBreak;
 			m_state = PlayerStateName::DamageBreak;
 			playerActions_[m_state].initialize();
@@ -164,7 +189,6 @@ void Rize::react(Actor & other)
 			return;
 		}
 	}
-
 	m_position = Vector3(m_prevposition.x, m_position.y, m_prevposition.z);
 }
 
@@ -186,4 +210,26 @@ void Rize::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float 
 	const Vector3 acceleration = force / l_mass;
 	m_piVelo = l_friction * (m_piVelo + acceleration);
 	m_pi += m_piVelo;
+}
+
+void Rize::lockOnCheck()
+{
+	auto l_chiya = world_->find_actor(ActorGroup::Chiya, "Chiya");
+	m_direction = l_chiya->get_position() - m_position;
+	m_direction.Normalize();
+	m_forward = m_cameraRoate.Forward();
+	m_forward.Normalize();
+	m_distance = Vector3::Distance(m_position, l_chiya->get_position());
+
+	if (m_distance > 100.0f
+		|| Vector3::Dot(m_forward, m_direction) < (0.9f - ((100.0f - m_distance) / 500.0f)))
+	{
+		parameters_.LockOn(false);
+		return;
+	}
+
+	else if (Vector3::Dot(m_forward, m_direction) >= (0.9f - ((100.0f - m_distance) / 500.0f)))
+	{
+		parameters_.LockOn(true);
+	}
 }

@@ -23,6 +23,11 @@ void AnimatedMesh::change_motion(int l_motion)
 	animation_.change_motion(l_motion);
 }
 
+void AnimatedMesh::change_motion_same(int l_motion)
+{
+	animation_.change_motion_same(l_motion);
+}
+
 void AnimatedMesh::transform(const Matrix & l_world)
 {
 	SkeletalMesh::bind(m_mesh);

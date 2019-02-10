@@ -8,11 +8,12 @@
 #include "../../SkeletalMesh/SkeletalMesh.h"
 #include "../../StaticMesh/StaticMesh.h"
 #include "../../Billboard/Billboard.h"
+#include "../../Effect/Effect.h"
 
 
 PlayLoad::PlayLoad()
 {
-	
+
 }
 
 PlayLoad::~PlayLoad()
@@ -27,6 +28,7 @@ void PlayLoad::Load()
 	StaticMesh::initialize();
 	Graphics2D::initialize();
 	Billboard::initialize();
+	//Effect::initialize();
 
 	SetUseASyncLoadFlag(TRUE);
 
@@ -53,10 +55,13 @@ void PlayLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::Frame_Rize_4, "asset/2Dsprite/GamePlay/BackFrame_Rize_4.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Syaro_4, "asset/2Dsprite/GamePlay/BackFrame_Syaro_4.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa_4, "asset/2Dsprite/GamePlay/BackFrame_Cocoa_4.png");
+	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOff, "asset/2Dsprite/GamePlay/LockOnArea.png");
+	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOn, "asset/2Dsprite/GamePlay/LockOnAreaOn.png");
 
 	//ビルボードの読み込み
 	Billboard::load(0, "asset/Particle02.png");
 	Billboard::load(1, "asset/2Dsprite/PlayerUI/HpGauge.png");
+	Billboard::load(2, "asset/2Dsprite/GamePlay/lockOnCircle.png");
 
 	SetUseASyncLoadFlag(FALSE);
 
@@ -70,6 +75,7 @@ void PlayLoad::UnLoad()
 	CollisionMesh::finalize();
 	SkyBox::finalize();
 	Billboard::finalize();
+	//Effect::finalize();
 	Graphics2D::finalize();
 }
 

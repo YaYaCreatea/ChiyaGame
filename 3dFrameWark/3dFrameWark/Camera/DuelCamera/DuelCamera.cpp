@@ -15,6 +15,8 @@
 #include "../../assetsID/AssetsID.h"
 
 #include <math.h>
+#include <EffekseerForDXLib.h>
+
 
 DuelCamera::DuelCamera(IWorld & world, const Vector3 & l_position, float l_yawAngle, std::string l_targetName)
 	:m_stateID{ CameraStateID::Normal },
@@ -54,9 +56,9 @@ void DuelCamera::update(float deltaTime)
 		else if (m_targetName == "Rize")
 			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
 		else if (m_targetName == "Syaro")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD3);
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
 		else if (m_targetName == "Cocoa")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD4);
+			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
 
 		m_yawAngle += deltaTime * (inputx_ / 500);
 		m_pitchAngle =
@@ -92,8 +94,6 @@ void DuelCamera::draw() const
 		SetCameraScreenCenter(960.0f, 360.0f);
 	}
 
-
-
 	Graphics3D::view_matrix(
 		get_pose().CreateLookAt(m_position, m_lookPos, Vector3::Up)
 	);
@@ -101,6 +101,23 @@ void DuelCamera::draw() const
 	Graphics3D::projection_matrix(
 		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 1.0f, 1000.0f)
 	);
+
+	//Matrix viewMat = Graphics3D::view_matrix();
+	//Matrix projMat = Graphics3D::projection_matrix();
+	//Effekseer::Matrix44 efViewMat;
+	//Effekseer::Matrix44 efProjMat;
+	//for (int j = 0; j < 4; ++j) 
+	//{
+	//	for (int i = 0; i < 4; ++i) 
+	//	{
+	//		efViewMat.Values[j][i] = viewMat.m[j][i];
+	//		efProjMat.Values[j][i] = projMat.m[j][i];
+	//	}
+	//}
+	//GetEffekseer3DRenderer()->SetProjectionMatrix(efViewMat);
+	//GetEffekseer3DRenderer()->SetCameraMatrix(efProjMat);
+
+	//Effekseer_Sync3DSetting();
 }
 
 void DuelCamera::move(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)

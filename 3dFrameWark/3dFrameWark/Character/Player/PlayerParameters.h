@@ -41,6 +41,9 @@ public:
 	void Set_BreakDirection(Vector3 l_direction);
 	Vector3 Get_BreakDirection()const;
 
+	void LockOn(bool l_isLockOn);
+	bool Get_IsLockOn()const;
+
 	void DidDown();
 	bool Get_IsDown()const;
 
@@ -59,6 +62,7 @@ private:
 
 	Vector3 m_breakDirection;
 
+	bool m_isLockOn;
 	bool m_isDown;
 
 };

@@ -14,11 +14,11 @@ void Actor::react(Actor & other)
 
 void Actor::collide(Actor & other)
 {
-	if (is_collide(other))
-	{
-		react(other);
-		other.react(*this);
-	}
+	//if (is_collide(other))
+	//{
+	//	react(other);
+	//	other.react(*this);
+	//}
 
 	if (is_collide_capsule(other))
 	{		

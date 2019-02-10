@@ -23,6 +23,7 @@ void PlayerAction_Idle::ActionUpdate(
 	int& l_motion, Matrix& l_cameraRotation)
 {
 	l_velocity = Vector3{ 0.0f,l_velocity.y,0.0f };
+	l_prevposition = l_position;
 
 	if (input_->Trigger(PAD_INPUT_3))
 	{

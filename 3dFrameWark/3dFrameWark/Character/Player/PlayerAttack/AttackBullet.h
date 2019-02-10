@@ -23,6 +23,9 @@ private:
 	float m_timer;
 	float m_bulletSpeed;
 	float m_angle;
+
+	int effectID;
+	int effectIDs;
 	
 };
 

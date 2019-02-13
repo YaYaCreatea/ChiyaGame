@@ -27,15 +27,28 @@ void PlayerAction_Idle::ActionUpdate(
 
 	if (input_->Trigger(PAD_INPUT_3))
 	{
+		//if (parameters_->Get_Name() == "Chiya")
+		//	l_motion = (int)ChiyaAnmID::Combo1;
 		if (parameters_->Get_Name() == "Chiya")
-			l_motion = (int)ChiyaAnmID::Combo1;
+		{
+			l_motion = (int)ChiyaAnmID::AttackHoming;
+			m_nextActionID = PlayerStateName::AttackHoming;
+		}
 		else if (parameters_->Get_Name() == "Rize")
-			l_motion = (int)RizeAnmID::Combo1;
+		{
+			l_motion = (int)RizeAnmID::AttackHoming;
+			m_nextActionID = PlayerStateName::AttackHoming;
+		}
 		else if (parameters_->Get_Name() == "Syaro")
+		{
 			l_motion = (int)SyaroAnmID::Combo1;
+			m_nextActionID = PlayerStateName::Attack;
+		}
 		else if (parameters_->Get_Name() == "Cocoa")
+		{
 			l_motion = (int)CocoaAnmID::Combo1;
-		m_nextActionID = PlayerStateName::Attack;
+			m_nextActionID = PlayerStateName::Attack;
+		}
 		m_nextAction = true;
 
 		return;

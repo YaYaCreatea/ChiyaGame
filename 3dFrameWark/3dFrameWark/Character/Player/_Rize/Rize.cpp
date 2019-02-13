@@ -29,6 +29,7 @@
 #include "../PlayerAction/PlayerAction_Down.h"
 #include "../PlayerAction/PlayerAction_DownIdle.h"
 #include "../PlayerAction/PlayerAction_Dash.h"
+#include "../PlayerAction/PlayerAction_AttackHoming.h"
 
 #include "../CharacterAnimationID.h"
 #include "../../../assetsID/AssetsID.h"
@@ -68,6 +69,7 @@ Rize::Rize(IWorld & world, std::string l_name, const Vector3 & l_position, Matri
 	playerActions_[PlayerStateName::Down].add(new_action<PlayerAction_Down>(world, parameters_));
 	playerActions_[PlayerStateName::DownIdle].add(new_action<PlayerAction_DownIdle>(world, parameters_));
 	playerActions_[PlayerStateName::Dash].add(new_action<PlayerAction_Dash>(world, parameters_, input_));
+	playerActions_[PlayerStateName::AttackHoming].add(new_action<PlayerAction_AttackHoming>(world, parameters_, input_));
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };

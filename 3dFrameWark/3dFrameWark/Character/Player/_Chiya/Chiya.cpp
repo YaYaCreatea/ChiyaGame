@@ -28,6 +28,7 @@
 #include "../PlayerAction/PlayerAction_Down.h"
 #include "../PlayerAction/PlayerAction_DownIdle.h"
 #include "../PlayerAction/PlayerAction_Dash.h"
+#include "../PlayerAction/PlayerAction_AttackHoming.h"
 
 #include "../CharacterAnimationID.h"
 #include "../../../assetsID/AssetsID.h"
@@ -66,6 +67,7 @@ Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, Mat
 	playerActions_[PlayerStateName::Down].add(new_action<PlayerAction_Down>(world, parameters_));
 	playerActions_[PlayerStateName::DownIdle].add(new_action<PlayerAction_DownIdle>(world, parameters_));
 	playerActions_[PlayerStateName::Dash].add(new_action<PlayerAction_Dash>(world, parameters_, input_));
+	playerActions_[PlayerStateName::AttackHoming].add(new_action<PlayerAction_AttackHoming>(world, parameters_, input_));
 	playerActions_[m_state].initialize();
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };
@@ -142,10 +144,10 @@ void Chiya::draw() const
 		Vector3::Dot(m_forward, m_direction));
 	DrawFormatStringF(
 		20.0f, 70.0f, 1, "(%d)",
-		parameters_.Get_IsLockOn());
+		parameters_.Get_IsLockOn());*/
 	DrawFormatStringF(
 		20.0f, 100.0f, 1, "(%f)",
-		m_distance);*/
+		m_distance);
 }
 
 void Chiya::react(Actor & other)

@@ -36,6 +36,21 @@ enum class SpriteID
 	LoadGauge,
 	LockOnAreaOff,
 	LockOnAreaOn,
+	CharaSelectBack,
+	CharaSelectChiya,
+	CharaSelectRize,
+	CharaSelectSyaro,
+	CharaSelectCocoa,
+	SelICO_1_D,
+	SelICO_1_0,
+	SelICO_1_1,
+	SelICO_1_2,
+	SelICO_1_3,
+	SelICO_2_D,
+	SelICO_2_0,
+	SelICO_2_1,
+	SelICO_2_2,
+	SelICO_2_3,
 };
 
 #endif

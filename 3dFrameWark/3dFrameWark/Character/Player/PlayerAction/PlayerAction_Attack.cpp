@@ -113,26 +113,7 @@ void PlayerAction_Attack::ActionUpdate(
 		}
 	}
 
-	if (parameters_->Get_IsLockOn())
-	{
-		if (parameters_->Get_Name() == "Chiya")
-		{
-			auto l_rize = world_->find_actor(ActorGroup::Rize, "Rize");
-			m_direction = l_rize->get_position() - l_position;
-		}
-		else if (parameters_->Get_Name() == "Rize")
-		{
-			auto l_chiya = world_->find_actor(ActorGroup::Chiya, "Chiya");
-			m_direction = l_chiya->get_position() - l_position;
-		}
-		m_direction.Normalize();
 
-		l_prevposition = l_position;
-		Vector3 l_directionOffset{ -m_direction.x,0.0f,m_direction.z };
-
-		l_rotation = Matrix::CreateLookAt(l_position, l_position - l_directionOffset, l_pose.Up());
-		l_position += (m_direction*1.4f) * deltaTime;
-	}
 
 	if (input_->Trigger(PAD_INPUT_3))
 		m_isCombo = true;
@@ -171,5 +152,4 @@ void PlayerAction_Attack::ActionUpdate(
 			m_nextActionID = PlayerStateName::Idle;
 		}
 	}
-
 }

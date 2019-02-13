@@ -75,12 +75,12 @@ bool ModeSelect::is_end() const
 
 SceneID ModeSelect::next() const
 {
-	return SceneID::GameLoad;
+	return SceneID::CharaSelect;
 }
 
 void ModeSelect::end()
 {
 	camera_.finalize();
 	//タイトル～モードセレクトのリソースアンロード
-	load_->UnLoad();
+	//load_->UnLoad();
 }

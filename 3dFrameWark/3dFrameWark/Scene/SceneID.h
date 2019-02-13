@@ -7,6 +7,7 @@ enum class SceneID
 	StartUp,
 	Title,
 	Select,
+	CharaSelect,
 	GameLoad,
 	GameDuel,
 	GameFour,

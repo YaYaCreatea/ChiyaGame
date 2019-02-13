@@ -16,6 +16,7 @@ enum class ChiyaAnmID
 	Down,
 	DownIdle,
 	Dash,
+	AttackHoming,
 };
 
 enum class RizeAnmID
@@ -36,6 +37,7 @@ enum class RizeAnmID
 	BreakChargeMax,
 	Break,
 	Dash,
+	AttackHoming,
 };
 
 enum class SyaroAnmID

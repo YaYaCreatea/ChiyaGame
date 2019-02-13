@@ -4,6 +4,7 @@
 #include "../Game/Game.h"
 #include "../SceneManager/SceneManager.h"
 #include "../Scene/SceneParameters.h"
+#include "../Scene/CharaSelect/CharacterSelecter.h"
 
 #include "../AssetsLoad/StartUpLoad/StartUpLoad.h"
 #include "../AssetsLoad/PlayLoad/PlayLoad.h"
@@ -31,6 +32,7 @@ private:
 private:
 	SceneManager sceneManager_;
 	SceneParameters sceneParameters_;
+	CharacterSelecter selecter_;
 
 	StartUpLoad startUpload_;
 	PlayLoad playload_;

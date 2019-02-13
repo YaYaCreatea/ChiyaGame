@@ -13,19 +13,7 @@ enum class PlayerStateName
 	Down,
 	DownIdle,
 	Dash,
+	AttackHoming,
 };
-
-enum
-{
-	MotionIdle = 1,
-	MotionForwardWalk = 2,
-	MotionBackardWalk = 3,
-	MotionLeftWalk = 4,
-	MotionRightWalk = 5,
-	MotionFire = 11,
-	MotionDamage = 14,
-	MotionJump = 17
-};
-
 
 #endif

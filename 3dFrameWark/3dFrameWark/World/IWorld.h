@@ -17,13 +17,21 @@ public:
 
 	virtual ActorPtr find_actor(ActorGroup group, const std::string& name) const = 0;
 
-	virtual ActorPtr get_camera0() const = 0;
+	virtual void add_camera_chiya(const ActorPtr& camera) = 0;
 
-	virtual ActorPtr get_camera1() const = 0;
+	virtual void add_camera_rize(const ActorPtr& camera) = 0;
 
-	virtual ActorPtr get_camera2() const = 0;
+	virtual void add_camera_syaro(const ActorPtr& camera) = 0;
 
-	virtual ActorPtr get_camera3() const = 0;
+	virtual void add_camera_cocoa(const ActorPtr& camera) = 0;
+
+	virtual ActorPtr get_camera_chiya() const = 0;
+
+	virtual ActorPtr get_camera_rize() const = 0;
+
+	virtual ActorPtr get_camera_syaro() const = 0;
+
+	virtual ActorPtr get_camera_cocoa() const = 0;
 
 	virtual unsigned int get_count_actor(ActorGroup group)const = 0;
 

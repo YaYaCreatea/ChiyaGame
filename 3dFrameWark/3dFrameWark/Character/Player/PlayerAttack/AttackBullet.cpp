@@ -21,6 +21,7 @@ AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float
 	//effectIDs = PlayEffekseer3DEffect(effectID);
 
 	m_rotation.Forward(matrix.Forward());
+	m_rotation.Right(matrix.Right());
 }
 
 void AttackBullet::update(float deltaTime)
@@ -39,8 +40,6 @@ void AttackBullet::update(float deltaTime)
 
 void AttackBullet::draw() const
 {
-	Effekseer_Sync3DSetting();
-
 	Billboard::bind(0);
 	Billboard::draw(m_position + Vector3{ 0.0f,m_radius,0.0f }, m_radius*2.0f, 0.5f, 0.5f, m_angle);
 

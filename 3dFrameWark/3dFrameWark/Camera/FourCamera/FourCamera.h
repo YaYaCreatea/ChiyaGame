@@ -31,7 +31,7 @@ private:
 	Vector3 m_lookPos;
 	Vector3 m_to_target;
 
-	int inputx_, inputy_;
+	int m_inputX, m_inputY;
 	float m_pitch;
 	float m_backDis;
 

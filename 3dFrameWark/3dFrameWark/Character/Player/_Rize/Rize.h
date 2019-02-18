@@ -1,6 +1,7 @@
 #ifndef _RIZE_H_
 #define _RIZE_H_
 
+#include "../../../Actor/ActorPtr.h"
 #include "../../../Actor/Actor.h"
 #include "../../../AnimatedMesh/AnimatedMesh.h"
 #include "../../../Utility/Input/InputState.h"
@@ -18,7 +19,7 @@ class Rize :public Actor
 {
 public:
 	//コンストラクタ
-	Rize(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_weapon);
+	Rize(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_weapon, int l_numPlayer);
 
 	virtual void update(float deltaTime)override;
 
@@ -55,6 +56,8 @@ private:
 	//プレイヤー状態
 	PlayerStateName m_state;
 
+	int m_numPlayer;
+
 	//モーション番号
 	int m_motion;
 	//武器モデル
@@ -67,7 +70,6 @@ private:
 	Vector3 m_pi;
 	Vector3 m_piVelo;
 
-	Vector3 m_direction;
 	Vector3 m_forward;
 	float m_distance;
 };

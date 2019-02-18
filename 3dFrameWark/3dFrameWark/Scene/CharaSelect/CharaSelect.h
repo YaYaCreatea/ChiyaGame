@@ -43,7 +43,6 @@ private:
 	Vector2 m_2Pposition;
 	float m_icoSpeed;
 	float m_sceneEndTimer;
-
 };
 
 #endif

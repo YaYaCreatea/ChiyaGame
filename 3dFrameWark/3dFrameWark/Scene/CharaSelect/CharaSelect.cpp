@@ -9,14 +9,18 @@ CharaSelect::CharaSelect(CharacterSelecter& l_selecter, SceneParameters & l_scen
 	charaSelecter_ = &l_selecter;
 	sceneParameters_ = &l_sceneParameters;
 	load_ = &l_load;
-
-	m_isEnd = false;
-	input1P_.initialize(DX_INPUT_PAD1);
-	input2P_.initialize(DX_INPUT_PAD2);
+	
+	
 }
 
 void CharaSelect::start()
 {
+	m_isEnd = false;
+	input1P_.initialize(DX_INPUT_PAD1);
+	input2P_.initialize(DX_INPUT_PAD2);
+
+	charaSelecter_->initialize();
+
 	m_1Pposition = Vector2::Zero;
 	m_2Pposition = Vector2{ 1180.0f,0.0f };
 	m_icoSpeed = 10.0f;
@@ -30,25 +34,49 @@ void CharaSelect::update(float deltaTime)
 
 	if (input1P_.Trigger(PAD_INPUT_1))
 	{
-		if (ChiyaSelectArea(m_1Pposition))
+		if (ChiyaSelectArea(m_1Pposition) && !charaSelecter_->Get_SelectionChiya())
+		{
 			charaSelecter_->Set_1PChara(CharaID::Chiya);
-		else if (RizeSelectArea(m_1Pposition))
+			charaSelecter_->SelectionChiya();
+		}
+		else if (RizeSelectArea(m_1Pposition) && !charaSelecter_->Get_SelectionRize())
+		{
 			charaSelecter_->Set_1PChara(CharaID::Rize);
+			charaSelecter_->SelectionRize();
+		}
 		else if (SyaroSelectArea(m_1Pposition))
+		{
 			charaSelecter_->Set_1PChara(CharaID::Syaro);
+			charaSelecter_->SelectionSyaro();
+		}
 		else if (CocoaSelectArea(m_1Pposition))
+		{
 			charaSelecter_->Set_1PChara(CharaID::Cocoa);
+			charaSelecter_->SelectionCocoa();
+		}
 	}
 	if (input2P_.Trigger(PAD_INPUT_1))
 	{
-		if (ChiyaSelectArea(m_2Pposition))
+		if (ChiyaSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionChiya())
+		{
 			charaSelecter_->Set_2PChara(CharaID::Chiya);
-		else if (RizeSelectArea(m_2Pposition))
+			charaSelecter_->SelectionChiya();
+		}
+		else if (RizeSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionRize())
+		{
 			charaSelecter_->Set_2PChara(CharaID::Rize);
-		else if (SyaroSelectArea(m_2Pposition))
+			charaSelecter_->SelectionRize();
+		}
+		else if (SyaroSelectArea(m_2Pposition)&& !charaSelecter_->Get_SelectionSyaro())
+		{
 			charaSelecter_->Set_2PChara(CharaID::Syaro);
-		else if (CocoaSelectArea(m_2Pposition))
+			charaSelecter_->SelectionSyaro();
+		}
+		else if (CocoaSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionCocoa())
+		{
 			charaSelecter_->Set_2PChara(CharaID::Cocoa);
+			charaSelecter_->SelectionCocoa();
+		}
 	}
 
 	if (charaSelecter_->Get_1PChara() != CharaID::None
@@ -59,7 +87,7 @@ void CharaSelect::update(float deltaTime)
 			m_isEnd = true;
 			return;
 		}
-		m_sceneEndTimer -= deltaTime;		
+		m_sceneEndTimer -= deltaTime;
 	}
 
 

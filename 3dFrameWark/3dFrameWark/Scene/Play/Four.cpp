@@ -31,39 +31,39 @@ void Four::start()
 	
 	world_.initialize();
 
-	world_.add_camera(new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 135.0f, "Chiya"),
-		new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Rize"),
-		new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Syaro"),
-		new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, -45.0f, "Cocoa"));
+	//world_.add_camera(new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 135.0f, "Chiya"),
+	//	new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Rize"),
+	//	new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Syaro"),
+	//	new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, -45.0f, "Cocoa"));
 
-	world_.add_actor(
-		ActorGroup::Chiya,
-		new_actor<Chiya>(
-			world_, "Chiya",
-			Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
-			(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana)
-	);
-	world_.add_actor(
-		ActorGroup::Rize,
-		new_actor<Rize>(
-			world_, "Rize",
-			Vector3{ 0.0f,0.0f,540.0f }, Matrix::Identity,
-			(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear)
-	);
-	world_.add_actor(
-		ActorGroup::Syaro,
-		new_actor<Syaro>(
-			world_, "Syaro", 
-			Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
-			(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun)
-	);
-	world_.add_actor(
-		ActorGroup::Cocoa,
-		new_actor<Cocoa>(
-			world_, "Cocoa",
-			Vector3{ -90.0f,0.0f,150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
-			(int)ModelCharaID::Cocoa)
-	);
+	//world_.add_actor(
+	//	ActorGroup::Chiya,
+	//	new_actor<Chiya>(
+	//		world_, "Chiya",
+	//		Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
+	//		(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana)
+	//);
+	//world_.add_actor(
+	//	ActorGroup::Rize,
+	//	new_actor<Rize>(
+	//		world_, "Rize",
+	//		Vector3{ 0.0f,0.0f,540.0f }, Matrix::Identity,
+	//		(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear)
+	//);
+	//world_.add_actor(
+	//	ActorGroup::Syaro,
+	//	new_actor<Syaro>(
+	//		world_, "Syaro", 
+	//		Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+	//		(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun)
+	//);
+	//world_.add_actor(
+	//	ActorGroup::Cocoa,
+	//	new_actor<Cocoa>(
+	//		world_, "Cocoa",
+	//		Vector3{ -90.0f,0.0f,150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
+	//		(int)ModelCharaID::Cocoa)
+	//);
 }
 
 void Four::update(float deltaTime)

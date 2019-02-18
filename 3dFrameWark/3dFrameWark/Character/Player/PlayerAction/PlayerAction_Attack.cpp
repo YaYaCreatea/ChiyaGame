@@ -68,11 +68,18 @@ void PlayerAction_Attack::ActionUpdate(
 
 		else if (parameters_->Get_Name() == "Syaro")
 		{
+			if (parameters_->Get_IsLockOn())
+			{
+				l_prevposition = l_position;
+				Vector3 l_directionOffset{ -parameters_->Get_LockOnDirection().x,0.0f,parameters_->Get_LockOnDirection().z };
+				l_rotation = Matrix::CreateLookAt(l_position, l_position - l_directionOffset, l_pose.Up());
+			}
+
 			if (l_motion == (int)SyaroAnmID::Combo1)
 			{
 				world_->add_actor(
 					ActorGroup::SyaroAction,
-					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation)
 				);
 				m_isSpawn = true;
 			}
@@ -86,16 +93,23 @@ void PlayerAction_Attack::ActionUpdate(
 					);
 					m_isSpawn = true;
 				}
-			}
+			}		
 		}
 
 		else if (parameters_->Get_Name() == "Cocoa")
 		{
+			if (parameters_->Get_IsLockOn())
+			{
+				l_prevposition = l_position;
+				Vector3 l_directionOffset{ -parameters_->Get_LockOnDirection().x,0.0f,parameters_->Get_LockOnDirection().z };
+				l_rotation = Matrix::CreateLookAt(l_position, l_position - l_directionOffset, l_pose.Up());
+			}
+
 			if (l_motion == (int)CocoaAnmID::Combo1)
 			{
 				world_->add_actor(
 					ActorGroup::CocoaAction,
-					new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation)
 				);
 				m_isSpawn = true;
 			}
@@ -105,15 +119,13 @@ void PlayerAction_Attack::ActionUpdate(
 				{
 					world_->add_actor(
 						ActorGroup::CocoaAction,
-						new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 10.0f, l_pose)
+						new_actor<Attack1>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 10.0f, l_rotation)
 					);
 					m_isSpawn = true;
 				}
 			}
 		}
 	}
-
-
 
 	if (input_->Trigger(PAD_INPUT_3))
 		m_isCombo = true;

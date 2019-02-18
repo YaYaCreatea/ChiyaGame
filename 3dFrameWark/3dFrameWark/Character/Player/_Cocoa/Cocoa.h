@@ -1,6 +1,7 @@
 #ifndef _COCOA_H_
 #define _COCOA_H_
 
+#include "../../../Actor/ActorPtr.h"
 #include "../../../Actor/Actor.h"
 #include "../../../AnimatedMesh/AnimatedMesh.h"
 #include "../../../Utility/Input/InputState.h"
@@ -18,7 +19,7 @@ class Cocoa :public Actor
 {
 public:
 	//コンストラクタ
-	Cocoa(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model);
+	Cocoa(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_numPlayer);
 
 	virtual void update(float deltaTime)override;
 
@@ -32,6 +33,8 @@ private:
 
 	//おっぱい揺れ
 	void oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass);
+
+	void lockOnCheck();
 
 private:
 
@@ -50,6 +53,8 @@ private:
 	//プレイヤー状態
 	PlayerStateName m_state;
 
+	int m_numPlayer;
+
 	//モーション番号
 	int m_motion;
 	//武器モデル
@@ -61,6 +66,9 @@ private:
 	//おっぱい変数
 	Vector3 m_pi;
 	Vector3 m_piVelo;
+
+	Vector3 m_forward;
+	float m_distance;
 };
 
 #endif

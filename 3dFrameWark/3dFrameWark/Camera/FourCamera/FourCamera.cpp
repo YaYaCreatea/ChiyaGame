@@ -40,6 +40,9 @@ FourCamera::FourCamera(IWorld & world, const Vector3 & l_position, float l_yawAn
 		m_group = ActorGroup::Syaro;
 	else if (m_targetName == "Cocoa")
 		m_group = ActorGroup::Cocoa;
+
+	m_inputX = 0;
+	m_inputY = 0;
 }
 
 void FourCamera::update(float deltaTime)
@@ -50,17 +53,17 @@ void FourCamera::update(float deltaTime)
 	if (m_stateID == CameraStateID::Normal)
 	{
 		if (m_targetName == "Chiya")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD1);
+			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
 		else if (m_targetName == "Rize")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
+			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
 		else if (m_targetName == "Syaro")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD3);
+			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD3);
 		else if (m_targetName == "Cocoa")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD4);
+			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
 
-		m_yawAngle += deltaTime * (inputx_ / 500);
+		m_yawAngle += deltaTime * (m_inputX / 500);
 		m_pitchAngle =
-			MathHelper::Clamp(m_pitchAngle -= deltaTime * (inputy_ / 1000), -40.0f, 40.0f);
+			MathHelper::Clamp(m_pitchAngle -= deltaTime * (m_inputY / 1000), -40.0f, 40.0f);
 
 		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
 		m_rotation.NormalizeRotationMatrix();

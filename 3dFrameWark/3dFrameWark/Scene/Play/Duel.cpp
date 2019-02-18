@@ -9,7 +9,6 @@
 #include "../../Utility/Matrix/Matrix.h"
 #include "../../Utility/Vector3/Vector3.h"
 
-#include "../../Camera/DuelCamera/DuelCamera.h"
 #include "../../Character/Player/Player.h"
 #include "../../Character/Player/_Chiya/Chiya.h"
 #include "../../Character/Player/_Rize/Rize.h"
@@ -18,39 +17,123 @@
 #include "../../Character/Enemy/Boss0/Boss0.h"
 
 
-Duel::Duel(PlayLoad & l_load)
+Duel::Duel(CharacterSelecter& l_selecter, PlayLoad & l_load)
 {
+	charaSelecter_ = &l_selecter;
 	load_ = &l_load;
 }
 
 void Duel::start()
 {
 	m_isEnd = false;
+	m_numChiya = 0;
+	m_numRize = 0;
+	m_numSyaro = 0;
+	m_numCocoa = 0;
 
 	Graphics3D::initialize();
 
 	world_.initialize();
 
-	world_.add_camera(new_actor<DuelCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Chiya"),
-		new_actor<DuelCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Rize"));
-	//world_.add_camera(new_actor<DuelCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Chiya"),
-	//	new_actor<DuelCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Syaro"));
-	//world_.add_camera(new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Chiya"),
-	//	new_actor<TpsCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Cocoa"));
+	if (charaSelecter_->Get_1PChara() == CharaID::Chiya)
+	{
+		m_numChiya = 1;
+		world_.add_actor(
+			ActorGroup::Chiya,
+			new_actor<Chiya>(world_, "Chiya", Vector3{ 0.0f,0.0f,-540.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
+				m_numChiya)
+		);
 
-	world_.add_actor(ActorGroup::Chiya, new_actor<Chiya>(world_, "Chiya", Vector3{ 0.0f,0.0f,-540.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f), (int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana));
-	world_.add_actor(ActorGroup::Rize, new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,540.0f }, Matrix::Identity, (int)ModelCharaID::Rize, (int)ModelWeaponID::Spear));
+	}
+	else if (charaSelecter_->Get_1PChara() == CharaID::Rize)
+	{
+		m_numRize = 1;
+		world_.add_actor(
+			ActorGroup::Rize,
+			new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,-540.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
+				m_numRize)
+		);
+	}
+	else if (charaSelecter_->Get_1PChara() == CharaID::Syaro)
+	{
+		m_numSyaro = 1;
+		world_.add_actor(
+			ActorGroup::Syaro,
+			new_actor<Syaro>(world_, "Syaro", Vector3{ 0.0f,0.0f,-540.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
+				m_numSyaro)
+		);
+	}
+	else if (charaSelecter_->Get_1PChara() == CharaID::Cocoa)
+	{
+		m_numCocoa = 1;
+		world_.add_actor(
+			ActorGroup::Cocoa,
+			new_actor<Cocoa>(world_, "Cocoa", Vector3{ 0.0f,0.0f,-540.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Cocoa,
+				m_numCocoa)
+		);
+	}
+
+	if (charaSelecter_->Get_2PChara() == CharaID::Chiya)
+	{
+		m_numChiya = 2;
+		world_.add_actor(
+			ActorGroup::Chiya,
+			new_actor<Chiya>(world_, "Chiya", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
+				m_numChiya)
+		);
+	}
+	else if (charaSelecter_->Get_2PChara() == CharaID::Rize)
+	{
+		m_numRize = 2;
+		world_.add_actor(
+			ActorGroup::Rize,
+			new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
+				m_numRize)
+		);
+	}
+	else if (charaSelecter_->Get_2PChara() == CharaID::Syaro)
+	{
+		m_numSyaro = 2;
+		world_.add_actor(
+			ActorGroup::Syaro,
+			new_actor<Syaro>(world_, "Syaro", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
+				m_numSyaro)
+		);
+	}
+	else if (charaSelecter_->Get_2PChara() == CharaID::Cocoa)
+	{
+		m_numCocoa = 2;
+		world_.add_actor(
+			ActorGroup::Cocoa,
+			new_actor<Cocoa>(world_, "Cocoa", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Cocoa,
+				m_numCocoa)
+		);
+	}
+
 	//world_.add_actor(ActorGroup::Boss, new_actor<Boss0>(world_, "Boss", Vector3{ 0.0f,0.0f,0.0f }, (int)ModelCharaID::Boss));
-
-	//world_.add_actor(ActorGroup::Syaro, new_actor<Syaro>(world_, "Syaro", Vector3{ -20.0f,0.0f,0.0f },Matrix::Identity, (int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun));
-	//world_.add_actor(ActorGroup::Cocoa, new_actor<Cocoa>(world_, "Cocoa", Vector3{ 20.0f,0.0f,20.0f },Matrix::Identity, (int)ModelCharaID::Cocoa));
 }
 
 void Duel::update(float deltaTime)
 {
 	world_.update(deltaTime);
 
-	EndCheck();
+	//EndCheck();
 }
 
 void Duel::draw() const
@@ -61,8 +144,23 @@ void Duel::draw() const
 	SkyBox::bind(0);
 	CollisionMesh::bind(0);
 
-	world_.draw();
-	world_.draw2();
+	if (charaSelecter_->Get_1PChara() == CharaID::Chiya)
+		world_.draw();
+	else if (charaSelecter_->Get_1PChara() == CharaID::Rize)
+		world_.draw2();
+	else if (charaSelecter_->Get_1PChara() == CharaID::Syaro)
+		world_.draw3();
+	else if (charaSelecter_->Get_1PChara() == CharaID::Cocoa)
+		world_.draw4();
+
+	if (charaSelecter_->Get_2PChara() == CharaID::Chiya)
+		world_.draw();
+	else if (charaSelecter_->Get_2PChara() == CharaID::Rize)
+		world_.draw2();
+	else if (charaSelecter_->Get_2PChara() == CharaID::Syaro)
+		world_.draw3();
+	else if (charaSelecter_->Get_2PChara() == CharaID::Cocoa)
+		world_.draw4();
 
 	frameCamera_.drawDuel();
 }
@@ -89,11 +187,11 @@ void Duel::end()
 
 void Duel::EndCheck()
 {
-	if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
-		|| world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown())
-	{
-		m_isEnd = true;
-	}
+	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
+	//	|| world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown())
+	//{
+	//	m_isEnd = true;
+	//}
 	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
 	//	|| world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown())
 	//{

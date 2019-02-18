@@ -15,6 +15,7 @@
 
 #include "../../../Graphics2D/Graphics2D.h"
 
+#include "../../../Camera/DuelCamera/DuelCamera.h"
 #include "../PlayerAction/PlayerAction_Idle.h"
 #include "../PlayerAction/PlayerAction_Move.h"
 #include "../PlayerAction/PlayerAction_Attack.h"
@@ -30,23 +31,35 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-Cocoa::Cocoa(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model)
+Cocoa::Cocoa(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_numPlayer)
 	:mesh_{ l_model,0 },
 	input_{},
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
 	m_pi{ Vector3::Zero },
-	m_piVelo{ Vector3::Zero }
+	m_piVelo{ Vector3::Zero },
+	m_forward{ Vector3::Zero },
+	m_distance{ 0.0f }
 {
 	world_ = &world;
 	m_name = l_name;
 	m_rotation = l_rotate;
 	m_position = l_position;
 	m_prevposition = m_position;
+	m_numPlayer = l_numPlayer;
 
 	parameters_.Initialize(m_name, 34);
 
-	input_.initialize(DX_INPUT_PAD4);
+	if (m_numPlayer == 1)
+	{
+		world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
+		input_.initialize(DX_INPUT_PAD1);
+	}
+	else if (m_numPlayer == 2)
+	{
+		world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
+		input_.initialize(DX_INPUT_PAD2);
+	}
 
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
@@ -72,6 +85,8 @@ void Cocoa::update(float deltaTime)
 		m_velocity.y += parameters_.Get_Gravity() * deltaTime;
 		m_position += m_velocity * deltaTime;
 	}
+
+	lockOnCheck();
 
 	playerActions_[m_state].update(
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
@@ -103,7 +118,7 @@ void Cocoa::update(float deltaTime)
 
 	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
 
-	auto l_camera3 = world_->get_camera3();
+	auto l_camera3 = world_->get_camera_cocoa();
 	if (l_camera3 == nullptr)return;
 	m_cameraRoate = l_camera3->get_pose();
 }
@@ -111,16 +126,48 @@ void Cocoa::update(float deltaTime)
 void Cocoa::draw() const
 {
 	mesh_.draw();
-	Graphics2D::draw_sprite_RCS((int)SpriteID::HpGauge, Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+
+	if (!parameters_.Get_IsLockOn())
+	{
+		if (m_numPlayer == 1)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
+		else if (m_numPlayer == 2)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+	}
+	else
+	{
+		if (m_numPlayer == 1)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
+		else if (m_numPlayer == 2)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+	}
+
+	//Graphics2D::draw_sprite_RCS(
+	//	(int)SpriteID::HpGauge,
+	//	Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+	//	90, Vector2::Zero, Vector2{ 0.3f,0.3f }
+	//);
+
+	if (m_numPlayer == 1)
+		Graphics2D::draw_sprite_RCS(
+		(int)SpriteID::HpGauge,
+			Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	else if (m_numPlayer == 2)
+		Graphics2D::draw_sprite_RCS(
+		(int)SpriteID::HpGauge,
+			Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
 }
 
 void Cocoa::react(Actor & other)
 {
 	if (parameters_.Get_HP() > 0)
 	{
-		if (other.get_name() == "Attack"
-			&& m_state != PlayerStateName::Damage)
+		if (other.get_name() == "Attack")
 		{
+			input_.Vibration(500, 200);
+
 			m_motion = (int)CocoaAnmID::Damage;
 			m_state = PlayerStateName::Damage;
 			playerActions_[m_state].initialize();
@@ -139,10 +186,10 @@ void Cocoa::react(Actor & other)
 			return;
 		}
 
-		else if (other.get_name() == "BreakAttack"
-			&& m_state != PlayerStateName::Damage
-			&&m_state != PlayerStateName::DamageBreak)
+		else if (other.get_name() == "BreakAttack")
 		{
+			input_.Vibration(600, 200);
+
 			m_motion = (int)CocoaAnmID::DamageBreak;
 			m_state = PlayerStateName::DamageBreak;
 			playerActions_[m_state].initialize();
@@ -177,4 +224,42 @@ void Cocoa::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float
 	const Vector3 acceleration = (force / l_mass)*2.0f;
 	m_piVelo = l_friction * (m_piVelo + acceleration);
 	m_pi += m_piVelo;
+}
+
+void Cocoa::lockOnCheck()
+{
+	auto l_chiya = world_->find_actor(ActorGroup::Chiya, "Chiya");
+	auto l_rize = world_->find_actor(ActorGroup::Rize, "Rize");
+	auto l_syaro = world_->find_actor(ActorGroup::Syaro, "Syaro");
+
+	if (l_chiya != nullptr)
+	{
+		parameters_.Set_LockOnDirection(l_chiya->get_position() - m_position);
+		m_distance = Vector3::Distance(m_position, l_chiya->get_position());
+	}
+	if (l_rize != nullptr)
+	{
+		parameters_.Set_LockOnDirection(l_rize->get_position() - m_position);
+		m_distance = Vector3::Distance(m_position, l_rize->get_position());
+	}
+	if (l_syaro != nullptr)
+	{
+		parameters_.Set_LockOnDirection(l_syaro->get_position() - m_position);
+		m_distance = Vector3::Distance(m_position, l_syaro->get_position());
+	}
+	parameters_.LockOnDirectionNormlize();
+	m_forward = m_cameraRoate.Forward();
+	m_forward.Normalize();
+
+	if (m_distance > 200.0f
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.9f - ((200.0f - m_distance) / 500.0f)))
+	{
+		parameters_.LockOn(false);
+		return;
+	}
+
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.9f - ((200.0f - m_distance) / 500.0f)))
+	{
+		parameters_.LockOn(true);
+	}
 }

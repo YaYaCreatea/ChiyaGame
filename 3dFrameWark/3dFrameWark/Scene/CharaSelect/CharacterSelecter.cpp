@@ -14,6 +14,11 @@ void CharacterSelecter::initialize()
 	m_2P = CharaID::None;
 	m_3P = CharaID::None;
 	m_4P = CharaID::None;
+
+	m_chiyaAlready = false;
+	m_rizeAlready = false;
+	m_syaroAlready = false;
+	m_cocoaAlready = false;
 }
 
 void CharacterSelecter::Set_1PChara(CharaID l_1P)
@@ -54,4 +59,44 @@ void CharacterSelecter::Set_4PChara(CharaID l_4P)
 CharaID CharacterSelecter::Get_4PChara() const
 {
 	return m_4P;
+}
+
+void CharacterSelecter::SelectionChiya()
+{
+	m_chiyaAlready = true;
+}
+
+bool CharacterSelecter::Get_SelectionChiya() const
+{
+	return m_chiyaAlready;
+}
+
+void CharacterSelecter::SelectionRize()
+{
+	m_rizeAlready = true;
+}
+
+bool CharacterSelecter::Get_SelectionRize() const
+{
+	return m_rizeAlready;
+}
+
+void CharacterSelecter::SelectionSyaro()
+{
+	m_syaroAlready = true;
+}
+
+bool CharacterSelecter::Get_SelectionSyaro() const
+{
+	return m_syaroAlready;
+}
+
+void CharacterSelecter::SelectionCocoa()
+{
+	m_cocoaAlready = true;
+}
+
+bool CharacterSelecter::Get_SelectionCocoa() const
+{
+	return m_cocoaAlready;
 }

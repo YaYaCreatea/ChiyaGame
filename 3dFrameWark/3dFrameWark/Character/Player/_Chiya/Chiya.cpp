@@ -18,6 +18,7 @@
 
 #include "../../../CollisionMesh/CollisionMesh.h"
 
+#include "../../../Camera/DuelCamera/DuelCamera.h"
 #include "../PlayerAction/PlayerAction_Idle.h"
 #include "../PlayerAction/PlayerAction_Move.h"
 #include "../PlayerAction/PlayerAction_Attack.h"
@@ -35,7 +36,7 @@
 
 #include <EffekseerForDXLib.h>
 
-Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_weapon)
+Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_weapon, int l_numPlayer)
 	:mesh_{ l_model,0 },
 	input_{},
 	m_state{ PlayerStateName::Idle },
@@ -43,7 +44,6 @@ Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, Mat
 	m_weapon{ l_weapon },
 	m_pi{ l_position + Vector3::Zero },
 	m_piVelo{ Vector3::Zero },
-	m_direction{ Vector3::Zero },
 	m_forward{ Vector3::Zero },
 	m_distance{ 0.0f }
 {
@@ -52,10 +52,20 @@ Chiya::Chiya(IWorld & world, std::string l_name, const Vector3 & l_position, Mat
 	m_rotation = l_rotate;
 	m_position = l_position;
 	m_prevposition = m_position;
+	m_numPlayer = l_numPlayer;
 
 	parameters_.Initialize(m_name, 51);
 
-	input_.initialize(DX_INPUT_PAD1);
+	if (m_numPlayer == 1)
+	{
+		world_->add_camera_chiya(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
+		input_.initialize(DX_INPUT_PAD1);
+	}
+	else if (m_numPlayer == 2)
+	{
+		world_->add_camera_chiya(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
+		input_.initialize(DX_INPUT_PAD2);
+	}
 
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
@@ -118,7 +128,7 @@ void Chiya::update(float deltaTime)
 		m_position + Vector3{ 0.0f,20.0f,0.0f },
 		3.0f, &m_position);
 
-	auto l_camera0 = world_->get_camera0();
+	auto l_camera0 = world_->get_camera_chiya();
 	if (l_camera0 == nullptr)return;
 	m_cameraRoate = l_camera0->get_pose();
 }
@@ -129,14 +139,31 @@ void Chiya::draw() const
 	draw_weapon();
 
 	if (!parameters_.Get_IsLockOn())
-		Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
+	{
+		if (m_numPlayer == 1)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
+		else if (m_numPlayer == 2)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+	}
 	else
-		Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
+	{
+		if (m_numPlayer == 1)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
+		else if (m_numPlayer == 2)
+			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+	}
 
-	Graphics2D::draw_sprite_RCS(
+
+	if (m_numPlayer == 1)
+		Graphics2D::draw_sprite_RCS(
 		(int)SpriteID::HpGauge,
-		Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
-		90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+			Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	else if (m_numPlayer == 2)
+		Graphics2D::draw_sprite_RCS(
+		(int)SpriteID::HpGauge,
+			Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
 
 
 	/*DrawFormatStringF(
@@ -146,8 +173,8 @@ void Chiya::draw() const
 		20.0f, 70.0f, 1, "(%d)",
 		parameters_.Get_IsLockOn());*/
 	DrawFormatStringF(
-		20.0f, 100.0f, 1, "(%f)",
-		m_distance);
+		20.0f, 100.0f, 1, "(%d)",
+		input_.Get_Type());
 }
 
 void Chiya::react(Actor & other)
@@ -156,7 +183,8 @@ void Chiya::react(Actor & other)
 	{
 		if (other.get_name() == "Attack")
 		{
-			StartJoypadVibration(DX_INPUT_PAD2, 250, 200);
+			input_.Vibration(500, 200);
+			//StartJoypadVibration(DX_INPUT_PAD1, 250, 200);
 
 			m_motion = (int)ChiyaAnmID::Damage;
 			m_state = PlayerStateName::Damage;
@@ -179,7 +207,8 @@ void Chiya::react(Actor & other)
 
 		else if (other.get_name() == "BreakAttack")
 		{
-			StartJoypadVibration(DX_INPUT_PAD2, 600, 200);
+			input_.Vibration(600, 200);
+			//StartJoypadVibration(DX_INPUT_PAD1, 600, 200);
 
 			m_motion = (int)ChiyaAnmID::DamageBreak;
 			m_state = PlayerStateName::DamageBreak;
@@ -227,20 +256,36 @@ void Chiya::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float
 void Chiya::lockOnCheck()
 {
 	auto l_rize = world_->find_actor(ActorGroup::Rize, "Rize");
-	m_direction = l_rize->get_position() - m_position;
-	m_direction.Normalize();
+	auto l_syaro = world_->find_actor(ActorGroup::Syaro, "Syaro");
+	auto l_cocoa = world_->find_actor(ActorGroup::Cocoa, "Cocoa");
+	if (l_rize != nullptr)
+	{
+		parameters_.Set_LockOnDirection(l_rize->get_position() - m_position);
+		m_distance = Vector3::Distance(m_position, l_rize->get_position());
+	}
+	if (l_syaro != nullptr)
+	{
+		parameters_.Set_LockOnDirection(l_syaro->get_position() - m_position);
+		m_distance = Vector3::Distance(m_position, l_syaro->get_position());
+	}
+	if (l_cocoa != nullptr)
+	{
+		parameters_.Set_LockOnDirection(l_cocoa->get_position() - m_position);
+		m_distance = Vector3::Distance(m_position, l_cocoa->get_position());
+	}
+	parameters_.LockOnDirectionNormlize();
 	m_forward = m_cameraRoate.Forward();
 	m_forward.Normalize();
-	m_distance = Vector3::Distance(m_position, l_rize->get_position());
+	
 
 	if (m_distance > 100.0f
-		|| Vector3::Dot(m_forward, m_direction) < (0.9f - ((100.0f - m_distance) / 500.0f)))
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.9f - ((100.0f - m_distance) / 500.0f)))
 	{
 		parameters_.LockOn(false);
 		return;
 	}
 
-	else if (Vector3::Dot(m_forward, m_direction) >= (0.9f - ((100.0f - m_distance) / 500.0f)))
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.9f - ((100.0f - m_distance) / 500.0f)))
 	{
 		parameters_.LockOn(true);
 	}

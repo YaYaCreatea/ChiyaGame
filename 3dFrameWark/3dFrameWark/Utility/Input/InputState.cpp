@@ -53,3 +53,13 @@ bool InputState::Release(int button) const
 	else
 		return false;
 }
+
+void InputState::Vibration(int l_power, int l_time)
+{
+	StartJoypadVibration(m_inputType, l_power, l_time);
+}
+
+int InputState::Get_Type() const
+{
+	return m_inputType;
+}

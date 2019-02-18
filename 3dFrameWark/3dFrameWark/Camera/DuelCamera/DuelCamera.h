@@ -7,11 +7,15 @@
 #include "../../ActorGroupManager/ActorGroup.h"
 
 #include "../../Graphics3D/Graphics3D.h"
+#include "../../Character/Player/PlayerParameters.h"
 
 class DuelCamera :public Actor
 {
 public:
-	explicit DuelCamera(IWorld& world, const Vector3& l_position, float l_yawAngle, std::string l_targetName);
+	explicit DuelCamera(
+		IWorld& world, 
+		const Vector3& l_position, float l_yawAngle, 
+		std::string l_targetName, int l_numPlayer);
 
 	virtual void update(float deltaTime)override;
 
@@ -31,7 +35,8 @@ private:
 	Vector3 m_lookPos;
 	Vector3 m_to_target;
 
-	int inputx_, inputy_;
+	int m_numPlayer;
+	int m_inputX, m_inputY;
 	float m_pitch;
 	float m_backDis;
 

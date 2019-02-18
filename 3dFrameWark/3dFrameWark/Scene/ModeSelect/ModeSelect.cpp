@@ -35,7 +35,8 @@ void ModeSelect::update(float deltaTime)
 	case ModeID::Duel:
 		if (input_.Trigger(PAD_INPUT_RIGHT))
 		{
-			sceneParameters_->Set_NextSceneID(SceneID::GameFour);
+			//sceneParameters_->Set_NextSceneID(SceneID::GameFour);
+			sceneParameters_->Set_NextSceneID(SceneID::GameDuel);
 			m_modeID = ModeID::Four;
 		}
 		break;

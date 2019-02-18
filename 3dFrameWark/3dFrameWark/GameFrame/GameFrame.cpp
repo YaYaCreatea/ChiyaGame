@@ -26,8 +26,8 @@ void GameFrame::start()
 	sceneManager_.Add_Scece(SceneID::Select, new_scene<ModeSelect>(sceneParameters_, startUpload_));
 	sceneManager_.Add_Scece(SceneID::CharaSelect, new_scene<CharaSelect>(selecter_,sceneParameters_, startUpload_));
 	sceneManager_.Add_Scece(SceneID::GameLoad, new_scene<ToPlay>(sceneParameters_, playload_));
-	sceneManager_.Add_Scece(SceneID::GameDuel, new_scene<Duel>(playload_));
-	sceneManager_.Add_Scece(SceneID::GameFour, new_scene<Four>(playload_));
+	sceneManager_.Add_Scece(SceneID::GameDuel, new_scene<Duel>(selecter_,playload_));
+	//sceneManager_.Add_Scece(SceneID::GameFour, new_scene<Four>(playload_));
 	sceneManager_.Change_Scene(SceneID::StartUp);
 }
 

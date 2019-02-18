@@ -17,6 +17,10 @@ public:
 
 	bool Release(int button)const;
 
+	void Vibration(int l_power, int l_time);
+
+	int Get_Type()const;
+
 private:
 	int m_inputType;
 	int m_currentState;

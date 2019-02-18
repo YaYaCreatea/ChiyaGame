@@ -41,9 +41,14 @@ public:
 	void Set_BreakDirection(Vector3 l_direction);
 	Vector3 Get_BreakDirection()const;
 
+	//ロックオン関連関数
+	void Set_LockOnDirection(Vector3 l_direction);
+	void LockOnDirectionNormlize();
+	Vector3 Get_LockOnDirection()const;
 	void LockOn(bool l_isLockOn);
 	bool Get_IsLockOn()const;
 
+	//ダウン関連関数
 	void DidDown();
 	bool Get_IsDown()const;
 
@@ -62,7 +67,10 @@ private:
 
 	Vector3 m_breakDirection;
 
+	Vector3 m_lockOnDirection;
+	float m_distance;
 	bool m_isLockOn;
+
 	bool m_isDown;
 
 };

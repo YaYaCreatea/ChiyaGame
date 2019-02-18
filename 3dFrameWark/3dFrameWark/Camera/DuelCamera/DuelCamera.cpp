@@ -18,7 +18,11 @@
 #include <EffekseerForDXLib.h>
 
 
-DuelCamera::DuelCamera(IWorld & world, const Vector3 & l_position, float l_yawAngle, std::string l_targetName)
+DuelCamera::DuelCamera(
+	IWorld & world,
+	const Vector3 & l_position, float l_yawAngle,
+	std::string l_targetName, int l_numPlayer
+)
 	:m_stateID{ CameraStateID::Normal },
 	m_playerposition{ Vector3::Zero },
 	m_playerrotate{ Matrix::Identity },
@@ -32,6 +36,7 @@ DuelCamera::DuelCamera(IWorld & world, const Vector3 & l_position, float l_yawAn
 	world_ = &world;
 	m_name = "DuelCamera";
 	m_position = l_position;
+
 	m_lookPos = Vector3::Zero;
 
 	if (m_targetName == "Chiya")
@@ -42,6 +47,10 @@ DuelCamera::DuelCamera(IWorld & world, const Vector3 & l_position, float l_yawAn
 		m_group = ActorGroup::Syaro;
 	else if (m_targetName == "Cocoa")
 		m_group = ActorGroup::Cocoa;
+
+	m_inputX = 0;
+	m_inputY = 0;
+	m_numPlayer = l_numPlayer;
 }
 
 void DuelCamera::update(float deltaTime)
@@ -52,17 +61,37 @@ void DuelCamera::update(float deltaTime)
 	if (m_stateID == CameraStateID::Normal)
 	{
 		if (m_targetName == "Chiya")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD1);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+		}
 		else if (m_targetName == "Rize")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+		}
 		else if (m_targetName == "Syaro")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+		}
 		else if (m_targetName == "Cocoa")
-			GetJoypadAnalogInputRight(&inputx_, &inputy_, DX_INPUT_PAD2);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+		}
 
-		m_yawAngle += deltaTime * (inputx_ / 500);
+		m_yawAngle += deltaTime * (m_inputX / 500);
 		m_pitchAngle =
-			MathHelper::Clamp(m_pitchAngle -= deltaTime * (inputy_ / 1000), -40.0f, 40.0f);
+			MathHelper::Clamp(m_pitchAngle -= deltaTime * (m_inputY / 1000), -40.0f, 40.0f);
 
 		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
 		m_rotation.NormalizeRotationMatrix();
@@ -83,12 +112,12 @@ void DuelCamera::update(float deltaTime)
 
 void DuelCamera::draw() const
 {
-	if (m_targetName == "Chiya")
+	if (m_numPlayer == 1)
 	{
 		Graphics3D::viewport(0, 0, 640, 720);
 		SetCameraScreenCenter(320.0f, 360.0f);
 	}
-	else if (m_targetName == "Rize" || m_targetName == "Syaro" || m_targetName == "Cocoa")
+	else if (m_numPlayer == 2)
 	{
 		Graphics3D::viewport(640, 0, 1280, 720);
 		SetCameraScreenCenter(960.0f, 360.0f);

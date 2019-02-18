@@ -29,6 +29,11 @@ void World::initialize()
 	actors_.add(ActorGroup::BossBody);
 	actors_.add(ActorGroup::Neutral);
 	actors_.add(ActorGroup::Effect);
+
+	m_chiyaAlready = false;
+	m_rizeAlready = false;
+	m_syaroAlready = false;
+	m_cocoaAlready = false;
 }
 
 void World::update(float deltaTime)
@@ -69,19 +74,20 @@ void World::update(float deltaTime)
 
 	actors_.remove();
 
-	camera0_->update(deltaTime);
-	camera1_->update(deltaTime);
+	if (cameraChiya_ != nullptr)
+		cameraChiya_->update(deltaTime);
+	if (cameraRize_ != nullptr)
+		cameraRize_->update(deltaTime);
 
-	if (camera2_ == nullptr)return;
-	camera2_->update(deltaTime);
-	camera3_->update(deltaTime);
+	if (cameraSyaro_ != nullptr)
+		cameraSyaro_->update(deltaTime);
+	if (cameraCocoa_ != nullptr)
+		cameraCocoa_->update(deltaTime);
 }
 
-void World::draw() const
-{	
-	camera0_->draw();
-	// DXライブラリのカメラとEffekseerのカメラを同期する。
-	//Effekseer_Sync3DSetting();
+void World::draw()const
+{
+	cameraChiya_->draw();
 	SkyBox::draw();
 	CollisionMesh::draw();
 	actors_.draw();
@@ -89,15 +95,15 @@ void World::draw() const
 
 void World::draw2() const
 {
-	camera1_->draw();
+	cameraRize_->draw();
 	SkyBox::draw();
 	CollisionMesh::draw();
-	actors_.draw();	
+	actors_.draw();
 }
 
 void World::draw3() const
 {
-	camera2_->draw();
+	cameraSyaro_->draw();
 	SkyBox::draw();
 	CollisionMesh::draw();
 	actors_.draw();
@@ -105,7 +111,7 @@ void World::draw3() const
 
 void World::draw4() const
 {
-	camera3_->draw();
+	cameraCocoa_->draw();
 	SkyBox::draw();
 	CollisionMesh::draw();
 	actors_.draw();
@@ -115,10 +121,10 @@ void World::handle_message(EventMessage message, void * param)
 {
 	listener_(message, param);
 
-	camera0_->handle_message(message, param);
+	cameraChiya_->handle_message(message, param);
 	actors_.handle_message(message, param);
-	
-	actors_.handle_message(message, param);	
+
+	actors_.handle_message(message, param);
 }
 
 void World::add_event_message_listener(EventMessageListener listener)
@@ -128,16 +134,16 @@ void World::add_event_message_listener(EventMessageListener listener)
 
 void World::add_camera(const ActorPtr & camera, const ActorPtr& camera1)
 {
-	camera0_ = camera;
-	camera1_ = camera1;
+	cameraChiya_ = camera;
+	cameraRize_ = camera1;
 }
 
 void World::add_camera(const ActorPtr & camera, const ActorPtr & camera1, const ActorPtr & camera2, const ActorPtr & camera3)
 {
-	camera0_ = camera;
-	camera1_ = camera1;
-	camera2_ = camera2;
-	camera3_ = camera3;
+	cameraChiya_ = camera;
+	cameraRize_ = camera1;
+	cameraSyaro_ = camera2;
+	cameraCocoa_ = camera3;
 }
 
 void World::add_light(const ActorPtr & light)
@@ -159,24 +165,44 @@ ActorPtr World::find_actor(ActorGroup group, const std::string & l_name) const
 	return actors_.find_actor(group, l_name);
 }
 
-ActorPtr World::get_camera0() const
+void World::add_camera_chiya(const ActorPtr & camera)
 {
-	return camera0_;
+	cameraChiya_ = camera;
 }
 
-ActorPtr World::get_camera1() const
+void World::add_camera_rize(const ActorPtr & camera)
 {
-	return camera1_;
+	cameraRize_ = camera;
 }
 
-ActorPtr World::get_camera2() const
+void World::add_camera_syaro(const ActorPtr & camera)
 {
-	return camera2_;
+	cameraSyaro_ = camera;
 }
 
-ActorPtr World::get_camera3() const
+void World::add_camera_cocoa(const ActorPtr & camera)
 {
-	return camera3_;
+	cameraCocoa_ = camera;
+}
+
+ActorPtr World::get_camera_chiya() const
+{
+	return cameraChiya_;
+}
+
+ActorPtr World::get_camera_rize() const
+{
+	return cameraRize_;
+}
+
+ActorPtr World::get_camera_syaro() const
+{
+	return cameraSyaro_;
+}
+
+ActorPtr World::get_camera_cocoa() const
+{
+	return cameraCocoa_;
 }
 
 unsigned int World::get_count_actor(ActorGroup group) const

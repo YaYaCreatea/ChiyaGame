@@ -2,6 +2,7 @@
 #define _PLAYER_ACTION_ATTACK_HOMING_H_
 
 #include "../PlayerActionBase.h"
+#include "../../../Actor/ActorPtr.h"
 
 class PlayerAction_AttackHoming :public PlayerActionBase
 {
@@ -14,7 +15,7 @@ public:
 		int& l_motion, Matrix& l_cameraRotation)override;
 
 private:
-	Vector3 m_direction;
+	float m_distance;
 	float m_speed;
 };
 

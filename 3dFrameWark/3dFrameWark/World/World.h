@@ -47,13 +47,21 @@ public:
 
 	virtual ActorPtr find_actor(ActorGroup group, const std::string& l_name)const override;
 
-	virtual ActorPtr get_camera0() const override;
+	virtual void add_camera_chiya(const ActorPtr& camera)override;
 
-	virtual ActorPtr get_camera1() const override;
+	virtual void add_camera_rize(const ActorPtr& camera)override;
 
-	virtual ActorPtr get_camera2() const override;
+	virtual void add_camera_syaro(const ActorPtr& camera)override;
 
-	virtual ActorPtr get_camera3() const override;
+	virtual void add_camera_cocoa(const ActorPtr& camera) override;
+
+	virtual ActorPtr get_camera_chiya() const override;
+
+	virtual ActorPtr get_camera_rize() const override;
+
+	virtual ActorPtr get_camera_syaro() const override;
+
+	virtual ActorPtr get_camera_cocoa() const override;
 
 	virtual unsigned int get_count_actor(ActorGroup group)const override;
 
@@ -66,11 +74,16 @@ public:
 
 private:
 	ActorGroupManager actors_;
-	ActorPtr camera0_;
-	ActorPtr camera1_;
-	ActorPtr camera2_;
-	ActorPtr camera3_;
+	ActorPtr cameraChiya_;
+	ActorPtr cameraRize_;
+	ActorPtr cameraSyaro_;
+	ActorPtr cameraCocoa_;
 	EventMessageListener listener_{ [](EventMessage,void*) {} };
+
+	bool m_chiyaAlready;
+	bool m_rizeAlready;
+	bool m_syaroAlready;
+	bool m_cocoaAlready;
 };
 
 #endif

@@ -173,12 +173,6 @@ void Cocoa::draw() const
 			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
 	}
 
-	//Graphics2D::draw_sprite_RCS(
-	//	(int)SpriteID::HpGauge,
-	//	Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
-	//	90, Vector2::Zero, Vector2{ 0.3f,0.3f }
-	//);
-
 	if (m_numPlayer == 1)
 		Graphics2D::draw_sprite_RCS(
 		(int)SpriteID::HpGauge,
@@ -293,13 +287,13 @@ void Cocoa::lockOnCheck()
 	m_forward.Normalize();
 
 	if (m_distance > 200.0f
-		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.9f - ((200.0f - m_distance) / 500.0f)))
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.93f - ((200.0f - m_distance) / 6000.0f)))
 	{
 		parameters_.LockOn(false);
 		return;
 	}
 
-	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.9f - ((200.0f - m_distance) / 500.0f)))
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.93f - ((200.0f - m_distance) / 6000.0f)))
 	{
 		parameters_.LockOn(true);
 	}

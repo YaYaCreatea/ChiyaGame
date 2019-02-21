@@ -203,10 +203,6 @@ void Rize::draw() const
 		(int)SpriteID::HpGauge,
 			Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
-
-	DrawFormatStringF(
-		660.0f, 100.0f, 1, "(%d)",
-		input_.Get_Type());
 }
 
 void Rize::react(Actor & other)

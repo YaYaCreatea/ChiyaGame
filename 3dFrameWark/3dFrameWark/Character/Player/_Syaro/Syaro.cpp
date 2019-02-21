@@ -303,13 +303,13 @@ void Syaro::lockOnCheck()
 	m_forward.Normalize();
 
 	if (m_distance > 300.0f
-		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.9f - ((300.0f - m_distance) / 500.0f)))
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.93f - ((300.0f - m_distance) / 8000.0f)))
 	{
 		parameters_.LockOn(false);
 		return;
 	}
 
-	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.9f - ((300.0f - m_distance) / 500.0f)))
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.93f - ((300.0f - m_distance) / 8000.0f)))
 	{
 		parameters_.LockOn(true);
 	}

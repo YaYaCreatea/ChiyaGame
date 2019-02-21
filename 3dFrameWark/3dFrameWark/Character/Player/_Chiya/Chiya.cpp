@@ -207,14 +207,12 @@ void Chiya::draw() const
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
 
 	/*DrawFormatStringF(
-		20.0f, 40.0f, 1, "(%f)",
-		Vector3::Dot(m_forward, m_direction));
+		20.0f, 40.0f, 1, "(%f::%f)",
+		Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()),
+		(0.9f - ((100.0f - m_distance) / 500.0f)));
 	DrawFormatStringF(
-		20.0f, 70.0f, 1, "(%d)",
-		parameters_.Get_IsLockOn());*/
-	DrawFormatStringF(
-		20.0f, 100.0f, 1, "(%d)",
-		input_.Get_Type());
+		20.0f, 70.0f, 1, "(%f)",
+		m_distance);*/
 }
 
 void Chiya::react(Actor & other)

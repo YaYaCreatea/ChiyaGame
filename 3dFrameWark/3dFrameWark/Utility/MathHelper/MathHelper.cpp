@@ -9,6 +9,11 @@ float MathHelper::Clamp(float value, float min, float max) {
 	return std::max(min, std::min(value, max));
 }
 
+int MathHelper::ClampInt(int value, int min, int max)
+{
+	return std::max(min, std::min(value, max));
+}
+
 float MathHelper::Distance(float n1, float n2) {
 	return std::abs(n1 - n2);
 }

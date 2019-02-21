@@ -21,6 +21,8 @@ Duel::Duel(CharacterSelecter& l_selecter, PlayLoad & l_load)
 {
 	charaSelecter_ = &l_selecter;
 	load_ = &l_load;
+
+	frameCamera_.initialize(l_selecter);
 }
 
 void Duel::start()

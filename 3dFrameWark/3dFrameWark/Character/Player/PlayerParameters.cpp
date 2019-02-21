@@ -71,7 +71,7 @@ std::string PlayerParameters::Get_Name() const
 
 void PlayerParameters::Damage_HP(int l_damageHp)
 {
-	m_Hp = MathHelper::Clamp(m_Hp - l_damageHp, 0, m_HpMax);
+	m_Hp = MathHelper::ClampInt(m_Hp - l_damageHp, 0, m_HpMax);
 }
 
 int PlayerParameters::Get_HP() const

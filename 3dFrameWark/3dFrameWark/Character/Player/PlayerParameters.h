@@ -48,6 +48,19 @@ public:
 	void LockOn(bool l_isLockOn);
 	bool Get_IsLockOn()const;
 
+	void Set_DistanceNear(float l_distance);
+	void Set_DistanceToChiya(float l_distance);
+	void Set_DistanceToRize(float l_distance);
+	void Set_DistanceToSyaro(float l_distance);
+	void Set_DistanceToCocoa(float l_distance);
+
+	float Get_DistanceNear()const;
+	float Get_DistanceToChiya()const;
+	float Get_DistanceToRize()const;
+	float Get_DistanceToSyaro()const;
+	float Get_DistanceToCocoa()const;
+
+
 	//É_ÉEÉìä÷òAä÷êî
 	void DidDown();
 	bool Get_IsDown()const;
@@ -68,7 +81,11 @@ private:
 	Vector3 m_breakDirection;
 
 	Vector3 m_lockOnDirection;
-	float m_distance;
+	float m_distanceNear;
+	float m_distanceToChiya;
+	float m_distanceToRize;
+	float m_distanceToSyaro;
+	float m_distanceToCocoa;
 	bool m_isLockOn;
 
 	bool m_isDown;

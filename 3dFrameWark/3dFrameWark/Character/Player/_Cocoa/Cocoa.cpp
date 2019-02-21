@@ -43,8 +43,7 @@ Cocoa::Cocoa(IWorld & world,
 	m_motion{ 0 },
 	m_pi{ Vector3::Zero },
 	m_piVelo{ Vector3::Zero },
-	m_forward{ Vector3::Zero },
-	m_distance{ 0.0f }
+	m_forward{ Vector3::Zero }
 {
 	world_ = &world;
 	m_name = l_name;
@@ -296,33 +295,69 @@ void Cocoa::lockOnCheck()
 	auto l_rize = world_->find_actor(ActorGroup::Rize, "Rize");
 	auto l_syaro = world_->find_actor(ActorGroup::Syaro, "Syaro");
 
-	if (l_chiya != nullptr)
+	if (m_gameMode == 0)
 	{
-		parameters_.Set_LockOnDirection(l_chiya->get_position() - m_position);
-		m_distance = Vector3::Distance(m_position, l_chiya->get_position());
+		if (l_chiya != nullptr)
+		{
+			parameters_.Set_LockOnDirection(l_chiya->get_position() - m_position);
+			parameters_.Set_DistanceNear(Vector3::Distance(m_position, l_chiya->get_position()));
+		}
+		if (l_rize != nullptr)
+		{
+			parameters_.Set_LockOnDirection(l_rize->get_position() - m_position);
+			parameters_.Set_DistanceNear(Vector3::Distance(m_position, l_rize->get_position()));
+		}
+		if (l_syaro != nullptr)
+		{
+			parameters_.Set_LockOnDirection(l_syaro->get_position() - m_position);
+			parameters_.Set_DistanceNear(Vector3::Distance(m_position, l_syaro->get_position()));
+		}
 	}
-	if (l_rize != nullptr)
+	else
 	{
-		parameters_.Set_LockOnDirection(l_rize->get_position() - m_position);
-		m_distance = Vector3::Distance(m_position, l_rize->get_position());
-	}
-	if (l_syaro != nullptr)
-	{
-		parameters_.Set_LockOnDirection(l_syaro->get_position() - m_position);
-		m_distance = Vector3::Distance(m_position, l_syaro->get_position());
+		parameters_.Set_DistanceToChiya(Vector3::Distance(m_position, l_chiya->get_position()));
+		parameters_.Set_DistanceToRize(Vector3::Distance(m_position, l_rize->get_position()));
+		parameters_.Set_DistanceToSyaro(Vector3::Distance(m_position, l_syaro->get_position()));
+
+		if (parameters_.Get_DistanceToChiya() < parameters_.Get_DistanceToRize())
+		{
+			if (parameters_.Get_DistanceToChiya() < parameters_.Get_DistanceToSyaro())
+			{
+				parameters_.Set_LockOnDirection(l_chiya->get_position() - m_position);
+				parameters_.Set_DistanceNear(parameters_.Get_DistanceToChiya());
+			}
+			else if (parameters_.Get_DistanceToSyaro() < parameters_.Get_DistanceToChiya())
+			{
+				parameters_.Set_LockOnDirection(l_syaro->get_position() - m_position);
+				parameters_.Set_DistanceNear(parameters_.Get_DistanceToSyaro());
+			}
+		}
+		else if (parameters_.Get_DistanceToRize() < parameters_.Get_DistanceToChiya())
+		{
+			if (parameters_.Get_DistanceToRize() < parameters_.Get_DistanceToSyaro())
+			{
+				parameters_.Set_LockOnDirection(l_rize->get_position() - m_position);
+				parameters_.Set_DistanceNear(parameters_.Get_DistanceToRize());
+			}
+			else if (parameters_.Get_DistanceToSyaro() < parameters_.Get_DistanceToRize())
+			{
+				parameters_.Set_LockOnDirection(l_syaro->get_position() - m_position);
+				parameters_.Set_DistanceNear(parameters_.Get_DistanceToSyaro());
+			}
+		}
 	}
 	parameters_.LockOnDirectionNormlize();
 	m_forward = m_cameraRoate.Forward();
 	m_forward.Normalize();
 
-	if (m_distance > 200.0f
-		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.93f - ((200.0f - m_distance) / 6000.0f)))
+	if (parameters_.Get_DistanceNear() > 200.0f
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.93f - ((200.0f - parameters_.Get_DistanceNear()) / 6000.0f)))
 	{
 		parameters_.LockOn(false);
 		return;
 	}
 
-	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.93f - ((200.0f - m_distance) / 6000.0f)))
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) >= (0.93f - ((200.0f - parameters_.Get_DistanceNear()) / 6000.0f)))
 	{
 		parameters_.LockOn(true);
 	}

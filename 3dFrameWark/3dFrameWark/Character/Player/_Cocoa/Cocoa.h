@@ -73,7 +73,6 @@ private:
 	Vector3 m_piVelo;
 
 	Vector3 m_forward;
-	float m_distance;
 };
 
 #endif

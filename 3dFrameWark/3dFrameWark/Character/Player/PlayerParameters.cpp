@@ -15,7 +15,11 @@ void PlayerParameters::Initialize(std::string l_name, int l_Hp)
 	m_end_time = 0.0f;
 	m_breakDirection = Vector3::Zero;
 	m_lockOnDirection = Vector3::Zero;
-	m_distance = 0.0f;
+	m_distanceNear = 0.0f;
+	m_distanceToChiya = 0.0f;
+	m_distanceToRize = 0.0f;
+	m_distanceToSyaro = 0.0f;
+	m_distanceToCocoa = 0.0f;
 	m_isLockOn = true;
 	m_isDown = false;
 }
@@ -113,6 +117,56 @@ void PlayerParameters::LockOn(bool l_isLockOn)
 bool PlayerParameters::Get_IsLockOn() const
 {
 	return m_isLockOn;
+}
+
+void PlayerParameters::Set_DistanceNear(float l_distance)
+{
+	m_distanceNear = l_distance;
+}
+
+void PlayerParameters::Set_DistanceToChiya(float l_distance)
+{
+	m_distanceToChiya = l_distance;
+}
+
+void PlayerParameters::Set_DistanceToRize(float l_distance)
+{
+	m_distanceToRize = l_distance;
+}
+
+void PlayerParameters::Set_DistanceToSyaro(float l_distance)
+{
+	m_distanceToSyaro = l_distance;
+}
+
+void PlayerParameters::Set_DistanceToCocoa(float l_distance)
+{
+	m_distanceToCocoa = l_distance;
+}
+
+float PlayerParameters::Get_DistanceNear() const
+{
+	return m_distanceNear;
+}
+
+float PlayerParameters::Get_DistanceToChiya() const
+{
+	return m_distanceToChiya;
+}
+
+float PlayerParameters::Get_DistanceToRize() const
+{
+	return m_distanceToRize;
+}
+
+float PlayerParameters::Get_DistanceToSyaro() const
+{
+	return m_distanceToSyaro;
+}
+
+float PlayerParameters::Get_DistanceToCocoa() const
+{
+	return m_distanceToCocoa;
 }
 
 void PlayerParameters::DidDown()

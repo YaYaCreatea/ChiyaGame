@@ -125,15 +125,13 @@ void Duel::start()
 				m_numCocoa)
 		);
 	}
-
-	//world_.add_actor(ActorGroup::Boss, new_actor<Boss0>(world_, "Boss", Vector3{ 0.0f,0.0f,0.0f }, (int)ModelCharaID::Boss));
 }
 
 void Duel::update(float deltaTime)
 {
 	world_.update(deltaTime);
 
-	//EndCheck();
+	EndCheck();
 }
 
 void Duel::draw() const
@@ -187,19 +185,93 @@ void Duel::end()
 
 void Duel::EndCheck()
 {
-	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
-	//	|| world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown())
-	//{
-	//	m_isEnd = true;
-	//}
-	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
-	//	|| world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown())
-	//{
-	//	m_isEnd = true;
-	//}
-	//if (world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown()
-	//	|| world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
-	//{
-	//	m_isEnd = true;
-	//}
+	auto l_chiya = world_.find_actor(ActorGroup::Chiya, "Chiya");
+	auto l_rize = world_.find_actor(ActorGroup::Rize, "Rize");
+	auto l_syaro = world_.find_actor(ActorGroup::Syaro, "Syaro");
+	auto l_cocoa = world_.find_actor(ActorGroup::Cocoa, "Cocoa");
+
+	if (l_chiya != nullptr)
+	{
+		if (!l_chiya->get_IsDown())
+		{
+			if (l_rize != nullptr)
+			{
+				if(l_rize->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_syaro != nullptr)
+			{
+				if (l_syaro->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_cocoa != nullptr)
+			{
+				if (l_cocoa->get_IsDown())
+					m_isEnd = true;
+			}
+		}
+	}
+	if (l_rize != nullptr)
+	{
+		if (!l_rize->get_IsDown())
+		{
+			if (l_chiya != nullptr)
+			{
+				if (l_chiya->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_syaro != nullptr)
+			{
+				if (l_syaro->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_cocoa != nullptr)
+			{
+				if (l_cocoa->get_IsDown())
+					m_isEnd = true;
+			}
+		}
+	}
+	if (l_syaro != nullptr)
+	{
+		if (!l_syaro->get_IsDown())
+		{
+			if (l_chiya != nullptr)
+			{
+				if (l_chiya->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_rize != nullptr)
+			{
+				if (l_rize->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_cocoa != nullptr)
+			{
+				if (l_cocoa->get_IsDown())
+					m_isEnd = true;
+			}
+		}
+	}
+	if (l_cocoa != nullptr)
+	{
+		if (!l_cocoa->get_IsDown())
+		{
+			if (l_chiya != nullptr)
+			{
+				if (l_chiya->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_rize != nullptr)
+			{
+				if (l_rize->get_IsDown())
+					m_isEnd = true;
+			}
+			else if (l_syaro != nullptr)
+			{
+				if (l_syaro->get_IsDown())
+					m_isEnd = true;
+			}
+		}
+	}
 }

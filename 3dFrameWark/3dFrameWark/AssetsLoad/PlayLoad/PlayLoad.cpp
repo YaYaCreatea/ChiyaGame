@@ -57,6 +57,8 @@ void PlayLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa_4, "asset/2Dsprite/GamePlay/BackFrame_Cocoa_4.png");
 	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOff, "asset/2Dsprite/GamePlay/LockOnArea.png");
 	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOn, "asset/2Dsprite/GamePlay/LockOnAreaOn.png");
+	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOff_4, "asset/2Dsprite/GamePlay/LockOnArea_4.png");
+	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOn_4, "asset/2Dsprite/GamePlay/LockOnAreaOn_4.png");
 
 	//ビルボードの読み込み
 	Billboard::load(0, "asset/Particle02.png");

@@ -36,6 +36,8 @@ enum class SpriteID
 	LoadGauge,
 	LockOnAreaOff,
 	LockOnAreaOn,
+	LockOnAreaOff_4,
+	LockOnAreaOn_4,
 	CharaSelectBack,
 	CharaSelectChiya,
 	CharaSelectRize,

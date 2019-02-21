@@ -62,6 +62,8 @@ private:
 
 	int m_numPlayer;
 
+	int m_gameMode;
+
 	//ƒ‚[ƒVƒ‡ƒ“”Ô†
 	int m_motion;
 	//•Šíƒ‚ƒfƒ‹

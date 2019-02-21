@@ -61,6 +61,7 @@ private:
 	PlayerStateName m_state;
 
 	int m_numPlayer;
+	int m_gameMode;
 
 	//ƒ‚[ƒVƒ‡ƒ“”Ô†
 	int m_motion;

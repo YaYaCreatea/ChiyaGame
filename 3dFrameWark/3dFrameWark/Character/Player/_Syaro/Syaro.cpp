@@ -54,10 +54,11 @@ Syaro::Syaro(IWorld & world,
 	m_prevposition = m_position;
 
 	m_numPlayer = l_numPlayer;
+	m_gameMode = l_gMode;
 
 	parameters_.Initialize(m_name, 30);
 
-	if (l_gMode == 0)
+	if (m_gameMode == 0)
 	{
 		if (m_numPlayer == 1)
 		{
@@ -161,19 +162,47 @@ void Syaro::draw() const
 	mesh_.draw();
 	draw_weapon();
 
-	if (!parameters_.Get_IsLockOn())
+	if (m_gameMode == 0)
 	{
-		if (m_numPlayer == 1)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
-		else if (m_numPlayer == 2)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+		if (!parameters_.Get_IsLockOn())
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+		}
+		else
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+		}
 	}
 	else
 	{
-		if (m_numPlayer == 1)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
-		else if (m_numPlayer == 2)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+		if (!parameters_.Get_IsLockOn())
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2{ 640.0f,0.0f });
+			else if (m_numPlayer == 3)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2{ 0.0f,360.0f });
+			else if (m_numPlayer == 4)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2{ 640.0f,360.0f });
+		}
+		else
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2{ 640.0f,0.0f });
+			else if (m_numPlayer == 3)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2{ 0.0f,360.0f });
+			else if (m_numPlayer == 4)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2{ 640.0f,360.0f });
+		}
 	}
 
 	//Graphics2D::draw_sprite_RCS(

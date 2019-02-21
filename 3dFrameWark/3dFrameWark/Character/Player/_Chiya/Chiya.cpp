@@ -37,9 +37,9 @@
 
 #include <EffekseerForDXLib.h>
 
-Chiya::Chiya(IWorld & world, 
-	std::string l_name, const Vector3 & l_position, Matrix l_rotate, 
-	int l_model, int l_weapon, 
+Chiya::Chiya(IWorld & world,
+	std::string l_name, const Vector3 & l_position, Matrix l_rotate,
+	int l_model, int l_weapon,
 	int l_numPlayer, int l_gMode
 )
 	:mesh_{ l_model,0 },
@@ -58,10 +58,11 @@ Chiya::Chiya(IWorld & world,
 	m_position = l_position;
 	m_prevposition = m_position;
 	m_numPlayer = l_numPlayer;
+	m_gameMode = l_gMode;
 
 	parameters_.Initialize(m_name, 51);
 
-	if (l_gMode == 0)
+	if (m_gameMode == 0)
 	{
 		if (m_numPlayer == 1)
 		{
@@ -169,19 +170,47 @@ void Chiya::draw() const
 	mesh_.draw();
 	draw_weapon();
 
-	if (!parameters_.Get_IsLockOn())
+	if (m_gameMode == 0)
 	{
-		if (m_numPlayer == 1)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
-		else if (m_numPlayer == 2)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+		if (!parameters_.Get_IsLockOn())
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff, Vector2{ 640.0f,0.0f });
+		}
+		else
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+		}
 	}
 	else
 	{
-		if (m_numPlayer == 1)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2::Zero);
-		else if (m_numPlayer == 2)
-			Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn, Vector2{ 640.0f,0.0f });
+		if (!parameters_.Get_IsLockOn())
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2{ 640.0f,0.0f });
+			else if (m_numPlayer == 3)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2{ 0.0f,360.0f });
+			else if (m_numPlayer == 4)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOff_4, Vector2{ 640.0f,360.0f });
+		}
+		else
+		{
+			if (m_numPlayer == 1)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2::Zero);
+			else if (m_numPlayer == 2)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2{ 640.0f,0.0f });
+			else if (m_numPlayer == 3)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2{ 0.0f,360.0f });
+			else if (m_numPlayer == 4)
+				Graphics2D::draw_sprite((int)SpriteID::LockOnAreaOn_4, Vector2{ 640.0f,360.0f });
+		}
 	}
 
 
@@ -312,7 +341,7 @@ void Chiya::lockOnCheck()
 	parameters_.LockOnDirectionNormlize();
 	m_forward = m_cameraRoate.Forward();
 	m_forward.Normalize();
-	
+
 
 	if (m_distance > 100.0f
 		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) < (0.9f - ((100.0f - m_distance) / 500.0f)))

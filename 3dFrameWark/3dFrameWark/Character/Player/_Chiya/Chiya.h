@@ -19,7 +19,11 @@ class Chiya :public Actor
 {
 public:
 	//コンストラクタ
-	Chiya(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_weapon, int l_numPlayer);
+	Chiya(IWorld& world,
+		std::string l_name, const Vector3& l_position, Matrix l_rotate,
+		int l_model, int l_weapon,
+		int l_numPlayer, int l_gMode = 0
+	);
 
 	virtual void update(float deltaTime)override;
 

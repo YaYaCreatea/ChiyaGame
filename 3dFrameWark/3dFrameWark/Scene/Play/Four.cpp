@@ -18,8 +18,9 @@
 #include "../../Character/Enemy/Enemy.h"
 
 
-Four::Four(PlayLoad & l_load)
+Four::Four(CharacterSelecter& l_selecter, PlayLoad & l_load)
 {
+	charaSelecter_ = &l_selecter;
 	load_ = &l_load;
 }
 
@@ -27,43 +28,195 @@ void Four::start()
 {
 	m_isEnd = false;
 
+	m_numChiya = 0;
+	m_numRize = 0;
+	m_numSyaro = 0;
+	m_numCocoa = 0;
+
 	Graphics3D::initialize();
-	
+
 	world_.initialize();
 
-	//world_.add_camera(new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 135.0f, "Chiya"),
-	//	new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, "Rize"),
-	//	new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, "Syaro"),
-	//	new_actor<FourCamera>(world_, Vector3{ 0.0f,25.0f,35.0f }, -45.0f, "Cocoa"));
+	if (charaSelecter_->Get_1PChara() == CharaID::Chiya)
+	{
+		m_numChiya = 1;
+		world_.add_actor(
+			ActorGroup::Chiya,
+			new_actor<Chiya>(world_, "Chiya", 
+				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
+				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
+				m_numChiya, 1)
+		);
 
-	//world_.add_actor(
-	//	ActorGroup::Chiya,
-	//	new_actor<Chiya>(
-	//		world_, "Chiya",
-	//		Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
-	//		(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana)
-	//);
-	//world_.add_actor(
-	//	ActorGroup::Rize,
-	//	new_actor<Rize>(
-	//		world_, "Rize",
-	//		Vector3{ 0.0f,0.0f,540.0f }, Matrix::Identity,
-	//		(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear)
-	//);
-	//world_.add_actor(
-	//	ActorGroup::Syaro,
-	//	new_actor<Syaro>(
-	//		world_, "Syaro", 
-	//		Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
-	//		(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun)
-	//);
-	//world_.add_actor(
-	//	ActorGroup::Cocoa,
-	//	new_actor<Cocoa>(
-	//		world_, "Cocoa",
-	//		Vector3{ -90.0f,0.0f,150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
-	//		(int)ModelCharaID::Cocoa)
-	//);
+	}
+	else if (charaSelecter_->Get_1PChara() == CharaID::Rize)
+	{
+		m_numRize = 1;
+		world_.add_actor(
+			ActorGroup::Rize,
+			new_actor<Rize>(world_, "Rize", 
+				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
+				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
+				m_numRize, 1)
+		);
+	}
+	else if (charaSelecter_->Get_1PChara() == CharaID::Syaro)
+	{
+		m_numSyaro = 1;
+		world_.add_actor(
+			ActorGroup::Syaro,
+			new_actor<Syaro>(world_, "Syaro", 
+				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
+				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
+				m_numSyaro, 1)
+		);
+	}
+	else if (charaSelecter_->Get_1PChara() == CharaID::Cocoa)
+	{
+		m_numCocoa = 1;
+		world_.add_actor(
+			ActorGroup::Cocoa,
+			new_actor<Cocoa>(world_, "Cocoa", 
+				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
+				(int)ModelCharaID::Cocoa,
+				m_numCocoa, 1)
+		);
+	}
+
+	if (charaSelecter_->Get_2PChara() == CharaID::Chiya)
+	{
+		m_numChiya = 2;
+		world_.add_actor(
+			ActorGroup::Chiya,
+			new_actor<Chiya>(world_, "Chiya", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
+				m_numChiya, 1)
+		);
+	}
+	else if (charaSelecter_->Get_2PChara() == CharaID::Rize)
+	{
+		m_numRize = 2;
+		world_.add_actor(
+			ActorGroup::Rize,
+			new_actor<Rize>(world_, "Rize", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
+				m_numRize, 1)
+		);
+	}
+	else if (charaSelecter_->Get_2PChara() == CharaID::Syaro)
+	{
+		m_numSyaro = 2;
+		world_.add_actor(
+			ActorGroup::Syaro,
+			new_actor<Syaro>(world_, "Syaro", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
+				m_numSyaro, 1)
+		);
+	}
+	else if (charaSelecter_->Get_2PChara() == CharaID::Cocoa)
+	{
+		m_numCocoa = 2;
+		world_.add_actor(
+			ActorGroup::Cocoa,
+			new_actor<Cocoa>(world_, "Cocoa", Vector3{ 0.0f,0.0f,540.0f },
+				Matrix::Identity,
+				(int)ModelCharaID::Cocoa,
+				m_numCocoa, 1)
+		);
+	}
+
+	if (charaSelecter_->Get_3PChara() == CharaID::Chiya)
+	{
+		m_numChiya = 3;
+		world_.add_actor(
+			ActorGroup::Chiya,
+			new_actor<Chiya>(world_, "Chiya", 
+				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
+				m_numChiya, 1)
+		);
+	}
+	else if (charaSelecter_->Get_3PChara() == CharaID::Rize)
+	{
+		m_numRize = 3;
+		world_.add_actor(
+			ActorGroup::Rize,
+			new_actor<Rize>(world_, "Rize", 
+				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
+				m_numRize, 1)
+		);
+	}
+	else if (charaSelecter_->Get_3PChara() == CharaID::Syaro)
+	{
+		m_numSyaro = 3;
+		world_.add_actor(
+			ActorGroup::Syaro,
+			new_actor<Syaro>(world_, "Syaro", 
+				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
+				m_numSyaro, 1)
+		);
+	}
+	else if (charaSelecter_->Get_3PChara() == CharaID::Cocoa)
+	{
+		m_numCocoa = 3;
+		world_.add_actor(
+			ActorGroup::Cocoa,
+			new_actor<Cocoa>(world_, "Cocoa", 
+				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
+				(int)ModelCharaID::Cocoa,
+				m_numCocoa, 1)
+		);
+	}
+
+	if (charaSelecter_->Get_4PChara() == CharaID::Chiya)
+	{
+		m_numChiya = 4;
+		world_.add_actor(
+			ActorGroup::Chiya,
+			new_actor<Chiya>(world_, "Chiya", Vector3{ -90.0f,0.0f,150.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
+				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
+				m_numChiya, 1)
+		);
+	}
+	else if (charaSelecter_->Get_4PChara() == CharaID::Rize)
+	{
+		m_numRize = 4;
+		world_.add_actor(
+			ActorGroup::Rize,
+			new_actor<Rize>(world_, "Rize", Vector3{ -90.0f,0.0f,150.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
+				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
+				m_numRize, 1)
+		);
+	}
+	else if (charaSelecter_->Get_4PChara() == CharaID::Syaro)
+	{
+		m_numSyaro = 4;
+		world_.add_actor(
+			ActorGroup::Syaro,
+			new_actor<Syaro>(world_, "Syaro", Vector3{ -90.0f,0.0f,150.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
+				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
+				m_numSyaro, 1)
+		);
+	}
+	else if (charaSelecter_->Get_4PChara() == CharaID::Cocoa)
+	{
+		m_numCocoa = 4;
+		world_.add_actor(
+			ActorGroup::Cocoa,
+			new_actor<Cocoa>(world_, "Cocoa", Vector3{ -90.0f,0.0f,150.0f },
+				Matrix::CreateFromAxisAngle(Vector3::Up, -45.0f),
+				(int)ModelCharaID::Cocoa,
+				m_numCocoa, 1)
+		);
+	}
 }
 
 void Four::update(float deltaTime)

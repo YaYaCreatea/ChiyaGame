@@ -16,7 +16,10 @@
 
 #include <math.h>
 
-FourCamera::FourCamera(IWorld & world, const Vector3 & l_position, float l_yawAngle, std::string l_targetName)
+FourCamera::FourCamera(
+	IWorld & world, 
+	const Vector3 & l_position, float l_yawAngle, 
+	std::string l_targetName, int l_numPlayer)
 	:m_stateID{ CameraStateID::Normal },
 	m_playerposition{ Vector3::Zero },
 	m_playerrotate{ Matrix::Identity },
@@ -43,6 +46,8 @@ FourCamera::FourCamera(IWorld & world, const Vector3 & l_position, float l_yawAn
 
 	m_inputX = 0;
 	m_inputY = 0;
+
+	m_numPlayer = l_numPlayer;
 }
 
 void FourCamera::update(float deltaTime)
@@ -53,13 +58,49 @@ void FourCamera::update(float deltaTime)
 	if (m_stateID == CameraStateID::Normal)
 	{
 		if (m_targetName == "Chiya")
-			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+			else if (m_numPlayer == 3)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD3);
+			else if (m_numPlayer == 4)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
+		}
 		else if (m_targetName == "Rize")
-			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+			else if (m_numPlayer == 3)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD3);
+			else if (m_numPlayer == 4)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
+		}
 		else if (m_targetName == "Syaro")
-			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD3);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+			else if (m_numPlayer == 3)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD3);
+			else if (m_numPlayer == 4)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
+		}
 		else if (m_targetName == "Cocoa")
-			GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
+		{
+			if (m_numPlayer == 1)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD1);
+			else if (m_numPlayer == 2)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD2);
+			else if (m_numPlayer == 3)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD3);
+			else if (m_numPlayer == 4)
+				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
+		}
 
 		m_yawAngle += deltaTime * (m_inputX / 500);
 		m_pitchAngle =
@@ -83,22 +124,22 @@ void FourCamera::update(float deltaTime)
 
 void FourCamera::draw() const
 {
-	if (m_targetName == "Chiya")
+	if (m_numPlayer == 1)
 	{
 		Graphics3D::viewport(0, 0, 640, 360);
 		SetCameraScreenCenter(320.0f, 180.0f);
 	}
-	else if (m_targetName == "Rize")
+	else if (m_numPlayer == 2)
 	{
 		Graphics3D::viewport(640, 0, 1280, 360);
 		SetCameraScreenCenter(960.0f, 180.0f);
 	}
-	else if (m_targetName == "Syaro")
+	else if (m_numPlayer == 3)
 	{
 		Graphics3D::viewport(0, 360, 640, 720);
 		SetCameraScreenCenter(320.0f, 540.0f);
 	}
-	else if (m_targetName == "Cocoa")
+	else if (m_numPlayer == 4)
 	{
 		Graphics3D::viewport(640, 360, 1280, 720);
 		SetCameraScreenCenter(960.0f, 540.0f);

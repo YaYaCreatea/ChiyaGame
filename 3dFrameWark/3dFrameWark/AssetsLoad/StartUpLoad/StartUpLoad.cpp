@@ -50,6 +50,16 @@ void StartUpLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::SelICO_2_1, "asset/2Dsprite/CharaSelect/ICO/2PICO_act1.png");
 	Graphics2D::load_sprite((int)SpriteID::SelICO_2_2, "asset/2Dsprite/CharaSelect/ICO/2PICO_act2.png");
 	Graphics2D::load_sprite((int)SpriteID::SelICO_2_3, "asset/2Dsprite/CharaSelect/ICO/2PICO_act3.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_3_D, "asset/2Dsprite/CharaSelect/ICO/3PICO_Dact.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_3_0, "asset/2Dsprite/CharaSelect/ICO/3PICO_act0.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_3_1, "asset/2Dsprite/CharaSelect/ICO/3PICO_act1.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_3_2, "asset/2Dsprite/CharaSelect/ICO/3PICO_act2.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_3_3, "asset/2Dsprite/CharaSelect/ICO/3PICO_act3.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_4_D, "asset/2Dsprite/CharaSelect/ICO/4PICO_Dact.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_4_0, "asset/2Dsprite/CharaSelect/ICO/4PICO_act0.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_4_1, "asset/2Dsprite/CharaSelect/ICO/4PICO_act1.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_4_2, "asset/2Dsprite/CharaSelect/ICO/4PICO_act2.png");
+	Graphics2D::load_sprite((int)SpriteID::SelICO_4_3, "asset/2Dsprite/CharaSelect/ICO/4PICO_act3.png");
 
 	//モードセレクトモデル
 	CollisionMesh::load(0, "asset/Stage/StageTest/Stage4.mv1");

@@ -16,6 +16,7 @@
 #include "../../../Graphics2D/Graphics2D.h"
 
 #include "../../../Camera/DuelCamera/DuelCamera.h"
+#include "../../../Camera/FourCamera/FourCamera.h"
 #include "../PlayerAction/PlayerAction_Idle.h"
 #include "../PlayerAction/PlayerAction_Move.h"
 #include "../PlayerAction/PlayerAction_Attack.h"
@@ -31,7 +32,11 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-Cocoa::Cocoa(IWorld & world, std::string l_name, const Vector3 & l_position, Matrix l_rotate, int l_model, int l_numPlayer)
+Cocoa::Cocoa(IWorld & world, 
+	std::string l_name, const Vector3 & l_position, Matrix l_rotate, 
+	int l_model, 
+	int l_numPlayer, int l_gMode
+)
 	:mesh_{ l_model,0 },
 	input_{},
 	m_state{ PlayerStateName::Idle },
@@ -50,15 +55,41 @@ Cocoa::Cocoa(IWorld & world, std::string l_name, const Vector3 & l_position, Mat
 
 	parameters_.Initialize(m_name, 34);
 
-	if (m_numPlayer == 1)
+	if (l_gMode == 0)
 	{
-		world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
-		input_.initialize(DX_INPUT_PAD1);
+		if (m_numPlayer == 1)
+		{
+			world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
+			input_.initialize(DX_INPUT_PAD1);
+		}
+		else if (m_numPlayer == 2)
+		{
+			world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
+			input_.initialize(DX_INPUT_PAD2);
+		}
 	}
-	else if (m_numPlayer == 2)
+	else
 	{
-		world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
-		input_.initialize(DX_INPUT_PAD2);
+		if (m_numPlayer == 1)
+		{
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 135.0f, m_name, m_numPlayer));
+			input_.initialize(DX_INPUT_PAD1);
+		}
+		else if (m_numPlayer == 2)
+		{
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
+			input_.initialize(DX_INPUT_PAD2);
+		}
+		else if (m_numPlayer == 3)
+		{
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
+			input_.initialize(DX_INPUT_PAD3);
+		}
+		else if (m_numPlayer == 4)
+		{
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, -45.0f, m_name, m_numPlayer));
+			input_.initialize(DX_INPUT_PAD4);
+		}
 	}
 
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
@@ -157,6 +188,16 @@ void Cocoa::draw() const
 		Graphics2D::draw_sprite_RCS(
 		(int)SpriteID::HpGauge,
 			Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	else if (m_numPlayer == 3)
+		Graphics2D::draw_sprite_RCS(
+		(int)SpriteID::HpGauge,
+			Vector2{ 50.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
+			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	else if (m_numPlayer == 4)
+		Graphics2D::draw_sprite_RCS(
+		(int)SpriteID::HpGauge,
+			Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
 }
 

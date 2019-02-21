@@ -24,10 +24,19 @@ public:
 	void end()override;
 
 private:
-	bool ChiyaSelectArea(Vector2 l_icoPosition);
-	bool RizeSelectArea(Vector2 l_icoPosition);
-	bool SyaroSelectArea(Vector2 l_icoPosition);
-	bool CocoaSelectArea(Vector2 l_icoPosition);
+
+	void BaseSelectUpdate(float deltaTime);
+
+	void DuelSelect(float deltaTime);
+	void FourSelect(float deltaTime);
+
+	bool DuelSelected()const;
+	bool FourSelected()const;
+
+	bool ChiyaSelectArea(Vector2 l_icoPosition)const;
+	bool RizeSelectArea(Vector2 l_icoPosition)const;
+	bool SyaroSelectArea(Vector2 l_icoPosition)const;
+	bool CocoaSelectArea(Vector2 l_icoPosition)const;
 
 private:
 	CharacterSelecter* charaSelecter_{ nullptr };
@@ -36,11 +45,15 @@ private:
 
 	InputState input1P_;
 	InputState input2P_;
+	InputState input3P_;
+	InputState input4P_;
 
 	bool m_isEnd;	//èIóπÉtÉâÉO
 
 	Vector2 m_1Pposition;
 	Vector2 m_2Pposition;
+	Vector2 m_3Pposition;
+	Vector2 m_4Pposition;
 	float m_icoSpeed;
 	float m_sceneEndTimer;
 };

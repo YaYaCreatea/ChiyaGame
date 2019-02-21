@@ -19,7 +19,11 @@ class Cocoa :public Actor
 {
 public:
 	//コンストラクタ
-	Cocoa(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_numPlayer);
+	Cocoa(IWorld& world, 
+		std::string l_name, const Vector3& l_position, Matrix l_rotate, 
+		int l_model, 
+		int l_numPlayer, int l_gMode = 0
+	);
 
 	virtual void update(float deltaTime)override;
 

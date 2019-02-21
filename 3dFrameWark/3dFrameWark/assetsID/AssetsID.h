@@ -51,6 +51,16 @@ enum class SpriteID
 	SelICO_2_1,
 	SelICO_2_2,
 	SelICO_2_3,
+	SelICO_3_D,
+	SelICO_3_0,
+	SelICO_3_1,
+	SelICO_3_2,
+	SelICO_3_3,
+	SelICO_4_D,
+	SelICO_4_0,
+	SelICO_4_1,
+	SelICO_4_2,
+	SelICO_4_3,
 };
 
 #endif

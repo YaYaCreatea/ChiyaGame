@@ -11,7 +11,10 @@
 class FourCamera :public Actor
 {
 public:
-	explicit FourCamera(IWorld& world, const Vector3& l_position, float l_yawAngle, std::string l_targetName);
+	explicit FourCamera(
+		IWorld& world, 
+		const Vector3& l_position, float l_yawAngle, 
+		std::string l_targetName, int l_numPlayer);
 
 	virtual void update(float deltaTime)override;
 
@@ -31,6 +34,7 @@ private:
 	Vector3 m_lookPos;
 	Vector3 m_to_target;
 
+	int m_numPlayer;
 	int m_inputX, m_inputY;
 	float m_pitch;
 	float m_backDis;

@@ -19,7 +19,11 @@ class Rize :public Actor
 {
 public:
 	//コンストラクタ
-	Rize(IWorld& world, std::string l_name, const Vector3& l_position, Matrix l_rotate, int l_model, int l_weapon, int l_numPlayer);
+	Rize(IWorld& world, 
+		std::string l_name, const Vector3& l_position, Matrix l_rotate, 
+		int l_model, int l_weapon, 
+		int l_numPlayer,int l_gMode = 0
+	);
 
 	virtual void update(float deltaTime)override;
 

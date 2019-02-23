@@ -13,7 +13,8 @@ EffectAsset::~EffectAsset()
 bool EffectAsset::load(int id, const std::string & file_name)
 {
 	erase(id);
-	effect_[id] = LoadEffekseerEffect(file_name.c_str());
+	//effect_[id] = LoadEffekseerEffect(file_name.c_str());
+	effect_[id] = MV1LoadModel(file_name.c_str());
 	return effect_[id] != -1;
 }
 
@@ -21,15 +22,19 @@ void EffectAsset::erase(int id)
 {
 	if (effect_.count(id) > 0)
 	{
-		DeleteEffekseerEffect(effect_[id]);
+		//DeleteEffekseerEffect(effect_[id]);
+		MV1DeleteModel(effect_[id]);
 		effect_.erase(id);
 	}
 }
 
 void EffectAsset::clear()
 {
+	//for (const auto effect : effect_)
+	//	DeleteEffekseerEffect(effect.second);
+
 	for (const auto effect : effect_)
-		DeleteEffekseerEffect(effect.second);
+		MV1DeleteModel(effect.second);
 
 	effect_.clear();
 }

@@ -72,6 +72,22 @@ void PlayerAction_Dash::ActionUpdate(float deltaTime, Vector3 & l_position, Vect
 		return;
 	}
 
+	if (input_->Trigger(PAD_INPUT_6))
+	{
+		if (parameters_->Get_Name() == "Chiya")
+			l_motion = (int)ChiyaAnmID::Dash;
+		else if (parameters_->Get_Name() == "Rize")
+			l_motion = (int)RizeAnmID::Dash;
+		else if (parameters_->Get_Name() == "Syaro")
+			l_motion = (int)SyaroAnmID::Dash;
+		else if (parameters_->Get_Name() == "Cocoa")
+			l_motion = (int)CocoaAnmID::Dash;
+		m_nextActionID = PlayerStateName::Dash;
+		m_nextAction = true;
+
+		return;
+	}
+
 	if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
 	{
 		m_nextAction = true;

@@ -159,6 +159,8 @@ void Chiya::update(float deltaTime)
 		m_position + Vector3{ 0.0f,20.0f,0.0f },
 		3.0f, &m_position);
 
+	m_position = Vector3::Clamp(m_position, Vector3{ -165.0f,0.0f,-587.0f }, Vector3{ 173.0f,100.0f,603.0f });
+
 	auto l_camera0 = world_->get_camera_chiya();
 	if (l_camera0 == nullptr)return;
 	m_cameraRoate = l_camera0->get_pose();
@@ -233,14 +235,6 @@ void Chiya::draw() const
 		(int)SpriteID::HpGauge,
 			Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
-
-	/*DrawFormatStringF(
-		20.0f, 40.0f, 1, "(%f::%f)",
-		Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()),
-		(0.9f - ((100.0f - m_distance) / 500.0f)));
-	DrawFormatStringF(
-		20.0f, 70.0f, 1, "(%f)",
-		m_distance);*/
 }
 
 void Chiya::react(Actor & other)
@@ -380,14 +374,14 @@ void Chiya::lockOnCheck()
 
 
 	if (parameters_.Get_DistanceNear() > 100.0f
-		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) 
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection())
 		< (0.9f - ((100.0f - parameters_.Get_DistanceNear()) / 500.0f)))
 	{
 		parameters_.LockOn(false);
 		return;
 	}
 
-	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) 
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection())
 		>= (0.9f - ((100.0f - parameters_.Get_DistanceNear()) / 500.0f)))
 	{
 		parameters_.LockOn(true);

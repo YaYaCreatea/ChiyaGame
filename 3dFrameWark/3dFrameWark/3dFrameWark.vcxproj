@@ -177,6 +177,8 @@
     <ClInclude Include="CollisionTriangle\CollisionTriangle.h" />
     <ClInclude Include="EffectAsset\EffectAsset.h" />
     <ClInclude Include="Effect\Effect.h" />
+    <ClInclude Include="Effect\EffectModel.h" />
+    <ClInclude Include="Effect\KatanaEffect.h" />
     <ClInclude Include="EventMessage.h" />
     <ClInclude Include="GameFrame\GameFrame.h" />
     <ClInclude Include="Game\Game.h" />
@@ -258,6 +260,8 @@
     <ClCompile Include="CollisionTriangle\CollisionTriangle.cpp" />
     <ClCompile Include="EffectAsset\EffectAsset.cpp" />
     <ClCompile Include="Effect\Effect.cpp" />
+    <ClCompile Include="Effect\EffectModel.cpp" />
+    <ClCompile Include="Effect\KatanaEffect.cpp" />
     <ClCompile Include="GameFrame\GameFrame.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Graphics2D\Graphics2D.cpp" />

@@ -9,6 +9,7 @@
 
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
+#include "../../../Effect/KatanaEffect.h"
 
 PlayerAction_Break::PlayerAction_Break(IWorld & world, PlayerParameters & parameter, InputState& input)
 {
@@ -43,6 +44,10 @@ void PlayerAction_Break::ActionUpdate(
 			world_->add_actor(
 				ActorGroup::ChiyaAction,
 				new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
+			);
+			world_->add_actor(
+				ActorGroup::Effect,
+				new_actor<KatanaEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*14.0f), l_pose, 110.0f, 180.0f)
 			);
 			m_isSpawn = true;
 		}

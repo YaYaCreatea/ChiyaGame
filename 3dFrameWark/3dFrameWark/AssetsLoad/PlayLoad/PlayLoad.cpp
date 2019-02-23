@@ -62,8 +62,10 @@ void PlayLoad::Load()
 
 	//ビルボードの読み込み
 	Billboard::load(0, "asset/Particle02.png");
-	Billboard::load(1, "asset/2Dsprite/PlayerUI/HpGauge.png");
+	//Billboard::load(1, "asset/Effect/katanaKiseki.png");
 	Billboard::load(2, "asset/2Dsprite/GamePlay/lockOnCircle.png");
+
+	//Effect::load(0, "asset/Effect/KatanaSlash.mv1");
 
 	SetUseASyncLoadFlag(FALSE);
 
@@ -77,7 +79,7 @@ void PlayLoad::UnLoad()
 	CollisionMesh::finalize();
 	SkyBox::finalize();
 	Billboard::finalize();
-	//Effect::finalize();
+	Effect::finalize();
 	Graphics2D::finalize();
 }
 

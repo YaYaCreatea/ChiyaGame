@@ -158,6 +158,8 @@ void Rize::update(float deltaTime)
 		m_position + Vector3{ 0.0f,20.0f,0.0f },
 		3.0f, &m_position);
 
+	m_position = Vector3::Clamp(m_position, Vector3{ -165.0f,0.0f,-587.0f }, Vector3{ 173.0f,100.0f,603.0f });
+
 	auto l_camera1 = world_->get_camera_rize();
 	if (l_camera1 == nullptr)return;
 	m_cameraRoate = l_camera1->get_pose();

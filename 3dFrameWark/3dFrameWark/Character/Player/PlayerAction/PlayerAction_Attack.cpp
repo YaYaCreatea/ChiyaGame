@@ -6,7 +6,7 @@
 
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
-
+#include "../../../Effect/KatanaEffect.h"
 
 PlayerAction_Attack::PlayerAction_Attack(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
@@ -36,6 +36,16 @@ void PlayerAction_Attack::ActionUpdate(
 				ActorGroup::ChiyaAction,
 				new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*6.0f), 8.0f, l_pose, 0.0f, 8.0f)
 			);
+			if (l_motion == (int)ChiyaAnmID::Combo1)
+				world_->add_actor(
+					ActorGroup::Effect,
+					new_actor<KatanaEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*6.0f), l_pose, 180.0f, 180.0f)
+				);
+			else if (l_motion == (int)ChiyaAnmID::Combo2)
+				world_->add_actor(
+					ActorGroup::Effect,
+					new_actor<KatanaEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*6.0f), l_pose, -35.0f, 180.0f)
+				);
 			m_isSpawn = true;
 		}
 
@@ -93,7 +103,7 @@ void PlayerAction_Attack::ActionUpdate(
 					);
 					m_isSpawn = true;
 				}
-			}		
+			}
 		}
 
 		else if (parameters_->Get_Name() == "Cocoa")

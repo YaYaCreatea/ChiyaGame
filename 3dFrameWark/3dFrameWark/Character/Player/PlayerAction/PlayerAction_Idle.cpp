@@ -57,13 +57,13 @@ void PlayerAction_Idle::ActionUpdate(
 	if (input_->Trigger(PAD_INPUT_1))
 	{
 		if (parameters_->Get_Name() == "Chiya")
-			l_motion = (int)ChiyaAnmID::JumpReady;
+			l_motion = (int)ChiyaAnmID::Jump;
 		else if (parameters_->Get_Name() == "Rize")
-			l_motion = (int)RizeAnmID::JumpReady;
+			l_motion = (int)RizeAnmID::Jump;
 		else if (parameters_->Get_Name() == "Syaro")
-			l_motion = (int)SyaroAnmID::JumpReady;
+			l_motion = (int)SyaroAnmID::Jump;
 		else if (parameters_->Get_Name() == "Cocoa")
-			l_motion = (int)CocoaAnmID::JumpReady;
+			l_motion = (int)CocoaAnmID::Jump;
 		m_nextActionID = PlayerStateName::Jump;
 		m_nextAction = true;
 

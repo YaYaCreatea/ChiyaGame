@@ -15,8 +15,8 @@
 
 #include "../../../Graphics2D/Graphics2D.h"
 #include "../../../Graphics3D/Graphics3D.h"
-
-#include "../../../Effect/Effect.h"
+#include "../../../Utility/Sound/Sound.h"
+#include "../../../assetsID/AssetsID.h"
 
 #include "../../../Camera/DuelCamera/DuelCamera.h"
 #include "../../../Camera/FourCamera/FourCamera.h"
@@ -239,11 +239,11 @@ void Rize::react(Actor & other)
 {
 	if (parameters_.Get_HP() > 0)
 	{
-		if (other.get_name() == "Attack"/*
-			&& m_state != PlayerStateName::Damage*/)
+		if (other.get_name() == "Attack")
 		{
 			input_.Vibration(500, 200);
 
+			Sound::play_se((int)SoundID_SE::Rize_Damage);
 			m_motion = (int)RizeAnmID::Damage;
 			m_state = PlayerStateName::Damage;
 			playerActions_[m_state].initialize();
@@ -253,6 +253,7 @@ void Rize::react(Actor & other)
 
 			if (parameters_.Get_HP() <= 0)
 			{
+				Sound::play_se((int)SoundID_SE::Rize_Down);
 				m_motion = (int)RizeAnmID::Down;
 				m_state = PlayerStateName::Down;
 				playerActions_[m_state].initialize();
@@ -263,11 +264,11 @@ void Rize::react(Actor & other)
 			return;
 		}
 
-		else if (other.get_name() == "BreakAttack"/*
-			&& m_state != PlayerStateName::Damage*/)
+		else if (other.get_name() == "BreakAttack")
 		{
 			input_.Vibration(600, 200);
 
+			Sound::play_se((int)SoundID_SE::Rize_Damage);
 			m_motion = (int)RizeAnmID::DamageBreak;
 			m_state = PlayerStateName::DamageBreak;
 			playerActions_[m_state].initialize();
@@ -277,6 +278,7 @@ void Rize::react(Actor & other)
 
 			if (parameters_.Get_HP() <= 0)
 			{
+				Sound::play_se((int)SoundID_SE::Rize_Down);
 				m_motion = (int)RizeAnmID::Down;
 				m_state = PlayerStateName::Down;
 				playerActions_[m_state].initialize();

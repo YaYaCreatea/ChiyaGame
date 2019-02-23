@@ -4,6 +4,9 @@
 #include "../PlayerParameters.h"
 #include "../../../Utility/Input/InputState.h"
 #include "../../../Utility/MathHelper/MathHelper.h"
+#include "../../../Utility/Sound/Sound.h"
+#include "../../../assetsID/AssetsID.h"
+
 
 PlayerAction_Dash::PlayerAction_Dash(IWorld & world, PlayerParameters & parameter, InputState& input)
 {
@@ -18,6 +21,8 @@ void PlayerAction_Dash::ActionInitialize()
 	m_nextActionID = PlayerStateName::Idle;
 
 	m_accel = 2.0f;
+
+	Sound::play_se((int)SoundID_SE::Dash);
 }
 
 void PlayerAction_Dash::ActionUpdate(float deltaTime, Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
@@ -59,13 +64,13 @@ void PlayerAction_Dash::ActionUpdate(float deltaTime, Vector3 & l_position, Vect
 	else if (input_->Trigger(PAD_INPUT_1))
 	{
 		if (parameters_->Get_Name() == "Chiya")
-			l_motion = (int)ChiyaAnmID::JumpReady;
+			l_motion = (int)ChiyaAnmID::Jump;
 		else if (parameters_->Get_Name() == "Rize")
-			l_motion = (int)RizeAnmID::JumpReady;
+			l_motion = (int)RizeAnmID::Jump;
 		else if (parameters_->Get_Name() == "Syaro")
-			l_motion = (int)SyaroAnmID::JumpReady;
+			l_motion = (int)SyaroAnmID::Jump;
 		else if (parameters_->Get_Name() == "Cocoa")
-			l_motion = (int)CocoaAnmID::JumpReady;
+			l_motion = (int)CocoaAnmID::Jump;
 		m_nextActionID = PlayerStateName::Jump;
 		m_nextAction = true;
 

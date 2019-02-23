@@ -6,6 +6,7 @@
 #include "../../assetsID/AssetsID.h"
 
 #include "../../Graphics3D/Graphics3D.h"
+#include "../../Utility/Sound/Sound.h"
 #include "../../Utility/Matrix/Matrix.h"
 #include "../../Utility/Vector3/Vector3.h"
 
@@ -127,6 +128,8 @@ void Duel::start()
 				m_numCocoa)
 		);
 	}
+
+	//Sound::play_bgm(0);
 }
 
 void Duel::update(float deltaTime)

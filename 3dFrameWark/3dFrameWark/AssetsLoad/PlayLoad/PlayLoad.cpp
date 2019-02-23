@@ -9,6 +9,7 @@
 #include "../../StaticMesh/StaticMesh.h"
 #include "../../Billboard/Billboard.h"
 #include "../../Effect/Effect.h"
+#include "../../Utility/Sound/Sound.h"
 
 
 PlayLoad::PlayLoad()
@@ -65,7 +66,33 @@ void PlayLoad::Load()
 	//Billboard::load(1, "asset/Effect/katanaKiseki.png");
 	Billboard::load(2, "asset/2Dsprite/GamePlay/lockOnCircle.png");
 
-	//Effect::load(0, "asset/Effect/KatanaSlash.mv1");
+	//BGM
+	Sound::load_bgm((int)SoundID_BGM::GameBGM, "asset/Sound/BGM/GameBGM.wav");
+
+	//SE
+	Sound::load_se((int)SoundID_SE::Chiya_Attack1, "asset/Sound/SE/Chiya/healer-attack1.mp3");
+	Sound::load_se((int)SoundID_SE::Chiya_Attack2, "asset/Sound/SE/Chiya/healer-attack2.mp3");
+	Sound::load_se((int)SoundID_SE::Chiya_Damage, "asset/Sound/SE/Chiya/healer-damage2.mp3");
+	Sound::load_se((int)SoundID_SE::Chiya_Down, "asset/Sound/SE/Chiya/healer-death1.mp3");
+
+	Sound::load_se((int)SoundID_SE::Rize_Attack1, "asset/Sound/SE/Rize/swordwoman-attack1.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Attack2, "asset/Sound/SE/Rize/swordwoman-attack3.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Attack3, "asset/Sound/SE/Rize/swordwoman-special1.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Attack4, "asset/Sound/SE/Rize/swordwoman-special2.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Damage, "asset/Sound/SE/Rize/swordwoman-damage2.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Down, "asset/Sound/SE/Rize/swordwoman-lose1.mp3");
+
+	Sound::load_se((int)SoundID_SE::Syaro_Attack1, "asset/Sound/SE/Syaro/princess-attack1.mp3");
+	Sound::load_se((int)SoundID_SE::Syaro_Attack2, "asset/Sound/SE/Syaro/princess-attack3.mp3");
+	Sound::load_se((int)SoundID_SE::Syaro_Damage, "asset/Sound/SE/Syaro/princess-damage2.mp3");
+	Sound::load_se((int)SoundID_SE::Syaro_Down, "asset/Sound/SE/Syaro/princess-death1.mp3");
+
+	Sound::load_se((int)SoundID_SE::Cocoa_Attack1, "asset/Sound/SE/Cocoa/witch-attack1.mp3");
+	Sound::load_se((int)SoundID_SE::Cocoa_Attack2, "asset/Sound/SE/Cocoa/witch-attack3.mp3");
+	Sound::load_se((int)SoundID_SE::Cocoa_Damage, "asset/Sound/SE/Cocoa/witch-damage2.mp3");
+	Sound::load_se((int)SoundID_SE::Cocoa_Down, "asset/Sound/SE/Cocoa/witch-lose1.mp3");
+
+	Sound::load_se((int)SoundID_SE::Dash, "asset/Sound/SE/Attack/Dash.mp3");
 
 	SetUseASyncLoadFlag(FALSE);
 
@@ -80,6 +107,7 @@ void PlayLoad::UnLoad()
 	SkyBox::finalize();
 	Billboard::finalize();
 	Effect::finalize();
+	Sound::finalize();
 	Graphics2D::finalize();
 }
 

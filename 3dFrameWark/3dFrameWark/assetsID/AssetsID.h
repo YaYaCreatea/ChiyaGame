@@ -65,4 +65,34 @@ enum class SpriteID
 	SelICO_4_3,
 };
 
+enum class SoundID_BGM
+{
+	GameBGM
+};
+
+enum class SoundID_SE
+{
+	Chiya_Attack1,
+	Chiya_Attack2,
+	Chiya_Damage,
+	Chiya_Down,
+	Rize_Attack1,
+	Rize_Attack2,
+	Rize_Attack3,
+	Rize_Attack4,
+	Rize_Damage,
+	Rize_Down,
+	Syaro_Attack1,
+	Syaro_Attack2,
+	Syaro_Damage,
+	Syaro_Down,
+	Cocoa_Attack1,
+	Cocoa_Attack2,
+	Cocoa_Damage,
+	Cocoa_Down,
+	Dash,
+	GunShot,
+	KatanaSlash,
+};
+
 #endif

@@ -7,6 +7,9 @@
 #include "../../../Utility/MathHelper/MathHelper.h"
 #include"../../../Utility/Quaternion/Quaternion.h"
 
+#include "../../../Utility/Sound/Sound.h"
+#include "../../../assetsID/AssetsID.h"
+
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
 #include "../../../Effect/KatanaEffect.h"
@@ -41,6 +44,7 @@ void PlayerAction_Break::ActionUpdate(
 
 		if (!m_isSpawn&&parameters_->Get_StateTimer() >= 35.0f)
 		{
+			Sound::play_se((int)SoundID_SE::Chiya_Attack1);
 			world_->add_actor(
 				ActorGroup::ChiyaAction,
 				new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
@@ -84,6 +88,7 @@ void PlayerAction_Break::ActionUpdate(
 			}
 			else if (input_->Release(PAD_INPUT_3))
 			{
+				Sound::play_se((int)SoundID_SE::Rize_Attack3);
 				m_breakState = BreakState::Break;
 				l_motion = (int)RizeAnmID::Break;
 				parameters_->Set_StateTimer(0.0f);
@@ -94,6 +99,7 @@ void PlayerAction_Break::ActionUpdate(
 			m_charge = 2.0f;
 			if (input_->Release(PAD_INPUT_3))
 			{
+				Sound::play_se((int)SoundID_SE::Rize_Attack4);
 				m_breakState = BreakState::Break;
 				l_motion = (int)RizeAnmID::Break;
 				parameters_->Set_StateTimer(0.0f);

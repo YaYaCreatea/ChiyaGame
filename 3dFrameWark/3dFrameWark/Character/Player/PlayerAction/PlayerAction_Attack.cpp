@@ -4,6 +4,9 @@
 #include "../PlayerParameters.h"
 #include "../../../Utility/Input/InputState.h"
 
+#include "../../../Utility/Sound/Sound.h"
+#include "../../../assetsID/AssetsID.h"
+
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
 #include "../../../Effect/KatanaEffect.h"
@@ -37,15 +40,21 @@ void PlayerAction_Attack::ActionUpdate(
 				new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*6.0f), 8.0f, l_pose, 0.0f, 8.0f)
 			);
 			if (l_motion == (int)ChiyaAnmID::Combo1)
+			{
+				Sound::play_se((int)SoundID_SE::Chiya_Attack1);
 				world_->add_actor(
 					ActorGroup::Effect,
 					new_actor<KatanaEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*6.0f), l_pose, 180.0f, 180.0f)
 				);
+			}
 			else if (l_motion == (int)ChiyaAnmID::Combo2)
+			{
+				Sound::play_se((int)SoundID_SE::Chiya_Attack2);
 				world_->add_actor(
 					ActorGroup::Effect,
 					new_actor<KatanaEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*6.0f), l_pose, -35.0f, 180.0f)
 				);
+			}
 			m_isSpawn = true;
 		}
 
@@ -53,20 +62,18 @@ void PlayerAction_Attack::ActionUpdate(
 		{
 			if (l_motion == (int)RizeAnmID::Combo1)
 			{
+				Sound::play_se((int)SoundID_SE::Rize_Attack1);
 				world_->add_actor(
 					ActorGroup::RizeAction,
 					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose, 10.0f)
 				);
-				//world_->add_actor(
-				//	ActorGroup::RizeAction,
-				//	new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
-				//);
 				m_isSpawn = true;
 			}
 			else if (l_motion == (int)RizeAnmID::Combo2)
-			{
+			{				
 				if (parameters_->Get_StateTimer() >= 30.0f)
 				{
+					Sound::play_se((int)SoundID_SE::Rize_Attack2);
 					world_->add_actor(
 						ActorGroup::RizeAction,
 						new_actor<Attack1>("Attack", l_position + Vector3{ 0.0f,-8.0f,0.0f }, 20.0f, l_pose)

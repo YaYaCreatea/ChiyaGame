@@ -1,6 +1,6 @@
 #include "KatanaEffect.h"
 
-#include "../Billboard/Billboard.h"
+#include "../Utility/MathHelper/MathHelper.h"
 #include "Effect.h"
 
 KatanaEffect::KatanaEffect(const Vector3 & l_position, const Matrix & matrix, float l_pitch, float l_yaw)
@@ -8,6 +8,7 @@ KatanaEffect::KatanaEffect(const Vector3 & l_position, const Matrix & matrix, fl
 {
 	m_position = l_position;
 	m_alpha = 80.0f;
+	m_speed = 1.0f;
 	m_rotation = matrix;
 
 	m_pitch = l_pitch;
@@ -20,9 +21,10 @@ void KatanaEffect::update(float deltaTime)
 {
 	if (m_alpha <= 0.0f)
 		m_isdead = true;
-	
+
 	effect_.update(m_alpha);
-	m_alpha -= deltaTime;
+	m_alpha -= m_speed * deltaTime;
+	m_speed = MathHelper::Clamp(m_speed + (deltaTime / 10.0f), 1.0f, 5.0f);
 }
 
 void KatanaEffect::draw() const

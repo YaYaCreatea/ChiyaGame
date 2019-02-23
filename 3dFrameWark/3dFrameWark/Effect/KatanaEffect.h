@@ -18,6 +18,7 @@ private:
 	EffectModel effect_;
 
 	float m_alpha;
+	float m_speed;
 	float m_pitch;
 	float m_yaw;
 };

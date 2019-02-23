@@ -3,6 +3,8 @@
 #include "../../../World/IWorld.h"
 #include "../PlayerParameters.h"
 #include "../../../Utility/Input/InputState.h"
+#include "../../../Utility/Sound/Sound.h"
+#include "../../../assetsID/AssetsID.h"
 
 PlayerAction_Jump::PlayerAction_Jump(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
@@ -29,20 +31,23 @@ void PlayerAction_Jump::ActionUpdate(
 	switch (m_jumpState)
 	{
 	case JumpState::Stand:
-		if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
-		{
-			l_velocity.y = 1.0f;
-			m_jumpState = JumpState::Jumping;
-			if (parameters_->Get_Name() == "Chiya")
-				l_motion = (int)ChiyaAnmID::Jump;
-			else if (parameters_->Get_Name() == "Rize")
-				l_motion = (int)RizeAnmID::Jump;
-			else if (parameters_->Get_Name() == "Syaro")
-				l_motion = (int)SyaroAnmID::Jump;
-			else if (parameters_->Get_Name() == "Cocoa")
-				l_motion = (int)CocoaAnmID::Jump;
-			parameters_->Set_StateTimer(0.0f);
-		}
+		Sound::play_se((int)SoundID_SE::Dash);
+		l_velocity.y = 1.0f;
+		m_jumpState = JumpState::Jumping;
+		//if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
+		//{
+		//	l_velocity.y = 1.0f;
+		//	m_jumpState = JumpState::Jumping;
+		//	if (parameters_->Get_Name() == "Chiya")
+		//		l_motion = (int)ChiyaAnmID::Jump;
+		//	else if (parameters_->Get_Name() == "Rize")
+		//		l_motion = (int)RizeAnmID::Jump;
+		//	else if (parameters_->Get_Name() == "Syaro")
+		//		l_motion = (int)SyaroAnmID::Jump;
+		//	else if (parameters_->Get_Name() == "Cocoa")
+		//		l_motion = (int)CocoaAnmID::Jump;
+		//	parameters_->Set_StateTimer(0.0f);
+		//}
 		break;
 
 	case JumpState::Jumping:

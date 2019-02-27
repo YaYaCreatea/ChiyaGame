@@ -2,6 +2,8 @@
 
 #include "../Utility/MathHelper/MathHelper.h"
 #include "Effect.h"
+#include "../Sound/Sound.h"
+#include "../assetsID/AssetsID.h"
 
 KatanaEffect::KatanaEffect(const Vector3 & l_position, const Matrix & matrix, float l_pitch, float l_yaw)
 	:effect_{ "asset/Effect/KatanaSlash.mv1" }
@@ -15,6 +17,8 @@ KatanaEffect::KatanaEffect(const Vector3 & l_position, const Matrix & matrix, fl
 	m_yaw = l_yaw;
 
 	effect_.transform(m_position, m_rotation, m_pitch, m_yaw);
+
+	Sound::play_se((int)SoundID_SE::KatanaSlash);
 }
 
 void KatanaEffect::update(float deltaTime)

@@ -3,6 +3,7 @@
 #include "../../assetsID/AssetsID.h"
 
 #include "../../Graphics2D/Graphics2D.h"
+#include "../../Sound/Sound.h"
 
 CharaSelect::CharaSelect(CharacterSelecter& l_selecter, SceneParameters & l_sceneParameters, StartUpLoad & l_load)
 {
@@ -28,6 +29,8 @@ void CharaSelect::start()
 
 	m_icoSpeed = 10.0f;
 	m_sceneEndTimer = 120.0f;
+
+	Sound::play_bgm((int)SoundID_BGM::CharaSelect);
 }
 
 void CharaSelect::update(float deltaTime)
@@ -125,21 +128,25 @@ void CharaSelect::BaseSelectUpdate(float deltaTime)
 	{
 		if (ChiyaSelectArea(m_1Pposition) && !charaSelecter_->Get_SelectionChiya())
 		{
+			Sound::play_se((int)SoundID_SE::Chiya_Select);
 			charaSelecter_->Set_1PChara(CharaID::Chiya);
 			charaSelecter_->SelectionChiya();
 		}
 		else if (RizeSelectArea(m_1Pposition) && !charaSelecter_->Get_SelectionRize())
 		{
+			Sound::play_se((int)SoundID_SE::Rize_Select);
 			charaSelecter_->Set_1PChara(CharaID::Rize);
 			charaSelecter_->SelectionRize();
 		}
 		else if (SyaroSelectArea(m_1Pposition) && !charaSelecter_->Get_SelectionSyaro())
 		{
+			Sound::play_se((int)SoundID_SE::Syaro_Select);
 			charaSelecter_->Set_1PChara(CharaID::Syaro);
 			charaSelecter_->SelectionSyaro();
 		}
 		else if (CocoaSelectArea(m_1Pposition) && !charaSelecter_->Get_SelectionCocoa())
 		{
+			Sound::play_se((int)SoundID_SE::Cocoa_Select);
 			charaSelecter_->Set_1PChara(CharaID::Cocoa);
 			charaSelecter_->SelectionCocoa();
 		}
@@ -148,21 +155,25 @@ void CharaSelect::BaseSelectUpdate(float deltaTime)
 	{
 		if (ChiyaSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionChiya())
 		{
+			Sound::play_se((int)SoundID_SE::Chiya_Select);
 			charaSelecter_->Set_2PChara(CharaID::Chiya);
 			charaSelecter_->SelectionChiya();
 		}
 		else if (RizeSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionRize())
 		{
+			Sound::play_se((int)SoundID_SE::Rize_Select);
 			charaSelecter_->Set_2PChara(CharaID::Rize);
 			charaSelecter_->SelectionRize();
 		}
 		else if (SyaroSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionSyaro())
 		{
+			Sound::play_se((int)SoundID_SE::Syaro_Select);
 			charaSelecter_->Set_2PChara(CharaID::Syaro);
 			charaSelecter_->SelectionSyaro();
 		}
 		else if (CocoaSelectArea(m_2Pposition) && !charaSelecter_->Get_SelectionCocoa())
 		{
+			Sound::play_se((int)SoundID_SE::Cocoa_Select);
 			charaSelecter_->Set_2PChara(CharaID::Cocoa);
 			charaSelecter_->SelectionCocoa();
 		}
@@ -228,21 +239,25 @@ void CharaSelect::FourSelect(float deltaTime)
 	{
 		if (ChiyaSelectArea(m_3Pposition) && !charaSelecter_->Get_SelectionChiya())
 		{
+			Sound::play_se((int)SoundID_SE::Chiya_Select);
 			charaSelecter_->Set_3PChara(CharaID::Chiya);
 			charaSelecter_->SelectionChiya();
 		}
 		else if (RizeSelectArea(m_3Pposition) && !charaSelecter_->Get_SelectionRize())
 		{
+			Sound::play_se((int)SoundID_SE::Rize_Select);
 			charaSelecter_->Set_3PChara(CharaID::Rize);
 			charaSelecter_->SelectionRize();
 		}
 		else if (SyaroSelectArea(m_3Pposition) && !charaSelecter_->Get_SelectionSyaro())
 		{
+			Sound::play_se((int)SoundID_SE::Syaro_Select);
 			charaSelecter_->Set_3PChara(CharaID::Syaro);
 			charaSelecter_->SelectionSyaro();
 		}
 		else if (CocoaSelectArea(m_3Pposition) && !charaSelecter_->Get_SelectionCocoa())
 		{
+			Sound::play_se((int)SoundID_SE::Cocoa_Select);
 			charaSelecter_->Set_3PChara(CharaID::Cocoa);
 			charaSelecter_->SelectionCocoa();
 		}
@@ -251,21 +266,25 @@ void CharaSelect::FourSelect(float deltaTime)
 	{
 		if (ChiyaSelectArea(m_4Pposition) && !charaSelecter_->Get_SelectionChiya())
 		{
+			Sound::play_se((int)SoundID_SE::Chiya_Select);
 			charaSelecter_->Set_4PChara(CharaID::Chiya);
 			charaSelecter_->SelectionChiya();
 		}
 		else if (RizeSelectArea(m_4Pposition) && !charaSelecter_->Get_SelectionRize())
 		{
+			Sound::play_se((int)SoundID_SE::Rize_Select);
 			charaSelecter_->Set_4PChara(CharaID::Rize);
 			charaSelecter_->SelectionRize();
 		}
 		else if (SyaroSelectArea(m_4Pposition) && !charaSelecter_->Get_SelectionSyaro())
 		{
+			Sound::play_se((int)SoundID_SE::Syaro_Select);
 			charaSelecter_->Set_4PChara(CharaID::Syaro);
 			charaSelecter_->SelectionSyaro();
 		}
 		else if (CocoaSelectArea(m_4Pposition) && !charaSelecter_->Get_SelectionCocoa())
 		{
+			Sound::play_se((int)SoundID_SE::Cocoa_Select);
 			charaSelecter_->Set_4PChara(CharaID::Cocoa);
 			charaSelecter_->SelectionCocoa();
 		}

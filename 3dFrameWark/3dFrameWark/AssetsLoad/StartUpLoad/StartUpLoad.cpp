@@ -5,6 +5,7 @@
 #include "../../CollisionMesh/CollisionMesh.h"
 #include "../../SkyBox/SkyBox.h"
 #include "../../Graphics2D/Graphics2D.h"
+#include "../../Sound/Sound.h"
 
 StartUpLoad::StartUpLoad()
 {
@@ -61,6 +62,16 @@ void StartUpLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::SelICO_4_2, "asset/2Dsprite/CharaSelect/ICO/4PICO_act2.png");
 	Graphics2D::load_sprite((int)SpriteID::SelICO_4_3, "asset/2Dsprite/CharaSelect/ICO/4PICO_act3.png");
 
+	//BGM,SE
+	Sound::load_bgm((int)SoundID_BGM::ModeSelect, "asset/Sound/BGM/spadenoheitai.mp3");
+	Sound::load_bgm((int)SoundID_BGM::CharaSelect, "asset/Sound/BGM/chess.mp3");
+	
+	Sound::load_se((int)SoundID_SE::SystemSelect, "asset/Sound/SE/System/select.wav");
+	Sound::load_se((int)SoundID_SE::Chiya_Select, "asset/Sound/SE/Chiya/healer-guard2.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Select, "asset/Sound/SE/Rize/swordwoman-start2.mp3");
+	Sound::load_se((int)SoundID_SE::Syaro_Select, "asset/Sound/SE/Syaro/princess-greeting1.mp3");
+	Sound::load_se((int)SoundID_SE::Cocoa_Select, "asset/Sound/SE/Cocoa/witch-start2.mp3");
+
 	//モードセレクトモデル
 	CollisionMesh::load(0, "asset/Stage/StageTest/Stage4.mv1");
 	SkyBox::load(0, "asset/skybox/Dome_SS601.mv1");
@@ -72,6 +83,7 @@ void StartUpLoad::Load()
 
 void StartUpLoad::UnLoad()
 {
+	Sound::finalize();
 	Graphics2D::finalize();
 }
 

@@ -67,25 +67,31 @@ enum class SpriteID
 
 enum class SoundID_BGM
 {
+	ModeSelect,
+	CharaSelect,
 	GameBGM
 };
 
 enum class SoundID_SE
 {
+	Chiya_Select,
 	Chiya_Attack1,
 	Chiya_Attack2,
 	Chiya_Damage,
 	Chiya_Down,
+	Rize_Select,
 	Rize_Attack1,
 	Rize_Attack2,
 	Rize_Attack3,
 	Rize_Attack4,
 	Rize_Damage,
 	Rize_Down,
+	Syaro_Select,
 	Syaro_Attack1,
 	Syaro_Attack2,
 	Syaro_Damage,
 	Syaro_Down,
+	Cocoa_Select,
 	Cocoa_Attack1,
 	Cocoa_Attack2,
 	Cocoa_Damage,
@@ -93,6 +99,7 @@ enum class SoundID_SE
 	Dash,
 	GunShot,
 	KatanaSlash,
+	SystemSelect,
 };
 
 #endif

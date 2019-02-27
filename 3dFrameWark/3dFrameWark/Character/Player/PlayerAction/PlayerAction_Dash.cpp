@@ -4,7 +4,7 @@
 #include "../PlayerParameters.h"
 #include "../../../Utility/Input/InputState.h"
 #include "../../../Utility/MathHelper/MathHelper.h"
-#include "../../../Utility/Sound/Sound.h"
+#include "../../../Sound/Sound.h"
 #include "../../../assetsID/AssetsID.h"
 
 

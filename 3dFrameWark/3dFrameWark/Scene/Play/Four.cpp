@@ -10,7 +10,6 @@
 #include "../../Utility/Vector3/Vector3.h"
 
 #include "../../Camera/FourCamera/FourCamera.h"
-#include "../../Character/Player/Player.h"
 #include "../../Character/Player/_Chiya/Chiya.h"
 #include "../../Character/Player/_Rize/Rize.h"
 #include "../../Character/Player/_Syaro/Syaro.h"
@@ -18,10 +17,11 @@
 #include "../../Character/Enemy/Enemy.h"
 
 
-Four::Four(CharacterSelecter& l_selecter, PlayLoad & l_load)
+Four::Four(CharacterSelecter& l_selecter, PlayLoad & l_load, WinnerCharacter& l_winner)
 {
 	charaSelecter_ = &l_selecter;
 	load_ = &l_load;
+	winner_ = &l_winner;
 
 	frameCamera_.initialize(l_selecter);
 }
@@ -44,7 +44,7 @@ void Four::start()
 		m_numChiya = 1;
 		world_.add_actor(
 			ActorGroup::Chiya,
-			new_actor<Chiya>(world_, "Chiya", 
+			new_actor<Chiya>(world_, "Chiya",
 				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
 				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
 				m_numChiya, 1)
@@ -56,7 +56,7 @@ void Four::start()
 		m_numRize = 1;
 		world_.add_actor(
 			ActorGroup::Rize,
-			new_actor<Rize>(world_, "Rize", 
+			new_actor<Rize>(world_, "Rize",
 				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
 				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
 				m_numRize, 1)
@@ -67,7 +67,7 @@ void Four::start()
 		m_numSyaro = 1;
 		world_.add_actor(
 			ActorGroup::Syaro,
-			new_actor<Syaro>(world_, "Syaro", 
+			new_actor<Syaro>(world_, "Syaro",
 				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
 				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
 				m_numSyaro, 1)
@@ -78,7 +78,7 @@ void Four::start()
 		m_numCocoa = 1;
 		world_.add_actor(
 			ActorGroup::Cocoa,
-			new_actor<Cocoa>(world_, "Cocoa", 
+			new_actor<Cocoa>(world_, "Cocoa",
 				Vector3{ 90.0f,0.0f,-150.0f }, Matrix::CreateFromAxisAngle(Vector3::Up, 135.0f),
 				(int)ModelCharaID::Cocoa,
 				m_numCocoa, 1)
@@ -135,7 +135,7 @@ void Four::start()
 		m_numChiya = 3;
 		world_.add_actor(
 			ActorGroup::Chiya,
-			new_actor<Chiya>(world_, "Chiya", 
+			new_actor<Chiya>(world_, "Chiya",
 				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
 				(int)ModelCharaID::Chiya, (int)ModelWeaponID::Katana,
 				m_numChiya, 1)
@@ -146,7 +146,7 @@ void Four::start()
 		m_numRize = 3;
 		world_.add_actor(
 			ActorGroup::Rize,
-			new_actor<Rize>(world_, "Rize", 
+			new_actor<Rize>(world_, "Rize",
 				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
 				(int)ModelCharaID::Rize, (int)ModelWeaponID::Spear,
 				m_numRize, 1)
@@ -157,7 +157,7 @@ void Four::start()
 		m_numSyaro = 3;
 		world_.add_actor(
 			ActorGroup::Syaro,
-			new_actor<Syaro>(world_, "Syaro", 
+			new_actor<Syaro>(world_, "Syaro",
 				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
 				(int)ModelCharaID::Syaro, (int)ModelWeaponID::Gun,
 				m_numSyaro, 1)
@@ -168,7 +168,7 @@ void Four::start()
 		m_numCocoa = 3;
 		world_.add_actor(
 			ActorGroup::Cocoa,
-			new_actor<Cocoa>(world_, "Cocoa", 
+			new_actor<Cocoa>(world_, "Cocoa",
 				Vector3{ Vector3{ 0.0f,0.0f,-540.0f } }, Matrix::CreateFromAxisAngle(Vector3::Up, 180.0f),
 				(int)ModelCharaID::Cocoa,
 				m_numCocoa, 1)
@@ -251,7 +251,7 @@ bool Four::is_end() const
 
 SceneID Four::next() const
 {
-	return SceneID::StartUp;
+	return SceneID::Result;
 }
 
 void Four::end()
@@ -259,7 +259,7 @@ void Four::end()
 	world_.clear();
 
 	//ゲームモードのリソースアンロード
-	load_->UnLoad();
+	//load_->UnLoad();
 
 	Graphics3D::finalize();
 }
@@ -272,6 +272,7 @@ void Four::EndCheck()
 			&& world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown()
 			&& world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
 		{
+			winner_->Set_Winner(CharaID::Chiya);
 			m_isEnd = true;
 		}
 	}
@@ -281,6 +282,7 @@ void Four::EndCheck()
 			&& world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown()
 			&& world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
 		{
+			winner_->Set_Winner(CharaID::Rize);
 			m_isEnd = true;
 		}
 	}
@@ -290,6 +292,7 @@ void Four::EndCheck()
 			&& world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown()
 			&& world_.find_actor(ActorGroup::Cocoa, "Cocoa")->get_IsDown())
 		{
+			winner_->Set_Winner(CharaID::Syaro);
 			m_isEnd = true;
 		}
 	}
@@ -299,6 +302,7 @@ void Four::EndCheck()
 			&& world_.find_actor(ActorGroup::Rize, "Rize")->get_IsDown()
 			&& world_.find_actor(ActorGroup::Syaro, "Syaro")->get_IsDown())
 		{
+			winner_->Set_Winner(CharaID::Cocoa);
 			m_isEnd = true;
 		}
 	}

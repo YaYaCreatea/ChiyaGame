@@ -112,7 +112,8 @@ void FourCamera::update(float deltaTime)
 		const Vector3& l_backPosition = -(m_rotation.Forward().Normalize()* 80.0f);
 		const Vector3& l_upPosition = Vector3{ 0.0f, 25.0f, 0.0f };
 		m_to_target = l_player->get_position() - m_position;
-		m_position = l_player->get_position() + l_backPosition + l_upPosition;
+		//m_position = l_player->get_position() + l_backPosition + l_upPosition;
+		move(l_player->get_position() + l_backPosition + l_upPosition, 0.8f, 0.2f, 2.0f);
 		m_lookPos = Vector3{
 			l_player->get_position().x,
 			l_player->get_position().y + 16.0f,

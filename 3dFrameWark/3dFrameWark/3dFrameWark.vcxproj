@@ -146,6 +146,8 @@
     <ClInclude Include="Camera\FourCamera\FourCamera.h" />
     <ClInclude Include="Camera\FrameCamera\FrameCamera.h" />
     <ClInclude Include="Camera\ModeSelectCamera\ModeSelectCamera.h" />
+    <ClInclude Include="Camera\WinnerCamera\WinnerCamera.h" />
+    <ClInclude Include="CharacterID\CharacterID.h" />
     <ClInclude Include="Character\Enemy\Boss0\Boss0.h" />
     <ClInclude Include="Character\Enemy\Boss0\BossBodyColl.h" />
     <ClInclude Include="Character\Player\CharacterAnimationID.h" />
@@ -171,6 +173,10 @@
     <ClInclude Include="Character\Player\_Cocoa\Cocoa.h" />
     <ClInclude Include="Character\Player\_Rize\Rize.h" />
     <ClInclude Include="Character\Player\_Syaro\Syaro.h" />
+    <ClInclude Include="Character\ResultPlayer\Chiya\WinnerChiya.h" />
+    <ClInclude Include="Character\ResultPlayer\Cocoa\WinnerCocoa.h" />
+    <ClInclude Include="Character\ResultPlayer\Rize\WinnerRize.h" />
+    <ClInclude Include="Character\ResultPlayer\Syaro\WinnerSyaro.h" />
     <ClInclude Include="CollisionDetection\BoundingCapsule\BoundingCapsule.h" />
     <ClInclude Include="CollisionDetection\BoundingSphere\BoundingSphere.h" />
     <ClInclude Include="CollisionMesh\CollisionMesh.h" />
@@ -200,8 +206,11 @@
     <ClInclude Include="Scene\SceneID.h" />
     <ClInclude Include="Scene\SceneParameters.h" />
     <ClInclude Include="Scene\Title\Title.h" />
+    <ClInclude Include="Scene\WinnerCircle\WinnerCharacter.h" />
+    <ClInclude Include="Scene\WinnerCircle\WinnerCircle.h" />
     <ClInclude Include="SkeletalMesh\SkeletalMesh.h" />
     <ClInclude Include="SkyBox\SkyBox.h" />
+    <ClInclude Include="Sound\Sound.h" />
     <ClInclude Include="StaticMesh\StaticMesh.h" />
     <ClInclude Include="TextureAsset\TextureAsset.h" />
     <ClInclude Include="Utility\Color\Color.h" />
@@ -212,7 +221,6 @@
     <ClInclude Include="Utility\Matrix\Matrix.h" />
     <ClInclude Include="Utility\Quaternion\Quaternion.h" />
     <ClInclude Include="Utility\Random\Random.h" />
-    <ClInclude Include="Utility\Sound\Sound.h" />
     <ClInclude Include="Utility\Vector2\Vector2.h" />
     <ClInclude Include="Utility\Vector3\Vector3.h" />
     <ClInclude Include="World\IWorld.h" />
@@ -232,6 +240,7 @@
     <ClCompile Include="Camera\FourCamera\FourCamera.cpp" />
     <ClCompile Include="Camera\FrameCamera\FrameCamera.cpp" />
     <ClCompile Include="Camera\ModeSelectCamera\ModeSelectCamera.cpp" />
+    <ClCompile Include="Camera\WinnerCamera\WinnerCamera.cpp" />
     <ClCompile Include="Character\Enemy\Boss0\Boss0.cpp" />
     <ClCompile Include="Character\Enemy\Boss0\BossBodyColl.cpp" />
     <ClCompile Include="Character\Player\PlayerAction\PlayerAction_AttackHoming.cpp" />
@@ -254,6 +263,10 @@
     <ClCompile Include="Character\Player\_Cocoa\Cocoa.cpp" />
     <ClCompile Include="Character\Player\_Rize\Rize.cpp" />
     <ClCompile Include="Character\Player\_Syaro\Syaro.cpp" />
+    <ClCompile Include="Character\ResultPlayer\Chiya\WinnerChiya.cpp" />
+    <ClCompile Include="Character\ResultPlayer\Cocoa\WinnerCocoa.cpp" />
+    <ClCompile Include="Character\ResultPlayer\Rize\WinnerRize.cpp" />
+    <ClCompile Include="Character\ResultPlayer\Syaro\WinnerSyaro.cpp" />
     <ClCompile Include="CollisionDetection\BoundingCapsule\BoundingCapsule.cpp" />
     <ClCompile Include="CollisionDetection\BoundingSphere\BoundingSphere.cpp" />
     <ClCompile Include="CollisionMesh\CollisionMesh.cpp" />
@@ -279,8 +292,11 @@
     <ClCompile Include="Scene\Play\Four.cpp" />
     <ClCompile Include="Scene\SceneParameters.cpp" />
     <ClCompile Include="Scene\Title\Title.cpp" />
+    <ClCompile Include="Scene\WinnerCircle\WinnerCharacter.cpp" />
+    <ClCompile Include="Scene\WinnerCircle\WinnerCircle.cpp" />
     <ClCompile Include="SkeletalMesh\SkeletalMesh.cpp" />
     <ClCompile Include="SkyBox\SkyBox.cpp" />
+    <ClCompile Include="Sound\Sound.cpp" />
     <ClCompile Include="StaticMesh\StaticMesh.cpp" />
     <ClCompile Include="TextureAsset\TextureAsset.cpp" />
     <ClCompile Include="Utility\Color\Color.cpp" />
@@ -291,7 +307,6 @@
     <ClCompile Include="Utility\Matrix\Matrix.cpp" />
     <ClCompile Include="Utility\Quaternion\Quaternion.cpp" />
     <ClCompile Include="Utility\Random\Random.cpp" />
-    <ClCompile Include="Utility\Sound\Sound.cpp" />
     <ClCompile Include="Utility\Vector2\Vector2.cpp" />
     <ClCompile Include="Utility\Vector3\Vector3.cpp" />
     <ClCompile Include="World\World.cpp" />

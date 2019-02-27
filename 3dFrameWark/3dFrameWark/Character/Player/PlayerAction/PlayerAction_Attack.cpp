@@ -4,7 +4,7 @@
 #include "../PlayerParameters.h"
 #include "../../../Utility/Input/InputState.h"
 
-#include "../../../Utility/Sound/Sound.h"
+#include "../../../Sound/Sound.h"
 #include "../../../assetsID/AssetsID.h"
 
 #include "../PlayerAttack/Attack1.h"
@@ -94,6 +94,7 @@ void PlayerAction_Attack::ActionUpdate(
 
 			if (l_motion == (int)SyaroAnmID::Combo1)
 			{
+				Sound::play_se((int)SoundID_SE::Syaro_Attack1);
 				world_->add_actor(
 					ActorGroup::SyaroAction,
 					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation)
@@ -104,6 +105,7 @@ void PlayerAction_Attack::ActionUpdate(
 			{
 				if (parameters_->Get_StateTimer() >= 20.0f)
 				{
+					Sound::play_se((int)SoundID_SE::Syaro_Attack2);
 					world_->add_actor(
 						ActorGroup::SyaroAction,
 						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
@@ -124,6 +126,7 @@ void PlayerAction_Attack::ActionUpdate(
 
 			if (l_motion == (int)CocoaAnmID::Combo1)
 			{
+				Sound::play_se((int)SoundID_SE::Cocoa_Attack1);
 				world_->add_actor(
 					ActorGroup::CocoaAction,
 					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation)
@@ -134,6 +137,7 @@ void PlayerAction_Attack::ActionUpdate(
 			{
 				if (parameters_->Get_StateTimer() >= 20.0f)
 				{
+					Sound::play_se((int)SoundID_SE::Cocoa_Attack2);
 					world_->add_actor(
 						ActorGroup::CocoaAction,
 						new_actor<Attack1>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 10.0f, l_rotation)

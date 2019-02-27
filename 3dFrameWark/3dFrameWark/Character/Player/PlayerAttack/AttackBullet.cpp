@@ -3,7 +3,8 @@
 #include "../../../CollisionMesh/CollisionMesh.h"
 #include "../../../Billboard/Billboard.h"
 
-#include <EffekseerForDXLib.h>
+#include "../../../Sound/Sound.h"
+#include "../../../assetsID/AssetsID.h"
 
 
 AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float l_radius, const Matrix & matrix)
@@ -22,6 +23,8 @@ AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float
 
 	m_rotation.Forward(matrix.Forward());
 	m_rotation.Right(matrix.Right());
+
+	Sound::play_se((int)SoundID_SE::GunShot);
 }
 
 void AttackBullet::update(float deltaTime)

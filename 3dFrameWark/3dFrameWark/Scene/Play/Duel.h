@@ -8,11 +8,12 @@
 
 #include "../CharaSelect/CharacterSelecter.h"
 #include "../../AssetsLoad/PlayLoad/PlayLoad.h"
+#include "../WinnerCircle/WinnerCharacter.h"
 
 class Duel :public IScene
 {
 public:
-	Duel(CharacterSelecter& l_selecter, PlayLoad& l_load);
+	Duel(CharacterSelecter& l_selecter, PlayLoad& l_load, WinnerCharacter& l_winner);
 	void start()override;
 	void update(float deltaTime)override;
 	void draw()const override;
@@ -26,6 +27,7 @@ private:
 private:
 	CharacterSelecter* charaSelecter_{ nullptr };
 	PlayLoad* load_{ nullptr };
+	WinnerCharacter* winner_{ nullptr };
 
 	World world_;
 	FrameCamera frameCamera_;

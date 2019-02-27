@@ -1,14 +1,7 @@
 #ifndef _CHARACTER_SELECTER_H_
 #define _CHARACTER_SELECTER_H_
 
-enum class CharaID
-{
-	None,
-	Chiya,
-	Rize,
-	Syaro,
-	Cocoa,
-};
+#include "../../CharacterID/CharacterID.h"
 
 class CharacterSelecter
 {

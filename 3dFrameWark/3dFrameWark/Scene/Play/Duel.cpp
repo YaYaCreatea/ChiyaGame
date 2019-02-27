@@ -6,11 +6,10 @@
 #include "../../assetsID/AssetsID.h"
 
 #include "../../Graphics3D/Graphics3D.h"
-#include "../../Utility/Sound/Sound.h"
+#include "../../Sound/Sound.h"
 #include "../../Utility/Matrix/Matrix.h"
 #include "../../Utility/Vector3/Vector3.h"
 
-#include "../../Character/Player/Player.h"
 #include "../../Character/Player/_Chiya/Chiya.h"
 #include "../../Character/Player/_Rize/Rize.h"
 #include "../../Character/Player/_Syaro/Syaro.h"
@@ -18,10 +17,11 @@
 #include "../../Character/Enemy/Boss0/Boss0.h"
 
 
-Duel::Duel(CharacterSelecter& l_selecter, PlayLoad & l_load)
+Duel::Duel(CharacterSelecter& l_selecter, PlayLoad & l_load, WinnerCharacter& l_winner)
 {
 	charaSelecter_ = &l_selecter;
 	load_ = &l_load;
+	winner_ = &l_winner;
 
 	frameCamera_.initialize(l_selecter);
 }
@@ -175,7 +175,7 @@ bool Duel::is_end() const
 
 SceneID Duel::next() const
 {
-	return SceneID::StartUp;
+	return SceneID::Result;
 }
 
 void Duel::end()
@@ -183,7 +183,7 @@ void Duel::end()
 	world_.clear();
 
 	//ゲームモードのリソースアンロード
-	load_->UnLoad();
+	//load_->UnLoad();
 
 	Graphics3D::finalize();
 }
@@ -201,18 +201,27 @@ void Duel::EndCheck()
 		{
 			if (l_rize != nullptr)
 			{
-				if(l_rize->get_IsDown())
+				if (l_rize->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Chiya);
 					m_isEnd = true;
+				}
 			}
 			else if (l_syaro != nullptr)
 			{
 				if (l_syaro->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Chiya);
 					m_isEnd = true;
+				}
 			}
 			else if (l_cocoa != nullptr)
 			{
 				if (l_cocoa->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Chiya);
 					m_isEnd = true;
+				}
 			}
 		}
 	}
@@ -223,17 +232,26 @@ void Duel::EndCheck()
 			if (l_chiya != nullptr)
 			{
 				if (l_chiya->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Rize);
 					m_isEnd = true;
+				}
 			}
 			else if (l_syaro != nullptr)
 			{
 				if (l_syaro->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Rize);
 					m_isEnd = true;
+				}
 			}
 			else if (l_cocoa != nullptr)
 			{
 				if (l_cocoa->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Rize);
 					m_isEnd = true;
+				}
 			}
 		}
 	}
@@ -244,17 +262,26 @@ void Duel::EndCheck()
 			if (l_chiya != nullptr)
 			{
 				if (l_chiya->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Syaro);
 					m_isEnd = true;
+				}
 			}
 			else if (l_rize != nullptr)
 			{
 				if (l_rize->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Syaro);
 					m_isEnd = true;
+				}
 			}
 			else if (l_cocoa != nullptr)
 			{
 				if (l_cocoa->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Syaro);
 					m_isEnd = true;
+				}
 			}
 		}
 	}
@@ -265,17 +292,26 @@ void Duel::EndCheck()
 			if (l_chiya != nullptr)
 			{
 				if (l_chiya->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Cocoa);
 					m_isEnd = true;
+				}
 			}
 			else if (l_rize != nullptr)
 			{
 				if (l_rize->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Cocoa);
 					m_isEnd = true;
+				}
 			}
 			else if (l_syaro != nullptr)
 			{
 				if (l_syaro->get_IsDown())
+				{
+					winner_->Set_Winner(CharaID::Cocoa);
 					m_isEnd = true;
+				}
 			}
 		}
 	}

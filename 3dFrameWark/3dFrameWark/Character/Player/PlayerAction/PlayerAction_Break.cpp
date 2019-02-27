@@ -7,7 +7,7 @@
 #include "../../../Utility/MathHelper/MathHelper.h"
 #include"../../../Utility/Quaternion/Quaternion.h"
 
-#include "../../../Utility/Sound/Sound.h"
+#include "../../../Sound/Sound.h"
 #include "../../../assetsID/AssetsID.h"
 
 #include "../PlayerAttack/Attack1.h"
@@ -42,7 +42,7 @@ void PlayerAction_Break::ActionUpdate(
 		l_prevposition = l_position;
 		l_position += (l_pose.Forward() / 2.0f) * deltaTime;
 
-		if (!m_isSpawn&&parameters_->Get_StateTimer() >= 35.0f)
+		if (!m_isSpawn&&parameters_->Get_StateTimer() >= 25.0f)
 		{
 			Sound::play_se((int)SoundID_SE::Chiya_Attack1);
 			world_->add_actor(
@@ -135,6 +135,7 @@ void PlayerAction_Break::ActionUpdate(
 		case BreakState::Ready:
 			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
 			{
+				Sound::play_se((int)SoundID_SE::Syaro_Attack2);
 				m_breakState = BreakState::Break;
 				l_motion = (int)SyaroAnmID::Break;
 				parameters_->Set_StateTimer(0.0f);
@@ -185,6 +186,7 @@ void PlayerAction_Break::ActionUpdate(
 
 			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
 			{
+				Sound::play_se((int)SoundID_SE::Cocoa_Attack1);
 				m_breakState = BreakState::Break;
 				l_motion = (int)CocoaAnmID::Break;
 				parameters_->Set_StateTimer(0.0f);

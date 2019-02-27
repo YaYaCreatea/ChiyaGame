@@ -15,7 +15,7 @@
 
 #include "../../../Graphics2D/Graphics2D.h"
 #include "../../../Graphics3D/Graphics3D.h"
-#include "../../../Utility/Sound/Sound.h"
+#include "../../../Sound/Sound.h"
 #include "../../../assetsID/AssetsID.h"
 
 #include "../../../Camera/DuelCamera/DuelCamera.h"

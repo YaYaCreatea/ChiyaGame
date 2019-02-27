@@ -4,6 +4,7 @@
 
 #include "../../Utility/Vector2/Vector2.h"
 #include "../../Graphics2D/Graphics2D.h"
+#include "../../Sound/Sound.h"
 
 ModeSelect::ModeSelect(SceneParameters & l_sceneParameters, StartUpLoad& l_load)
 {
@@ -20,6 +21,8 @@ void ModeSelect::start()
 	input_.initialize(DX_INPUT_PAD1);
 
 	camera_.initialize();
+
+	Sound::play_bgm((int)SoundID_BGM::ModeSelect);
 }
 
 void ModeSelect::update(float deltaTime)
@@ -28,7 +31,10 @@ void ModeSelect::update(float deltaTime)
 	camera_.update(deltaTime);
 
 	if (input_.Trigger(PAD_INPUT_1))
+	{
+		Sound::play_se((int)SoundID_SE::SystemSelect);
 		m_isEnd = true;
+	}
 
 	switch (m_modeID)
 	{

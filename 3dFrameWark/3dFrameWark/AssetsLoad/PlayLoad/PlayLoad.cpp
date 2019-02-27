@@ -9,7 +9,7 @@
 #include "../../StaticMesh/StaticMesh.h"
 #include "../../Billboard/Billboard.h"
 #include "../../Effect/Effect.h"
-#include "../../Utility/Sound/Sound.h"
+#include "../../Sound/Sound.h"
 
 
 PlayLoad::PlayLoad()
@@ -93,6 +93,8 @@ void PlayLoad::Load()
 	Sound::load_se((int)SoundID_SE::Cocoa_Down, "asset/Sound/SE/Cocoa/witch-lose1.mp3");
 
 	Sound::load_se((int)SoundID_SE::Dash, "asset/Sound/SE/Attack/Dash.mp3");
+	Sound::load_se((int)SoundID_SE::GunShot, "asset/Sound/SE/Attack/Gun.mp3");
+	Sound::load_se((int)SoundID_SE::KatanaSlash, "asset/Sound/SE/Attack/Katana.mp3");
 
 	SetUseASyncLoadFlag(FALSE);
 

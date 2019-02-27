@@ -10,6 +10,7 @@
 #include "../Scene/Play/GamePlay.h"
 #include "../Scene/Play/Duel.h"
 #include "../Scene/Play/Four.h"
+#include "../Scene/WinnerCircle/WinnerCircle.h"
 
 GameFrame::GameFrame()
 	:Game{ 1280,720,false }
@@ -20,14 +21,17 @@ void GameFrame::start()
 {
 	sceneParameters_.initialize();
 	selecter_.initialize();
+	winner_.initialize();
 
 	sceneManager_.Add_Scece(SceneID::StartUp, new_scene<StartUp>(startUpload_));
 	sceneManager_.Add_Scece(SceneID::Title, new_scene<Title>());
 	sceneManager_.Add_Scece(SceneID::Select, new_scene<ModeSelect>(sceneParameters_, startUpload_));
-	sceneManager_.Add_Scece(SceneID::CharaSelect, new_scene<CharaSelect>(selecter_,sceneParameters_, startUpload_));
+	sceneManager_.Add_Scece(SceneID::CharaSelect, new_scene<CharaSelect>(selecter_, sceneParameters_, startUpload_));
 	sceneManager_.Add_Scece(SceneID::GameLoad, new_scene<ToPlay>(sceneParameters_, playload_));
-	sceneManager_.Add_Scece(SceneID::GameDuel, new_scene<Duel>(selecter_,playload_));
-	sceneManager_.Add_Scece(SceneID::GameFour, new_scene<Four>(selecter_,playload_));
+	sceneManager_.Add_Scece(SceneID::GameDuel, new_scene<Duel>(selecter_, playload_, winner_));
+	sceneManager_.Add_Scece(SceneID::GameFour, new_scene<Four>(selecter_, playload_, winner_));
+	sceneManager_.Add_Scece(SceneID::Result, new_scene<WinnerCircle>(playload_, winner_));
+
 	sceneManager_.Change_Scene(SceneID::StartUp);
 }
 

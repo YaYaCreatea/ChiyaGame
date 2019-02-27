@@ -51,6 +51,8 @@ public:
 	//ワールド変換行列の設定
 	static void set_world_matrices(const Matrix world_matrices[]);
 
+	static void blendshape_animation(float l_attackRate, float l_damageRate);
+
 	//ボーン数の取得
 	static int bone_count();
 

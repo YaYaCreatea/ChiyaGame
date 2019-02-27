@@ -134,6 +134,7 @@
     <ClInclude Include="ActorManager\ActorManager.h" />
     <ClInclude Include="Actor\Actor.h" />
     <ClInclude Include="Actor\ActorPtr.h" />
+    <ClInclude Include="AnimatedBlendShape\AnimatedBlendShape.h" />
     <ClInclude Include="AnimatedMesh\AnimatedMesh.h" />
     <ClInclude Include="AnimatedSprite\AnimatedSprite.h" />
     <ClInclude Include="Animation\Animation.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="ActorGroupManager\ActorGroupManager.cpp" />
     <ClCompile Include="ActorManager\ActorManager.cpp" />
     <ClCompile Include="Actor\Actor.cpp" />
+    <ClCompile Include="AnimatedBlendShape\AnimatedBlendShape.cpp" />
     <ClCompile Include="AnimatedMesh\AnimatedMesh.cpp" />
     <ClCompile Include="AnimatedSprite\AnimatedSprite.cpp" />
     <ClCompile Include="Animation\Animation.cpp" />

@@ -32,12 +32,13 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-Cocoa::Cocoa(IWorld & world, 
-	std::string l_name, const Vector3 & l_position, Matrix l_rotate, 
-	int l_model, 
+Cocoa::Cocoa(IWorld & world,
+	std::string l_name, const Vector3 & l_position, Matrix l_rotate,
+	int l_model,
 	int l_numPlayer, int l_gMode
 )
 	:mesh_{ l_model,0 },
+	shape_{ l_model },
 	input_{},
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
@@ -144,7 +145,7 @@ void Cocoa::update(float deltaTime)
 	mesh_.transform(get_pose());
 	//mesh_.transform(get_pose(), 120, m_pi);
 	//mesh_.transform(get_pose(), 126, m_pi);
-
+	shape_.update(m_state);
 	set_IsDown(parameters_.Get_IsDown());
 
 	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);

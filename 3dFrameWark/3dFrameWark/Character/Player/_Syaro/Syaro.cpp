@@ -32,12 +32,13 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-Syaro::Syaro(IWorld & world, 
-	std::string l_name, const Vector3 & l_position, Matrix l_rotate, 
-	int l_model, int l_weapon, 
+Syaro::Syaro(IWorld & world,
+	std::string l_name, const Vector3 & l_position, Matrix l_rotate,
+	int l_model, int l_weapon,
 	int l_numPlayer, int l_gMode
 )
 	:mesh_{ l_model,0 },
+	shape_{ l_model },
 	input_{},
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
@@ -144,8 +145,7 @@ void Syaro::update(float deltaTime)
 	mesh_.update(deltaTime);
 
 	mesh_.transform(get_pose());
-	//mesh_.transform(get_pose(), 120, m_pi);
-	//mesh_.transform(get_pose(), 126, m_pi);
+	shape_.update(m_state);
 
 	set_IsDown(parameters_.Get_IsDown());
 
@@ -373,14 +373,14 @@ void Syaro::lockOnCheck()
 	m_forward.Normalize();
 
 	if (parameters_.Get_DistanceNear() > 300.0f
-		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) 
+		|| Vector3::Dot(m_forward, parameters_.Get_LockOnDirection())
 		< (0.93f - ((300.0f - parameters_.Get_DistanceNear()) / 8000.0f)))
 	{
 		parameters_.LockOn(false);
 		return;
 	}
 
-	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection()) 
+	else if (Vector3::Dot(m_forward, parameters_.Get_LockOnDirection())
 		>= (0.93f - ((300.0f - parameters_.Get_DistanceNear()) / 8000.0f)))
 	{
 		parameters_.LockOn(true);

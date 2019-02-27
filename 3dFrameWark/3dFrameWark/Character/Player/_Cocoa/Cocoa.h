@@ -12,6 +12,7 @@
 #include "../PlayerActionPtr.h"
 
 #include "../PlayerParameters.h"
+#include "../../../AnimatedBlendShape/AnimatedBlendShape.h"
 
 #include <map>
 
@@ -48,6 +49,7 @@ private:
 
 	//アニメーションメッシュ
 	AnimatedMesh mesh_;
+	AnimatedBlendShape shape_;
 
 	InputState input_;
 

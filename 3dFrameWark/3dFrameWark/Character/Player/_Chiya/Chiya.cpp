@@ -42,7 +42,8 @@ Chiya::Chiya(IWorld & world,
 	int l_model, int l_weapon,
 	int l_numPlayer, int l_gMode
 )
-	:mesh_{ l_model,0 },
+	:mesh_{ l_model,0 }, 
+	shape_{ l_model },
 	input_{},
 	m_state{ PlayerStateName::Idle },
 	m_motion{ 0 },
@@ -130,6 +131,8 @@ void Chiya::update(float deltaTime)
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
 		m_motion, m_cameraRoate);
 
+	
+
 	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
 
 	parameters_.Add_StateTimer(1.0f*deltaTime);
@@ -151,6 +154,8 @@ void Chiya::update(float deltaTime)
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 151, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 	mesh_.transform(get_pose(), 157, Vector3{ m_pi.x,m_pi.y,m_pi.z });
+
+	shape_.update(m_state);
 
 	set_IsDown(parameters_.Get_IsDown());
 

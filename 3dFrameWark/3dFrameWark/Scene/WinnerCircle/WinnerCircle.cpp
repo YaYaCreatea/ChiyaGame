@@ -62,6 +62,8 @@ void WinnerCircle::start()
 				(int)ModelCharaID::Cocoa)
 		);
 	}
+
+	Sound::play_bgm((int)SoundID_BGM::Result);
 }
 
 void WinnerCircle::update(float deltaTime)
@@ -79,13 +81,25 @@ void WinnerCircle::draw() const
 	Graphics3D::clear();
 
 	if (winner_->Get_Winner() == CharaID::Chiya)
+	{
 		world_.draw();
+		Graphics2D::draw_sprite((int)SpriteID::ResultBackChiya, Vector2::Zero);
+	}
 	else if (winner_->Get_Winner() == CharaID::Rize)
+	{
 		world_.draw2();
+		Graphics2D::draw_sprite((int)SpriteID::ResultBackRize, Vector2::Zero);
+	}
 	else if (winner_->Get_Winner() == CharaID::Syaro)
+	{
 		world_.draw3();
+		Graphics2D::draw_sprite((int)SpriteID::ResultBackSyaro, Vector2::Zero);
+	}
 	else if (winner_->Get_Winner() == CharaID::Cocoa)
+	{
 		world_.draw4();
+		Graphics2D::draw_sprite((int)SpriteID::ResultBackCocoa, Vector2::Zero);
+	}
 }
 
 bool WinnerCircle::is_end() const

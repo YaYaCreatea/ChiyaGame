@@ -7,6 +7,9 @@
 
 #include "../../Graphics3D/Graphics3D.h"
 
+#include "CameraWork/ChiyaWork.h"
+#include "CameraWork/SyaroWork.h"
+
 class WinnerCamera :public Actor
 {
 public:
@@ -21,13 +24,15 @@ public:
 
 
 private:
+	ChiyaWork chiyaWork_;
+	SyaroWork syaroWork_;
+
 	std::string m_targetName;
 
 	Vector3 m_playerposition;
 	Matrix m_playerrotate;
 
 	Vector3 m_lookPos;
-	Vector3 m_to_target;
 
 	float m_backDis;
 

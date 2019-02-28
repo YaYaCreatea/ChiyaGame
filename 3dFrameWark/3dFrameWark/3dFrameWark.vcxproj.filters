@@ -306,6 +306,15 @@
     <ClInclude Include="AnimatedBlendShape\AnimatedBlendShape.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Effect\HitEffect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\WinnerCamera\CameraWork\ChiyaWork.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\WinnerCamera\CameraWork\SyaroWork.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModelAsset\ModelAsset.cpp">
@@ -558,6 +567,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedBlendShape\AnimatedBlendShape.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect\HitEffect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\WinnerCamera\CameraWork\ChiyaWork.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\WinnerCamera\CameraWork\SyaroWork.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

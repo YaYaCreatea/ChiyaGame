@@ -60,20 +60,25 @@ void PlayLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOn, "asset/2Dsprite/GamePlay/LockOnAreaOn.png");
 	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOff_4, "asset/2Dsprite/GamePlay/LockOnArea_4.png");
 	Graphics2D::load_sprite((int)SpriteID::LockOnAreaOn_4, "asset/2Dsprite/GamePlay/LockOnAreaOn_4.png");
+	Graphics2D::load_sprite((int)SpriteID::ResultBackChiya, "asset/2Dsprite/Result/WinnerChiya.png");
+	Graphics2D::load_sprite((int)SpriteID::ResultBackRize, "asset/2Dsprite/Result/WinnerRize.png");
+	Graphics2D::load_sprite((int)SpriteID::ResultBackSyaro, "asset/2Dsprite/Result/WinnerSyaro.png");
+	Graphics2D::load_sprite((int)SpriteID::ResultBackCocoa, "asset/2Dsprite/Result/WinnerCocoa.png");
 
 	//ビルボードの読み込み
-	Billboard::load(0, "asset/Particle02.png");
-	//Billboard::load(1, "asset/Effect/katanaKiseki.png");
-	Billboard::load(2, "asset/2Dsprite/GamePlay/lockOnCircle.png");
+	Billboard::load((int)BillBoardID::GunShot, "asset/Particle02.png");
+	Billboard::load((int)BillBoardID::Hit, "asset/BillBoard/Hit.png");
 
 	//BGM
-	Sound::load_bgm((int)SoundID_BGM::GameBGM, "asset/Sound/BGM/GameBGM.wav");
+	Sound::load_bgm((int)SoundID_BGM::GameBGM, "asset/Sound/BGM/ryunomai.mp3");
+	Sound::load_bgm((int)SoundID_BGM::Result, "asset/Sound/BGM/bacteria.mp3");
 
 	//SE
 	Sound::load_se((int)SoundID_SE::Chiya_Attack1, "asset/Sound/SE/Chiya/healer-attack1.mp3");
 	Sound::load_se((int)SoundID_SE::Chiya_Attack2, "asset/Sound/SE/Chiya/healer-attack2.mp3");
 	Sound::load_se((int)SoundID_SE::Chiya_Damage, "asset/Sound/SE/Chiya/healer-damage2.mp3");
 	Sound::load_se((int)SoundID_SE::Chiya_Down, "asset/Sound/SE/Chiya/healer-death1.mp3");
+	Sound::load_se((int)SoundID_SE::Chiya_Win, "asset/Sound/SE/Chiya/healer-win1.mp3");
 
 	Sound::load_se((int)SoundID_SE::Rize_Attack1, "asset/Sound/SE/Rize/swordwoman-attack1.mp3");
 	Sound::load_se((int)SoundID_SE::Rize_Attack2, "asset/Sound/SE/Rize/swordwoman-attack3.mp3");
@@ -81,16 +86,19 @@ void PlayLoad::Load()
 	Sound::load_se((int)SoundID_SE::Rize_Attack4, "asset/Sound/SE/Rize/swordwoman-special2.mp3");
 	Sound::load_se((int)SoundID_SE::Rize_Damage, "asset/Sound/SE/Rize/swordwoman-damage2.mp3");
 	Sound::load_se((int)SoundID_SE::Rize_Down, "asset/Sound/SE/Rize/swordwoman-lose1.mp3");
+	Sound::load_se((int)SoundID_SE::Rize_Win, "asset/Sound/SE/Rize/swordwoman-start2.mp3");
 
 	Sound::load_se((int)SoundID_SE::Syaro_Attack1, "asset/Sound/SE/Syaro/princess-attack1.mp3");
 	Sound::load_se((int)SoundID_SE::Syaro_Attack2, "asset/Sound/SE/Syaro/princess-attack3.mp3");
 	Sound::load_se((int)SoundID_SE::Syaro_Damage, "asset/Sound/SE/Syaro/princess-damage2.mp3");
 	Sound::load_se((int)SoundID_SE::Syaro_Down, "asset/Sound/SE/Syaro/princess-death1.mp3");
+	Sound::load_se((int)SoundID_SE::Syaro_Win, "asset/Sound/SE/Syaro/princess-win1.mp3");
 
 	Sound::load_se((int)SoundID_SE::Cocoa_Attack1, "asset/Sound/SE/Cocoa/witch-attack1.mp3");
 	Sound::load_se((int)SoundID_SE::Cocoa_Attack2, "asset/Sound/SE/Cocoa/witch-attack3.mp3");
 	Sound::load_se((int)SoundID_SE::Cocoa_Damage, "asset/Sound/SE/Cocoa/witch-damage2.mp3");
 	Sound::load_se((int)SoundID_SE::Cocoa_Down, "asset/Sound/SE/Cocoa/witch-lose1.mp3");
+	Sound::load_se((int)SoundID_SE::Cocoa_Win, "asset/Sound/SE/Cocoa/witch-attack2.mp3");
 
 	Sound::load_se((int)SoundID_SE::Dash, "asset/Sound/SE/Attack/Dash.mp3");
 	Sound::load_se((int)SoundID_SE::GunShot, "asset/Sound/SE/Attack/Gun.mp3");

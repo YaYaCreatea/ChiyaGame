@@ -4,6 +4,7 @@
 #include "../../../Actor/ActorPtr.h"
 #include "../../../Actor/Actor.h"
 #include "../../../AnimatedMesh/AnimatedMesh.h"
+#include "../../../AnimatedBlendShape/AnimatedBlendShape.h"
 
 class WinnerChiya :public Actor
 {
@@ -34,6 +35,7 @@ private:
 
 	//アニメーションメッシュ
 	AnimatedMesh mesh_;
+	AnimatedBlendShape shape_;
 
 	//モーション番号
 	int m_motion;

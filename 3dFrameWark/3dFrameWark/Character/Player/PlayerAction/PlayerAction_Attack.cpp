@@ -70,7 +70,7 @@ void PlayerAction_Attack::ActionUpdate(
 				m_isSpawn = true;
 			}
 			else if (l_motion == (int)RizeAnmID::Combo2)
-			{				
+			{
 				if (parameters_->Get_StateTimer() >= 30.0f)
 				{
 					Sound::play_se((int)SoundID_SE::Rize_Attack2);
@@ -108,7 +108,15 @@ void PlayerAction_Attack::ActionUpdate(
 					Sound::play_se((int)SoundID_SE::Syaro_Attack2);
 					world_->add_actor(
 						ActorGroup::SyaroAction,
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose*Matrix::CreateFromAxisAngle(l_pose.Up(), 20.0f))
+					);
+					world_->add_actor(
+						ActorGroup::SyaroAction,
 						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+					);
+					world_->add_actor(
+						ActorGroup::SyaroAction,
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose*Matrix::CreateFromAxisAngle(l_pose.Up(), -20.0f))
 					);
 					m_isSpawn = true;
 				}

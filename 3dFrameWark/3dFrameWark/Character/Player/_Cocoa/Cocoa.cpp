@@ -60,12 +60,12 @@ Cocoa::Cocoa(IWorld & world,
 	{
 		if (m_numPlayer == 1)
 		{
-			world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
+			world_->add_camera_cocoa(new_actor<DuelCamera>(world, m_position, 180.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD1);
 		}
 		else if (m_numPlayer == 2)
 		{
-			world_->add_camera_cocoa(new_actor<DuelCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
+			world_->add_camera_cocoa(new_actor<DuelCamera>(world, m_position, 0.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD2);
 		}
 	}
@@ -73,22 +73,22 @@ Cocoa::Cocoa(IWorld & world,
 	{
 		if (m_numPlayer == 1)
 		{
-			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 135.0f, m_name, m_numPlayer));
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, 135.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD1);
 		}
 		else if (m_numPlayer == 2)
 		{
-			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name, m_numPlayer));
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, 0.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD2);
 		}
 		else if (m_numPlayer == 3)
 		{
-			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 180.0f, m_name, m_numPlayer));
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, 180.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD3);
 		}
 		else if (m_numPlayer == 4)
 		{
-			world_->add_camera_cocoa(new_actor<FourCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, -45.0f, m_name, m_numPlayer));
+			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, -45.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD4);
 		}
 	}

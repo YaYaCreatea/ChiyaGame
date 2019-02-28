@@ -15,6 +15,7 @@ public:
 
 private:
 	float m_friction;
+	bool m_isHit;
 };
 
 #endif

@@ -135,7 +135,7 @@ void SkeletalMesh::set_world_matrices(const Matrix world_matrices[])
 		world_matrices_[i] = world_matrices[i];
 }
 
-void SkeletalMesh::blendshape_animation(float l_attackRate, float l_damageRate)
+void SkeletalMesh::blendshape_animation(float l_attackRate, float l_damageRate, float l_smileRate)
 {
 	MV1SetShapeRate(model_, 0, l_attackRate);
 	MV1SetShapeRate(model_, 28, l_attackRate);
@@ -144,6 +144,9 @@ void SkeletalMesh::blendshape_animation(float l_attackRate, float l_damageRate)
 	MV1SetShapeRate(model_, 3, l_damageRate);
 	MV1SetShapeRate(model_, 11, l_damageRate);
 	MV1SetShapeRate(model_, 27, l_damageRate);
+
+	MV1SetShapeRate(model_, 6, l_smileRate);
+	MV1SetShapeRate(model_, 10, l_smileRate);
 }
 
 //ƒ{[ƒ“”‚Ìæ“¾

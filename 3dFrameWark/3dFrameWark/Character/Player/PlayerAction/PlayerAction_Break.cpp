@@ -176,12 +176,15 @@ void PlayerAction_Break::ActionUpdate(
 		{
 		case BreakState::Ready:
 
+			l_velocity = Vector3{ 0.0f,0.2f,0.0f };
+
 			m_yawRotation = 0.0f;
 			if (input_->Stay(PAD_INPUT_LEFT))
 				m_yawRotation = -1.0f;
 			else if (input_->Stay(PAD_INPUT_RIGHT))
 				m_yawRotation = 1.0f;
 			l_rotation *= Matrix::CreateRotationY(m_yawRotation);
+			l_position += l_velocity * deltaTime;
 			l_prevposition = l_position;
 
 			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)

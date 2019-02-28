@@ -4,14 +4,17 @@
 #include "../../../StaticMesh/StaticMesh.h"
 
 #include "../../Player/CharacterAnimationID.h"
+#include "../../../assetsID/AssetsID.h"
+#include "../../../Sound/Sound.h"
 
 #include "../../../Camera/WinnerCamera/WinnerCamera.h"
 
 WinnerCocoa::WinnerCocoa(
-	IWorld & world, 
-	std::string l_name, const Vector3 & l_position, Matrix l_rotate, 
+	IWorld & world,
+	std::string l_name, const Vector3 & l_position, Matrix l_rotate,
 	int l_model)
 	:mesh_{ l_model,0 },
+	shape_{ l_model },
 	m_motion{ (int)CocoaAnmID::Break },
 	m_timer{ 0.0f }
 {
@@ -23,6 +26,7 @@ WinnerCocoa::WinnerCocoa(
 
 	world_->add_camera_cocoa(new_actor<WinnerCamera>(world, Vector3{ 0.0f,0.0f,0.0f }, 0.0f, m_name));
 
+	Sound::play_se((int)SoundID_SE::Cocoa_Win);
 }
 
 void WinnerCocoa::update(float deltaTime)
@@ -33,6 +37,7 @@ void WinnerCocoa::update(float deltaTime)
 		mesh_.update(deltaTime);
 	}
 	mesh_.transform(get_pose());
+	shape_.update(m_timer, 0.0f);
 
 	m_timer += deltaTime;
 }

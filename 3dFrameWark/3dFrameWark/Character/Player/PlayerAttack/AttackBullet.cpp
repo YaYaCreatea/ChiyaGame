@@ -43,7 +43,7 @@ void AttackBullet::update(float deltaTime)
 
 void AttackBullet::draw() const
 {
-	Billboard::bind(0);
+	Billboard::bind((int)BillBoardID::GunShot);
 	Billboard::draw(m_position + Vector3{ 0.0f,m_radius,0.0f }, m_radius*2.0f, 0.5f, 0.5f, m_angle);
 
 	//DrawEffekseer3D();

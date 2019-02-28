@@ -17,6 +17,7 @@ enum class ChiyaAnmID
 	DownIdle,
 	Dash,
 	AttackHoming,
+	Winner,
 };
 
 enum class RizeAnmID
@@ -56,6 +57,7 @@ enum class SyaroAnmID
 	BreakReady,
 	Break,
 	Dash,
+	Winner,
 };
 
 enum class CocoaAnmID

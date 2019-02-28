@@ -4,6 +4,8 @@
 #include "../../../StaticMesh/StaticMesh.h"
 
 #include "../../Player/CharacterAnimationID.h"
+#include "../../../assetsID/AssetsID.h"
+#include "../../../Sound/Sound.h"
 
 #include "../../../Camera/WinnerCamera/WinnerCamera.h"
 
@@ -12,7 +14,8 @@ WinnerSyaro::WinnerSyaro(
 	std::string l_name, const Vector3 & l_position, Matrix l_rotate,
 	int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
-	m_motion{ (int)SyaroAnmID::Combo1 },
+	shape_{ l_model },
+	m_motion{ (int)SyaroAnmID::Winner },
 	m_weapon{ l_weapon },
 	m_timer{ 0.0f }
 {
@@ -23,6 +26,8 @@ WinnerSyaro::WinnerSyaro(
 	m_prevposition = m_position;
 
 	world_->add_camera_syaro(new_actor<WinnerCamera>(world, Vector3{ 0.0f,0.0f,0.0f }, 0.0f, m_name));
+
+	Sound::play_se((int)SoundID_SE::Syaro_Win);
 }
 
 void WinnerSyaro::update(float deltaTime)
@@ -33,6 +38,7 @@ void WinnerSyaro::update(float deltaTime)
 		mesh_.update(deltaTime);
 	}
 	mesh_.transform(get_pose());
+	shape_.update(m_timer, 55.0f);
 
 	m_timer += deltaTime;
 }

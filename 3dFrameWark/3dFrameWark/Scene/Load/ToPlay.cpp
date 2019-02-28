@@ -56,6 +56,7 @@ SceneID ToPlay::next() const
 {
 	//Duel or Four
 	return sceneParameters_->Get_NextSceneID();
+	//return SceneID::Result;
 }
 
 void ToPlay::end()

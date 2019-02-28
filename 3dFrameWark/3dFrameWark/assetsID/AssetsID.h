@@ -63,13 +63,24 @@ enum class SpriteID
 	SelICO_4_1,
 	SelICO_4_2,
 	SelICO_4_3,
+	ResultBackChiya,
+	ResultBackRize,
+	ResultBackSyaro,
+	ResultBackCocoa,
+};
+
+enum class BillBoardID
+{
+	Hit,
+	GunShot,
 };
 
 enum class SoundID_BGM
 {
 	ModeSelect,
 	CharaSelect,
-	GameBGM
+	GameBGM,
+	Result,
 };
 
 enum class SoundID_SE
@@ -79,6 +90,7 @@ enum class SoundID_SE
 	Chiya_Attack2,
 	Chiya_Damage,
 	Chiya_Down,
+	Chiya_Win,
 	Rize_Select,
 	Rize_Attack1,
 	Rize_Attack2,
@@ -86,16 +98,19 @@ enum class SoundID_SE
 	Rize_Attack4,
 	Rize_Damage,
 	Rize_Down,
+	Rize_Win,
 	Syaro_Select,
 	Syaro_Attack1,
 	Syaro_Attack2,
 	Syaro_Damage,
 	Syaro_Down,
+	Syaro_Win,
 	Cocoa_Select,
 	Cocoa_Attack1,
 	Cocoa_Attack2,
 	Cocoa_Damage,
 	Cocoa_Down,
+	Cocoa_Win,
 	Dash,
 	GunShot,
 	KatanaSlash,

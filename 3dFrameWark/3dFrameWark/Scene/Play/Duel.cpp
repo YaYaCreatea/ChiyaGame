@@ -129,7 +129,7 @@ void Duel::start()
 		);
 	}
 
-	//Sound::play_bgm(0);
+	Sound::play_bgm((int)SoundID_BGM::GameBGM);
 }
 
 void Duel::update(float deltaTime)

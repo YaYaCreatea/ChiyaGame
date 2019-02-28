@@ -22,11 +22,17 @@ WinnerCamera::WinnerCamera(
 	m_lookPos = Vector3::Zero;
 
 	if (m_targetName == "Chiya")
+	{
 		m_group = ActorGroup::Chiya;
+		chiyaWork_.WorkInitialize();
+	}
 	else if (m_targetName == "Rize")
 		m_group = ActorGroup::Rize;
 	else if (m_targetName == "Syaro")
+	{
 		m_group = ActorGroup::Syaro;
+		syaroWork_.WorkInitialize();
+	}
 	else if (m_targetName == "Cocoa")
 		m_group = ActorGroup::Cocoa;
 }
@@ -36,18 +42,24 @@ void WinnerCamera::update(float deltaTime)
 	auto l_player = world_->find_actor(m_group, m_targetName);
 	if (l_player == nullptr)return;
 
-	m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
-	m_rotation.NormalizeRotationMatrix();
+	if (m_targetName == "Chiya")
+		chiyaWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
+	else if(m_targetName == "Syaro")
+		syaroWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
+	else
+	{
+		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
+		m_rotation.NormalizeRotationMatrix();
 
-	Vector3& l_backPosition = (m_rotation.Forward().Normalize()* 18.0f);
-	const Vector3& l_upPosition = Vector3{ 5.0f, 18.0f, 0.0f };
+		Vector3& l_backPosition = (m_rotation.Forward().Normalize()* 18.0f);
+		const Vector3& l_upPosition = Vector3{ 5.0f, 18.0f, 0.0f };
 
-	m_to_target = l_player->get_position() - m_position;
-	m_position = l_player->get_position() + l_backPosition + l_upPosition;
-	m_lookPos = Vector3{
-		l_player->get_position().x,
-		l_player->get_position().y + 14.0f,
-		l_player->get_position().z };
+		m_position = l_player->get_position() + l_backPosition + l_upPosition;
+		m_lookPos = Vector3{
+			l_player->get_position().x - 3.0f,
+			l_player->get_position().y + 14.0f,
+			l_player->get_position().z };
+	}
 }
 
 void WinnerCamera::draw() const
@@ -59,6 +71,6 @@ void WinnerCamera::draw() const
 	);
 
 	Graphics3D::projection_matrix(
-		Matrix::CreatePerspectiveFieldOfView(45.0f, 1280.0f / 720.0f, 1.0f, 1000.0f)
+		Matrix::CreatePerspectiveFieldOfView(38.0f, 1280.0f / 720.0f, 1.0f, 1000.0f)
 	);
 }

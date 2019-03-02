@@ -13,6 +13,7 @@
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
 #include "../../../Effect/KatanaEffect.h"
+#include "../../../Effect/SpearEffect.h"
 
 PlayerAction_Break::PlayerAction_Break(IWorld & world, PlayerParameters & parameter, InputState& input)
 {
@@ -114,6 +115,10 @@ void PlayerAction_Break::ActionUpdate(
 					ActorGroup::RizeAction,
 					new_actor<Attack1>("BreakAttack", l_position + (l_pose.Forward()*10.0f), 10.0f, l_pose)
 				);
+				world_->add_actor(
+					ActorGroup::Effect,
+					new_actor<SpearEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*15.0f), l_pose)
+				);
 			}
 
 			l_prevposition = l_position;
@@ -157,7 +162,7 @@ void PlayerAction_Break::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::SyaroAction,
-					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose,(int)BillBoardID::GunShot)
 				);
 			}
 
@@ -176,7 +181,7 @@ void PlayerAction_Break::ActionUpdate(
 		{
 		case BreakState::Ready:
 
-			l_velocity = Vector3{ 0.0f,0.2f,0.0f };
+			//l_velocity = Vector3{ 0.0f,0.2f,0.0f };
 
 			m_yawRotation = 0.0f;
 			if (input_->Stay(PAD_INPUT_LEFT))
@@ -184,7 +189,7 @@ void PlayerAction_Break::ActionUpdate(
 			else if (input_->Stay(PAD_INPUT_RIGHT))
 				m_yawRotation = 1.0f;
 			l_rotation *= Matrix::CreateRotationY(m_yawRotation);
-			l_position += l_velocity * deltaTime;
+			//l_position += l_velocity * deltaTime;
 			l_prevposition = l_position;
 
 			if (parameters_->Get_StateTimer() >= (parameters_->Get_EndTime()*2.0f) - 2.0f)
@@ -202,7 +207,7 @@ void PlayerAction_Break::ActionUpdate(
 			{
 				world_->add_actor(
 					ActorGroup::CocoaAction,
-					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up), 15.0f, l_pose)
+					new_actor<AttackBullet>("BreakAttack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up), 15.0f, l_pose, (int)BillBoardID::MagicShot)
 				);
 				m_isSpawn = true;
 			}

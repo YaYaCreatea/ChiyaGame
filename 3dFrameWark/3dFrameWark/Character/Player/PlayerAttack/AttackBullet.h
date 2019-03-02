@@ -7,7 +7,7 @@ class AttackBullet :public Actor
 {
 public:
 
-	AttackBullet(std::string l_name, const Vector3& l_position, float l_radius, const Matrix & matrix);
+	AttackBullet(std::string l_name, const Vector3& l_position, float l_radius, const Matrix & matrix,int l_billbordID);
 
 	virtual void update(float deltaTime)override;
 
@@ -19,14 +19,11 @@ private:
 	bool StageReact();
 
 private:
+	int m_billBoardID;
 	float m_radius;
 	float m_timer;
 	float m_bulletSpeed;
 	float m_angle;
-
-	int effectID;
-	int effectIDs;
-	
 };
 
 

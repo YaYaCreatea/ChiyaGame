@@ -1,4 +1,5 @@
 #include "EffectModel.h"
+#include <DxLib.h>
 
 EffectModel::EffectModel(const std::string& file_name)
 {
@@ -25,4 +26,11 @@ void EffectModel::transform(const Vector3 & l_position, const Matrix & l_matrix,
 		Matrix(l_matrix*
 			Matrix::CreateFromAxisAngle(l_matrix.Forward(), l_pitch)*
 			Matrix::CreateFromAxisAngle(Vector3::Up, l_yaw)).Translation(l_position));
+}
+
+void EffectModel::transform(const Vector3 & l_position, const Matrix & l_matrix, const Vector3 & l_size)
+{
+	MV1SetMatrix(
+		m_model,
+		Matrix(l_matrix*Matrix::CreateScale(l_size)).Translation(l_position));
 }

@@ -66,8 +66,9 @@ void PlayLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::ResultBackCocoa, "asset/2Dsprite/Result/WinnerCocoa.png");
 
 	//ビルボードの読み込み
-	Billboard::load((int)BillBoardID::GunShot, "asset/Particle02.png");
 	Billboard::load((int)BillBoardID::Hit, "asset/BillBoard/Hit.png");
+	Billboard::load((int)BillBoardID::GunShot, "asset/BillBoard/GunEff.png");
+	Billboard::load((int)BillBoardID::MagicShot, "asset/BillBoard/Particle02.png");
 
 	//BGM
 	Sound::load_bgm((int)SoundID_BGM::GameBGM, "asset/Sound/BGM/ryunomai.mp3");

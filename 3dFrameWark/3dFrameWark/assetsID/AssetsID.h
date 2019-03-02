@@ -73,6 +73,7 @@ enum class BillBoardID
 {
 	Hit,
 	GunShot,
+	MagicShot
 };
 
 enum class SoundID_BGM

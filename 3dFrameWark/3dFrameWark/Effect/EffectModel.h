@@ -1,7 +1,9 @@
 #ifndef _EFFECT_MODEL_H_
 #define _EFFECT_MODEL_H_
 
-#include "Effect.h"
+#include <string>
+#include "../Utility/Vector3/Vector3.h"
+#include "../Utility/Matrix/Matrix.h"
 
 class EffectModel
 {
@@ -12,7 +14,9 @@ public:
 
 	void draw()const;
 
-	void transform(const Vector3& l_position, const Matrix& l_matrix, float l_pitch, float l_yaw);
+	void transform(const Vector3& l_position, const Matrix& l_matrix, float l_pitch = 0.0f, float l_yaw = 0.0f);
+
+	void transform(const Vector3& l_position, const Matrix& l_matrix, const Vector3& l_size);
 
 private:
 	int m_model;

@@ -10,6 +10,10 @@
 #include "../PlayerAttack/Attack1.h"
 #include "../PlayerAttack/AttackBullet.h"
 #include "../../../Effect/KatanaEffect.h"
+#include "../../../Effect/SpearEffect.h"
+#include "../../../Effect/SpearEffect2.h"
+#include "../../../Effect/HandEffect.h"
+
 
 PlayerAction_Attack::PlayerAction_Attack(IWorld & world, PlayerParameters& parameter, InputState& input)
 {
@@ -67,6 +71,10 @@ void PlayerAction_Attack::ActionUpdate(
 					ActorGroup::RizeAction,
 					new_actor<Attack1>("Attack", l_position + (l_pose.Forward()*18.0f), 5.0f, l_pose, 10.0f)
 				);
+				world_->add_actor(
+					ActorGroup::Effect,
+					new_actor<SpearEffect>(l_position + l_pose.Up()*15.0f + (l_pose.Forward()*15.0f), l_pose)
+				);
 				m_isSpawn = true;
 			}
 			else if (l_motion == (int)RizeAnmID::Combo2)
@@ -77,6 +85,10 @@ void PlayerAction_Attack::ActionUpdate(
 					world_->add_actor(
 						ActorGroup::RizeAction,
 						new_actor<Attack1>("Attack", l_position + Vector3{ 0.0f,-8.0f,0.0f }, 20.0f, l_pose)
+					);
+					world_->add_actor(
+						ActorGroup::Effect,
+						new_actor<SpearEffect2>(l_position + l_pose.Up()*15.0f, l_pose)
 					);
 					m_isSpawn = true;
 				}
@@ -97,7 +109,7 @@ void PlayerAction_Attack::ActionUpdate(
 				Sound::play_se((int)SoundID_SE::Syaro_Attack1);
 				world_->add_actor(
 					ActorGroup::SyaroAction,
-					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation)
+					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation, (int)BillBoardID::GunShot)
 				);
 				m_isSpawn = true;
 			}
@@ -108,15 +120,15 @@ void PlayerAction_Attack::ActionUpdate(
 					Sound::play_se((int)SoundID_SE::Syaro_Attack2);
 					world_->add_actor(
 						ActorGroup::SyaroAction,
-						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose*Matrix::CreateFromAxisAngle(l_pose.Up(), 20.0f))
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose*Matrix::CreateFromAxisAngle(l_pose.Up(), 20.0f), (int)BillBoardID::GunShot)
 					);
 					world_->add_actor(
 						ActorGroup::SyaroAction,
-						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose)
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose, (int)BillBoardID::GunShot)
 					);
 					world_->add_actor(
 						ActorGroup::SyaroAction,
-						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose*Matrix::CreateFromAxisAngle(l_pose.Up(), -20.0f))
+						new_actor<AttackBullet>("Attack", l_position + (l_pose.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_pose*Matrix::CreateFromAxisAngle(l_pose.Up(), -20.0f), (int)BillBoardID::GunShot)
 					);
 					m_isSpawn = true;
 				}
@@ -137,7 +149,7 @@ void PlayerAction_Attack::ActionUpdate(
 				Sound::play_se((int)SoundID_SE::Cocoa_Attack1);
 				world_->add_actor(
 					ActorGroup::CocoaAction,
-					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation)
+					new_actor<AttackBullet>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 5.0f, l_rotation,(int)BillBoardID::MagicShot)
 				);
 				m_isSpawn = true;
 			}
@@ -149,6 +161,10 @@ void PlayerAction_Attack::ActionUpdate(
 					world_->add_actor(
 						ActorGroup::CocoaAction,
 						new_actor<Attack1>("Attack", l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*8.0f), 10.0f, l_rotation)
+					);
+					world_->add_actor(
+						ActorGroup::Effect,
+						new_actor<HandEffect>(l_position + (l_rotation.Forward()*10.0f) + (Vector3::Up*15.0f), l_pose)
 					);
 					m_isSpawn = true;
 				}

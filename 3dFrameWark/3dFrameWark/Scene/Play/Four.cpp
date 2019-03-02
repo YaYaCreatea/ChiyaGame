@@ -8,6 +8,7 @@
 #include "../../Graphics3D/Graphics3D.h"
 #include "../../Utility/Matrix/Matrix.h"
 #include "../../Utility/Vector3/Vector3.h"
+#include "../../Sound/Sound.h"
 
 #include "../../Camera/FourCamera/FourCamera.h"
 #include "../../Character/Player/_Chiya/Chiya.h"
@@ -219,6 +220,8 @@ void Four::start()
 				m_numCocoa, 1)
 		);
 	}
+
+	Sound::play_bgm((int)SoundID_BGM::GameBGM);
 }
 
 void Four::update(float deltaTime)

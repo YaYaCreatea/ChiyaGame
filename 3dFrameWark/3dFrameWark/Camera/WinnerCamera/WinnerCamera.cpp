@@ -27,7 +27,10 @@ WinnerCamera::WinnerCamera(
 		chiyaWork_.WorkInitialize();
 	}
 	else if (m_targetName == "Rize")
+	{
 		m_group = ActorGroup::Rize;
+		rizeWork_.WorkInitialize();
+	}
 	else if (m_targetName == "Syaro")
 	{
 		m_group = ActorGroup::Syaro;
@@ -44,6 +47,8 @@ void WinnerCamera::update(float deltaTime)
 
 	if (m_targetName == "Chiya")
 		chiyaWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
+	else if (m_targetName == "Rize")
+		rizeWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
 	else if(m_targetName == "Syaro")
 		syaroWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
 	else

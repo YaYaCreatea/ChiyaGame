@@ -148,6 +148,7 @@
     <ClInclude Include="Camera\FrameCamera\FrameCamera.h" />
     <ClInclude Include="Camera\ModeSelectCamera\ModeSelectCamera.h" />
     <ClInclude Include="Camera\WinnerCamera\CameraWork\ChiyaWork.h" />
+    <ClInclude Include="Camera\WinnerCamera\CameraWork\RizeWork.h" />
     <ClInclude Include="Camera\WinnerCamera\CameraWork\SyaroWork.h" />
     <ClInclude Include="Camera\WinnerCamera\WinnerCamera.h" />
     <ClInclude Include="CharacterID\CharacterID.h" />
@@ -187,8 +188,11 @@
     <ClInclude Include="EffectAsset\EffectAsset.h" />
     <ClInclude Include="Effect\Effect.h" />
     <ClInclude Include="Effect\EffectModel.h" />
+    <ClInclude Include="Effect\HandEffect.h" />
     <ClInclude Include="Effect\HitEffect.h" />
     <ClInclude Include="Effect\KatanaEffect.h" />
+    <ClInclude Include="Effect\SpearEffect.h" />
+    <ClInclude Include="Effect\SpearEffect2.h" />
     <ClInclude Include="EventMessage.h" />
     <ClInclude Include="GameFrame\GameFrame.h" />
     <ClInclude Include="Game\Game.h" />
@@ -196,6 +200,7 @@
     <ClInclude Include="Graphics3D\Graphics3D.h" />
     <ClInclude Include="ModelAsset\ModelAsset.h" />
     <ClInclude Include="SceneManager\SceneManager.h" />
+    <ClInclude Include="Scene\CharaSelect\CharacterDecision.h" />
     <ClInclude Include="Scene\CharaSelect\CharacterSelecter.h" />
     <ClInclude Include="Scene\CharaSelect\CharaSelect.h" />
     <ClInclude Include="Scene\IScene.h" />
@@ -246,6 +251,7 @@
     <ClCompile Include="Camera\FrameCamera\FrameCamera.cpp" />
     <ClCompile Include="Camera\ModeSelectCamera\ModeSelectCamera.cpp" />
     <ClCompile Include="Camera\WinnerCamera\CameraWork\ChiyaWork.cpp" />
+    <ClCompile Include="Camera\WinnerCamera\CameraWork\RizeWork.cpp" />
     <ClCompile Include="Camera\WinnerCamera\CameraWork\SyaroWork.cpp" />
     <ClCompile Include="Camera\WinnerCamera\WinnerCamera.cpp" />
     <ClCompile Include="Character\Enemy\Boss0\Boss0.cpp" />
@@ -281,8 +287,11 @@
     <ClCompile Include="EffectAsset\EffectAsset.cpp" />
     <ClCompile Include="Effect\Effect.cpp" />
     <ClCompile Include="Effect\EffectModel.cpp" />
+    <ClCompile Include="Effect\HandEffect.cpp" />
     <ClCompile Include="Effect\HitEffect.cpp" />
     <ClCompile Include="Effect\KatanaEffect.cpp" />
+    <ClCompile Include="Effect\SpearEffect.cpp" />
+    <ClCompile Include="Effect\SpearEffect2.cpp" />
     <ClCompile Include="GameFrame\GameFrame.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Graphics2D\Graphics2D.cpp" />
@@ -290,6 +299,7 @@
     <ClCompile Include="Main\main.cpp" />
     <ClCompile Include="ModelAsset\ModelAsset.cpp" />
     <ClCompile Include="SceneManager\SceneManager.cpp" />
+    <ClCompile Include="Scene\CharaSelect\CharacterDecision.cpp" />
     <ClCompile Include="Scene\CharaSelect\CharacterSelecter.cpp" />
     <ClCompile Include="Scene\CharaSelect\CharaSelect.cpp" />
     <ClCompile Include="Scene\Load\StartUp.cpp" />

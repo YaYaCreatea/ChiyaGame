@@ -39,6 +39,7 @@ enum class RizeAnmID
 	Break,
 	Dash,
 	AttackHoming,
+	Winner,
 };
 
 enum class SyaroAnmID

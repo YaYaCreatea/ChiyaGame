@@ -17,7 +17,7 @@ WinnerRize::WinnerRize(
 	int l_model, int l_weapon)
 	:mesh_{ l_model,0 },
 	shape_{ l_model },
-	m_motion{ (int)RizeAnmID::Break },
+	m_motion{ (int)RizeAnmID::Winner },
 	m_weapon{ l_weapon },
 	m_pi{ l_position + Vector3::Zero },
 	m_piVelo{ Vector3::Zero },
@@ -46,7 +46,7 @@ void WinnerRize::update(float deltaTime)
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 120, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 	mesh_.transform(get_pose(), 126, Vector3{ m_pi.x,m_pi.y,m_pi.z });
-	shape_.update(m_timer, 0.0f);
+	shape_.update(m_timer, 100.0f);
 
 	m_timer += deltaTime;
 }

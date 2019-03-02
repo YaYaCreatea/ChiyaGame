@@ -8,6 +8,7 @@
 #include "../../Graphics3D/Graphics3D.h"
 
 #include "CameraWork/ChiyaWork.h"
+#include "CameraWork/RizeWork.h"
 #include "CameraWork/SyaroWork.h"
 
 class WinnerCamera :public Actor
@@ -25,6 +26,7 @@ public:
 
 private:
 	ChiyaWork chiyaWork_;
+	RizeWork rizeWork_;
 	SyaroWork syaroWork_;
 
 	std::string m_targetName;

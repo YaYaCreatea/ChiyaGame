@@ -7,8 +7,9 @@
 #include "../../../assetsID/AssetsID.h"
 
 
-AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float l_radius, const Matrix & matrix)
-	:m_radius{ l_radius },
+AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float l_radius, const Matrix & matrix, int l_billbordID)
+	:m_billBoardID{ l_billbordID },
+	m_radius{ l_radius },
 	m_timer{ 120.0f },
 	m_bulletSpeed{ 2.5f },
 	m_angle{ 0.0f }
@@ -17,9 +18,6 @@ AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float
 	m_position = l_position;
 
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,m_radius,0.0f },Vector3{ 0.0f,m_radius,0.0f },m_radius };
-
-	//effectID = LoadEffekseerEffect("asset/Effect/Beam/Drill.efk");
-	//effectIDs = PlayEffekseer3DEffect(effectID);
 
 	m_rotation.Forward(matrix.Forward());
 	m_rotation.Right(matrix.Right());
@@ -31,8 +29,6 @@ void AttackBullet::update(float deltaTime)
 {
 	m_position += (m_rotation.Forward()*m_bulletSpeed)*deltaTime;
 
-	//SetPosPlayingEffekseer3DEffect(effectIDs, m_position.x, m_position.y, m_position.z);
-	//UpdateEffekseer3D();
 
 	if (m_timer <= 0.0f || StageReact())
 		m_isdead = true;
@@ -43,10 +39,8 @@ void AttackBullet::update(float deltaTime)
 
 void AttackBullet::draw() const
 {
-	Billboard::bind((int)BillBoardID::GunShot);
+	Billboard::bind(m_billBoardID);
 	Billboard::draw(m_position + Vector3{ 0.0f,m_radius,0.0f }, m_radius*2.0f, 0.5f, 0.5f, m_angle);
-
-	//DrawEffekseer3D();
 
 	//“–‚½‚è”»’è
 	//bodyCapsule_.draw(get_pose());
@@ -54,7 +48,6 @@ void AttackBullet::draw() const
 
 void AttackBullet::react(Actor & other)
 {
-	//StopEffekseer3DEffect(effectIDs);
 	m_isdead = true;
 }
 

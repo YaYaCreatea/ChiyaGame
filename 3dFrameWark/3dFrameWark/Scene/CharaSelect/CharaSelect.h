@@ -10,6 +10,7 @@
 
 #include "../SceneParameters.h"
 #include "CharacterSelecter.h"
+#include "CharacterDecision.h"
 #include "../../AssetsLoad/StartUpLoad/StartUpLoad.h"
 
 class CharaSelect :public IScene
@@ -30,31 +31,19 @@ private:
 	void DuelSelect(float deltaTime);
 	void FourSelect(float deltaTime);
 
+	void DrawCharacterICO()const;
+
 	bool DuelSelected()const;
 	bool FourSelected()const;
-
-	bool ChiyaSelectArea(Vector2 l_icoPosition)const;
-	bool RizeSelectArea(Vector2 l_icoPosition)const;
-	bool SyaroSelectArea(Vector2 l_icoPosition)const;
-	bool CocoaSelectArea(Vector2 l_icoPosition)const;
 
 private:
 	CharacterSelecter* charaSelecter_{ nullptr };
 	SceneParameters* sceneParameters_{ nullptr };
 	StartUpLoad* load_{ nullptr };
 
-	InputState input1P_;
-	InputState input2P_;
-	InputState input3P_;
-	InputState input4P_;
+	CharacterDecision charaDecision_;
 
 	bool m_isEnd;	//èIóπÉtÉâÉO
-
-	Vector2 m_1Pposition;
-	Vector2 m_2Pposition;
-	Vector2 m_3Pposition;
-	Vector2 m_4Pposition;
-	float m_icoSpeed;
 	float m_sceneEndTimer;
 };
 

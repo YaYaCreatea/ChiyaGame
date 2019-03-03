@@ -78,6 +78,7 @@ enum class CocoaAnmID
 	Break,
 	BreakEnd,
 	Dash,
+	Winner,
 };
 
 

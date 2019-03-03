@@ -37,7 +37,10 @@ WinnerCamera::WinnerCamera(
 		syaroWork_.WorkInitialize();
 	}
 	else if (m_targetName == "Cocoa")
+	{
 		m_group = ActorGroup::Cocoa;
+		cocoaWork_.WorkInitialize();
+	}
 }
 
 void WinnerCamera::update(float deltaTime)
@@ -51,20 +54,8 @@ void WinnerCamera::update(float deltaTime)
 		rizeWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
 	else if(m_targetName == "Syaro")
 		syaroWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
-	else
-	{
-		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
-		m_rotation.NormalizeRotationMatrix();
-
-		Vector3& l_backPosition = (m_rotation.Forward().Normalize()* 18.0f);
-		const Vector3& l_upPosition = Vector3{ 5.0f, 18.0f, 0.0f };
-
-		m_position = l_player->get_position() + l_backPosition + l_upPosition;
-		m_lookPos = Vector3{
-			l_player->get_position().x - 3.0f,
-			l_player->get_position().y + 14.0f,
-			l_player->get_position().z };
-	}
+	else if(m_targetName == "Cocoa")
+		cocoaWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
 }
 
 void WinnerCamera::draw() const

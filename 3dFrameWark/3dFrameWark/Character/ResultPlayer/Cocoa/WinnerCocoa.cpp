@@ -15,7 +15,7 @@ WinnerCocoa::WinnerCocoa(
 	int l_model)
 	:mesh_{ l_model,0 },
 	shape_{ l_model },
-	m_motion{ (int)CocoaAnmID::Break },
+	m_motion{ (int)CocoaAnmID::Winner },
 	m_timer{ 0.0f }
 {
 	world_ = &world;
@@ -37,7 +37,7 @@ void WinnerCocoa::update(float deltaTime)
 		mesh_.update(deltaTime);
 	}
 	mesh_.transform(get_pose());
-	shape_.update(m_timer, 0.0f);
+	shape_.update(m_timer, 110.0f);
 
 	m_timer += deltaTime;
 }

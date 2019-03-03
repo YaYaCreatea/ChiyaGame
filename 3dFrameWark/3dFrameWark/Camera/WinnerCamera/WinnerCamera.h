@@ -10,6 +10,7 @@
 #include "CameraWork/ChiyaWork.h"
 #include "CameraWork/RizeWork.h"
 #include "CameraWork/SyaroWork.h"
+#include "CameraWork/CocoaWork.h"
 
 class WinnerCamera :public Actor
 {
@@ -28,6 +29,7 @@ private:
 	ChiyaWork chiyaWork_;
 	RizeWork rizeWork_;
 	SyaroWork syaroWork_;
+	CocoaWork cocoaWork_;
 
 	std::string m_targetName;
 

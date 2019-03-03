@@ -148,6 +148,7 @@
     <ClInclude Include="Camera\FrameCamera\FrameCamera.h" />
     <ClInclude Include="Camera\ModeSelectCamera\ModeSelectCamera.h" />
     <ClInclude Include="Camera\WinnerCamera\CameraWork\ChiyaWork.h" />
+    <ClInclude Include="Camera\WinnerCamera\CameraWork\CocoaWork.h" />
     <ClInclude Include="Camera\WinnerCamera\CameraWork\RizeWork.h" />
     <ClInclude Include="Camera\WinnerCamera\CameraWork\SyaroWork.h" />
     <ClInclude Include="Camera\WinnerCamera\WinnerCamera.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="Camera\FrameCamera\FrameCamera.cpp" />
     <ClCompile Include="Camera\ModeSelectCamera\ModeSelectCamera.cpp" />
     <ClCompile Include="Camera\WinnerCamera\CameraWork\ChiyaWork.cpp" />
+    <ClCompile Include="Camera\WinnerCamera\CameraWork\CocoaWork.cpp" />
     <ClCompile Include="Camera\WinnerCamera\CameraWork\RizeWork.cpp" />
     <ClCompile Include="Camera\WinnerCamera\CameraWork\SyaroWork.cpp" />
     <ClCompile Include="Camera\WinnerCamera\WinnerCamera.cpp" />

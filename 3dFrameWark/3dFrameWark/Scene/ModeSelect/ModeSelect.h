@@ -12,6 +12,7 @@
 #include "../SceneParameters.h"
 
 #include "../../AssetsLoad/StartUpLoad/StartUpLoad.h"
+#include "../Fead/FeadInOut.h"
 
 class ModeSelect :public IScene
 {
@@ -34,6 +35,8 @@ private:
 
 	InputState input_;
 	bool m_isEnd;	//I—¹ƒtƒ‰ƒO
+
+	FeadInOut fead_;
 };
 
 #endif

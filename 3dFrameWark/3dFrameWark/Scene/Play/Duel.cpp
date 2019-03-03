@@ -129,13 +129,15 @@ void Duel::start()
 		);
 	}
 
+	fead_.Initialize();
+
 	Sound::play_bgm((int)SoundID_BGM::GameBGM);
 }
 
 void Duel::update(float deltaTime)
 {
+	fead_.FeadOut(deltaTime);
 	world_.update(deltaTime);
-
 	EndCheck();
 }
 
@@ -166,6 +168,8 @@ void Duel::draw() const
 		world_.draw4();
 
 	frameCamera_.drawDuel();
+
+	fead_.DrawBack();
 }
 
 bool Duel::is_end() const

@@ -7,6 +7,7 @@
 #include "../../World/World.h"
 
 #include "../../AssetsLoad/PlayLoad/PlayLoad.h"
+#include "../Fead/FeadInOut.h"
 #include "WinnerCharacter.h"
 
 #include "../../Utility/Input/InputState.h"
@@ -28,10 +29,11 @@ private:
 	WinnerCharacter* winner_{ nullptr };
 
 	World world_;
-
+	FeadInOut fead_;
 	InputState input_;
 
 	bool m_isEnd;
+	bool m_isNext;
 };
 
 #endif

@@ -20,6 +20,7 @@ WinnerCircle::WinnerCircle(PlayLoad & l_load, WinnerCharacter& l_winner)
 void WinnerCircle::start()
 {
 	m_isEnd = false;
+	m_isNext = false;
 	input_.initialize(DX_INPUT_PAD1);
 
 	Graphics3D::initialize();
@@ -62,7 +63,7 @@ void WinnerCircle::start()
 				(int)ModelCharaID::Cocoa)
 		);
 	}
-
+	fead_.Initialize(0);
 	Sound::play_bgm((int)SoundID_BGM::Result);
 }
 
@@ -73,7 +74,17 @@ void WinnerCircle::update(float deltaTime)
 	world_.update(deltaTime);
 
 	if (input_.Trigger(PAD_INPUT_1))
-		m_isEnd = true;
+		m_isNext = true;
+
+	if (m_isNext)
+	{
+		if (!fead_.IsFead())
+		{
+			m_isEnd = true;
+			return;
+		}
+		fead_.FeadIn(deltaTime);
+	}
 }
 
 void WinnerCircle::draw() const
@@ -100,6 +111,8 @@ void WinnerCircle::draw() const
 		world_.draw4();
 		Graphics2D::draw_sprite((int)SpriteID::ResultBackCocoa, Vector2::Zero);
 	}
+
+	fead_.DrawBack();
 }
 
 bool WinnerCircle::is_end() const

@@ -67,6 +67,7 @@ enum class SpriteID
 	ResultBackRize,
 	ResultBackSyaro,
 	ResultBackCocoa,
+	BlackOutBack,
 };
 
 enum class BillBoardID

@@ -2,6 +2,7 @@
 
 #include "../../assetsID/AssetsID.h"
 
+#include "../../Utility/MathHelper/MathHelper.h"
 #include "../../Utility/Vector2/Vector2.h"
 #include "../../Graphics2D/Graphics2D.h"
 #include "../../Sound/Sound.h"
@@ -18,6 +19,8 @@ void ModeSelect::start()
 	sceneParameters_->Set_NextSceneID(SceneID::GameDuel);
 
 	m_isEnd = false;
+	fead_.Initialize();
+
 	input_.initialize(DX_INPUT_PAD1);
 
 	camera_.initialize();
@@ -27,7 +30,9 @@ void ModeSelect::start()
 
 void ModeSelect::update(float deltaTime)
 {
-	input_.update();
+	if (!fead_.IsFead())
+		input_.update();
+
 	camera_.update(deltaTime);
 
 	if (input_.Trigger(PAD_INPUT_1))
@@ -54,6 +59,7 @@ void ModeSelect::update(float deltaTime)
 		break;
 	}
 
+	fead_.FeadOut(deltaTime);
 }
 
 void ModeSelect::draw() const
@@ -72,6 +78,7 @@ void ModeSelect::draw() const
 		break;
 	}
 
+	fead_.DrawBack();
 }
 
 bool ModeSelect::is_end() const

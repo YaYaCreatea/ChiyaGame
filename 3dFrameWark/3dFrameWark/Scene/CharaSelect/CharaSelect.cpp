@@ -37,8 +37,6 @@ void CharaSelect::update(float deltaTime)
 		FourSelect(deltaTime);
 		break;
 	}
-
-	BaseSelectUpdate(deltaTime);
 }
 
 void CharaSelect::draw() const
@@ -66,13 +64,10 @@ void CharaSelect::end()
 	load_->UnLoad();
 }
 
-void CharaSelect::BaseSelectUpdate(float deltaTime)
-{
-	charaDecision_.Decision_Duel(deltaTime);
-}
-
 void CharaSelect::DuelSelect(float deltaTime)
 {
+	charaDecision_.Decision_Duel(deltaTime);
+
 	if (DuelSelected())
 	{
 		if (m_sceneEndTimer <= 0.0f)

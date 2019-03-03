@@ -221,13 +221,15 @@ void Four::start()
 		);
 	}
 
+	fead_.Initialize();
+
 	Sound::play_bgm((int)SoundID_BGM::GameBGM);
 }
 
 void Four::update(float deltaTime)
 {
+	fead_.FeadOut(deltaTime);
 	world_.update(deltaTime);
-
 	EndCheck();
 }
 
@@ -245,6 +247,8 @@ void Four::draw() const
 	world_.draw4();
 
 	frameCamera_.drawFour();
+
+	fead_.DrawBack();
 }
 
 bool Four::is_end() const

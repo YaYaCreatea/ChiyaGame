@@ -9,6 +9,7 @@
 #include "../CharaSelect/CharacterSelecter.h"
 #include "../../AssetsLoad/PlayLoad/PlayLoad.h"
 #include "../WinnerCircle/WinnerCharacter.h"
+#include "../Fead/FeadInOut.h"
 
 class Four :public IScene
 {
@@ -31,6 +32,7 @@ private:
 
 	World world_;
 	FrameCamera frameCamera_;
+	FeadInOut fead_;
 
 	bool m_isEnd;	//I—¹ƒtƒ‰ƒO
 

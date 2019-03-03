@@ -26,6 +26,7 @@ void StartUpLoad::Load()
 	SetUseASyncLoadFlag(TRUE);	
 
 	//ロード,タイトル
+	Graphics2D::load_sprite((int)SpriteID::BlackOutBack, "asset/2Dsprite/Scene/BlackOutBack.png");
 	Graphics2D::load_sprite((int)SpriteID::LoadGauge, "asset/2Dsprite/PlayerUI/HpGauge.png");
 	Graphics2D::load_sprite((int)SpriteID::TitleBack, "asset/2Dsprite/Title/TitleBack.png");
 

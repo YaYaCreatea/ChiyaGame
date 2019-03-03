@@ -26,8 +26,6 @@ public:
 
 private:
 
-	void BaseSelectUpdate(float deltaTime);
-
 	void DuelSelect(float deltaTime);
 	void FourSelect(float deltaTime);
 

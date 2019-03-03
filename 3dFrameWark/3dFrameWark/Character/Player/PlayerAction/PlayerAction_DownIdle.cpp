@@ -17,7 +17,7 @@ void PlayerAction_DownIdle::ActionInitialize()
 
 void PlayerAction_DownIdle::ActionUpdate(float deltaTime, Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
 {
-	if (parameters_->Get_StateTimer() >= 180.0f)
+	if (parameters_->Get_StateTimer() >= 240.0f)
 		parameters_->DidDown();
 
 	if (parameters_->Get_Name() == "Chiya")

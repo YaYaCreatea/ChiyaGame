@@ -204,6 +204,7 @@
     <ClInclude Include="Scene\CharaSelect\CharacterDecision.h" />
     <ClInclude Include="Scene\CharaSelect\CharacterSelecter.h" />
     <ClInclude Include="Scene\CharaSelect\CharaSelect.h" />
+    <ClInclude Include="Scene\Fead\FeadInOut.h" />
     <ClInclude Include="Scene\IScene.h" />
     <ClInclude Include="Scene\IScenePtr.h" />
     <ClInclude Include="Scene\Load\StartUp.h" />
@@ -304,6 +305,7 @@
     <ClCompile Include="Scene\CharaSelect\CharacterDecision.cpp" />
     <ClCompile Include="Scene\CharaSelect\CharacterSelecter.cpp" />
     <ClCompile Include="Scene\CharaSelect\CharaSelect.cpp" />
+    <ClCompile Include="Scene\Fead\FeadInOut.cpp" />
     <ClCompile Include="Scene\Load\StartUp.cpp" />
     <ClCompile Include="Scene\Load\ToPlay.cpp" />
     <ClCompile Include="Scene\ModeSelect\ModeSelect.cpp" />

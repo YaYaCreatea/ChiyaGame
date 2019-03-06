@@ -33,28 +33,18 @@ void PlayLoad::Load()
 
 	SetUseASyncLoadFlag(TRUE);
 
-	//3Dモデルの読み込み
-	SkeletalMesh::load((int)ModelCharaID::Chiya, "asset/Chiya2/千夜.mv1");
-	SkeletalMesh::load((int)ModelCharaID::Rize, "asset/Rize/リゼ.mv1");
-	SkeletalMesh::load((int)ModelCharaID::Syaro, "asset/Syaro/シャロ.mv1");
-	SkeletalMesh::load((int)ModelCharaID::Cocoa, "asset/Cocoa/ココア.mv1");
-	SkeletalMesh::load((int)ModelCharaID::Boss, "asset/Boss/怪獣.mv1");
-
-	//スタティックメッシュ読み込み
-	StaticMesh::load((int)ModelWeaponID::Spear, "asset/weapon/Spear.mv1");
-	StaticMesh::load((int)ModelWeaponID::Gun, "asset/weapon/Gun/Gun.mv1");
-	StaticMesh::load((int)ModelWeaponID::Katana, "asset/weapon/Katana/Katana.mv1");
-
 	//UIリソース読み込み
+	Graphics2D::load_sprite((int)SpriteID::LoadFrame, "asset/2Dsprite/Scene/LoadFrame.png");
+	Graphics2D::load_sprite((int)SpriteID::LoadGauge, "asset/2Dsprite/Scene/LoadGauge.png");
+	Graphics2D::load_sprite((int)SpriteID::NLLogo, "asset/2Dsprite/Scene/NLLogo.png");
 	Graphics2D::load_sprite((int)SpriteID::BlackOutBack, "asset/2Dsprite/Scene/BlackOutBack.png");
-	Graphics2D::load_sprite((int)SpriteID::LoadGauge, "asset/2Dsprite/PlayerUI/HpGauge.png");
 
 	Graphics2D::load_sprite((int)SpriteID::HpGauge, "asset/2Dsprite/PlayerUI/HpGauge2.png");
 	Graphics2D::load_sprite((int)SpriteID::HpFrame, "asset/2Dsprite/PlayerUI/HpGaugeFrame.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Chiya, "asset/2Dsprite/GamePlay/BackFrame_Chiya.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Rize, "asset/2Dsprite/GamePlay/BackFrame_Rize.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Syaro, "asset/2Dsprite/GamePlay/BackFrame_Syaro.png");
-	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa, "asset/2Dsprite/GamePlay/BackFrame_Cocoa.png");	
+	Graphics2D::load_sprite((int)SpriteID::Frame_Cocoa, "asset/2Dsprite/GamePlay/BackFrame_Cocoa.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Chiya_4, "asset/2Dsprite/GamePlay/BackFrame_Chiya_4.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Rize_4, "asset/2Dsprite/GamePlay/BackFrame_Rize_4.png");
 	Graphics2D::load_sprite((int)SpriteID::Frame_Syaro_4, "asset/2Dsprite/GamePlay/BackFrame_Syaro_4.png");
@@ -68,6 +58,18 @@ void PlayLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::ResultBackRize, "asset/2Dsprite/Result/WinnerRize.png");
 	Graphics2D::load_sprite((int)SpriteID::ResultBackSyaro, "asset/2Dsprite/Result/WinnerSyaro.png");
 	Graphics2D::load_sprite((int)SpriteID::ResultBackCocoa, "asset/2Dsprite/Result/WinnerCocoa.png");
+
+	//3Dモデルの読み込み
+	SkeletalMesh::load((int)ModelCharaID::Chiya, "asset/Chiya2/千夜.mv1");
+	SkeletalMesh::load((int)ModelCharaID::Rize, "asset/Rize/リゼ.mv1");
+	SkeletalMesh::load((int)ModelCharaID::Syaro, "asset/Syaro/シャロ.mv1");
+	SkeletalMesh::load((int)ModelCharaID::Cocoa, "asset/Cocoa/ココア.mv1");
+	SkeletalMesh::load((int)ModelCharaID::Boss, "asset/Boss/怪獣.mv1");
+
+	//スタティックメッシュ読み込み
+	StaticMesh::load((int)ModelWeaponID::Spear, "asset/weapon/Spear.mv1");
+	StaticMesh::load((int)ModelWeaponID::Gun, "asset/weapon/Gun/Gun.mv1");
+	StaticMesh::load((int)ModelWeaponID::Katana, "asset/weapon/Katana/Katana.mv1");
 
 	//ビルボードの読み込み
 	Billboard::load((int)BillBoardID::Hit, "asset/BillBoard/Hit.png");

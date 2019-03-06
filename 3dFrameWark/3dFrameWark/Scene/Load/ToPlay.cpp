@@ -34,17 +34,20 @@ void ToPlay::update(float deltaTime)
 
 void ToPlay::draw() const
 {
+	Graphics2D::draw_sprite((int)SpriteID::NLLogo, Vector2{ 500.0f,390.0f });
+
 	//ゲージ
 	Graphics2D::draw_sprite_rect(
-		(int)SpriteID::LoadGauge, Vector2{ 500.0f,300.0f },
-		0, 0, 340 - ((340 / 18)*GetASyncLoadNum()), 30
+		(int)SpriteID::LoadGauge, Vector2{ 420.0f,320.0f },
+		0, 0, 450 - ((450 / load_->get_loadNum())*GetASyncLoadNum()), 40
 	);
+	Graphics2D::draw_sprite((int)SpriteID::LoadFrame, Vector2{ 420.0f,320.0f });
 
 	//デバッグ表示(読み込み進捗)
-	DrawFormatStringF(
-		640.0f, 360.0f, GetColor(255, 255, 255),
-		"(%d/%d)", load_->get_loadNum() - GetASyncLoadNum(), load_->get_loadNum()
-	);
+	//DrawFormatStringF(
+	//	640.0f, 360.0f, GetColor(255, 255, 255),
+	//	"(%d/%d)", load_->get_loadNum() - GetASyncLoadNum(), load_->get_loadNum()
+	//);
 }
 
 bool ToPlay::is_end() const
@@ -55,8 +58,7 @@ bool ToPlay::is_end() const
 SceneID ToPlay::next() const
 {
 	//Duel or Four
-	//return sceneParameters_->Get_NextSceneID();
-	return SceneID::Result;
+	return sceneParameters_->Get_NextSceneID();
 }
 
 void ToPlay::end()

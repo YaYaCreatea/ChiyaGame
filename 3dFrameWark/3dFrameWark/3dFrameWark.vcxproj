@@ -217,6 +217,7 @@
     <ClInclude Include="Scene\SceneID.h" />
     <ClInclude Include="Scene\SceneParameters.h" />
     <ClInclude Include="Scene\Title\Title.h" />
+    <ClInclude Include="Scene\Title\TitlePerformance.h" />
     <ClInclude Include="Scene\WinnerCircle\WinnerCharacter.h" />
     <ClInclude Include="Scene\WinnerCircle\WinnerCircle.h" />
     <ClInclude Include="SkeletalMesh\SkeletalMesh.h" />
@@ -314,6 +315,7 @@
     <ClCompile Include="Scene\Play\Four.cpp" />
     <ClCompile Include="Scene\SceneParameters.cpp" />
     <ClCompile Include="Scene\Title\Title.cpp" />
+    <ClCompile Include="Scene\Title\TitlePerformance.cpp" />
     <ClCompile Include="Scene\WinnerCircle\WinnerCharacter.cpp" />
     <ClCompile Include="Scene\WinnerCircle\WinnerCircle.cpp" />
     <ClCompile Include="SkeletalMesh\SkeletalMesh.cpp" />

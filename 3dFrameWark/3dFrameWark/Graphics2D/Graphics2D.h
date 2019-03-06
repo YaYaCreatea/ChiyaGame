@@ -25,8 +25,11 @@ public:
 	//描画(画像の1部分を描画)
 	static void draw_sprite_rect(int id, const Vector2& position, int x, int y, int w, int h);
 
-	//描画(画像の1部分を描画)
+	//描画(矩形・中心・サイズ)
 	static void draw_sprite_RCS(int id, const Vector2& position, int x, int y, int w, int h, const Vector2& center = Vector2::Zero, const Vector2& scale = Vector2::One);
+
+	//描画(矩形・中心・サイズ・アルファ値)
+	static void draw_sprite_RCS_Alpha(int id, const Vector2& position, int x, int y, int w, int h, const Vector2& center = Vector2::Zero, const Vector2& scale = Vector2::One, int m_alpha = 255);
 
 	//描画(フレーム用)
 	static void draw_sprite_Frame(int id, const Vector2& position, const Vector2& scale = Vector2::One);

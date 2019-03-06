@@ -46,7 +46,7 @@ void WinnerRize::update(float deltaTime)
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 120, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 	mesh_.transform(get_pose(), 126, Vector3{ m_pi.x,m_pi.y,m_pi.z });
-	shape_.update(m_timer, 100.0f);
+	shape_.update(m_timer, 120.0f);
 
 	m_timer += deltaTime;
 }

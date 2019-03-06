@@ -3,7 +3,11 @@
 
 #include "../../Scene/IScene.h"
 
+#include "../../Utility/Vector2/Vector2.h"
 #include "../../Utility/Input/InputState.h"
+
+#include "../Fead/FeadInOut.h"
+#include "TitlePerformance.h"
 
 class Title :public IScene
 {
@@ -17,7 +21,11 @@ public:
 
 private:
 	InputState input_;
-	bool m_isEnd;	//èIóπÉtÉâÉO
+	bool m_isEnd;
+	bool m_isNext;
+
+	TitlePerformance performance_;
+	FeadInOut fead_;
 };
 
 #endif

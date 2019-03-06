@@ -23,7 +23,5 @@ void HitEffect::update(float deltaTime)
 void HitEffect::draw() const
 {
 	Billboard::bind((int)BillBoardID::Hit);
-	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
 	Billboard::draw(m_position + Vector3{ 0.0f,10.0f,0.0f }, m_size, 0.5f, 0.5f);
-	//SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

@@ -10,7 +10,7 @@ WinnerCharacter::~WinnerCharacter()
 
 void WinnerCharacter::initialize()
 {
-	m_winner = CharaID::None;
+	m_winner = CharaID::Cocoa;
 }
 
 void WinnerCharacter::Set_Winner(CharaID l_charaID)

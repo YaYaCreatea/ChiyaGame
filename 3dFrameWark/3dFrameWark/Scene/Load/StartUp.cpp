@@ -54,7 +54,7 @@ bool StartUp::is_end() const
 SceneID StartUp::next() const
 {
 	//モードセレクトへ
-	return SceneID::Select;
+	return SceneID::Title;
 }
 
 void StartUp::end()

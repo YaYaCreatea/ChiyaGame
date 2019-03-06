@@ -41,9 +41,6 @@ void FrameCamera::drawDuel() const
 		Graphics2D::draw_sprite_Frame((int)SpriteID::Frame_Syaro, Vector2{ 640.0f,0.0f });
 	else if (charaSelecter_->Get_2PChara() == CharaID::Cocoa)
 		Graphics2D::draw_sprite_Frame((int)SpriteID::Frame_Cocoa, Vector2{ 640.0f,0.0f });
-
-	//コントローラー接続数(Debug)
-	DrawFormatStringF(0.0f, 0.0f, 1, "(%d)", GetJoypadNum());
 }
 
 //描画(Four用)
@@ -86,7 +83,4 @@ void FrameCamera::drawFour() const
 		Graphics2D::draw_sprite_Frame4((int)SpriteID::Frame_Syaro_4, Vector2{ 640.0f,360.0f });
 	else if (charaSelecter_->Get_4PChara() == CharaID::Cocoa)
 		Graphics2D::draw_sprite_Frame4((int)SpriteID::Frame_Cocoa_4, Vector2{ 640.0f,360.0f });
-	
-	//コントローラー接続数(Debug)
-	DrawFormatStringF(0.0f, 0.0f, 1, "(%d)", GetJoypadNum());
 }

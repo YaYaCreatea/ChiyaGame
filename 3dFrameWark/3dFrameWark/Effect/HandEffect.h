@@ -4,6 +4,7 @@
 #include "../Actor/Actor.h"
 #include "EffectModel.h"
 
+//衝撃波エフェクト
 class HandEffect :public Actor
 {
 public:

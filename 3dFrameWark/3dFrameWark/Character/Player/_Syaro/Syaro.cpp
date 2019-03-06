@@ -206,32 +206,46 @@ void Syaro::draw() const
 		}
 	}
 
-	//Graphics2D::draw_sprite_RCS(
-	//	(int)SpriteID::HpGauge,
-	//	Vector2{ 50.0f,390.0f }, 0, 0,
-	//	(1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(), 90,
-	//	Vector2::Zero, Vector2{ 0.3f,0.3f });
-
 	if (m_numPlayer == 1)
+	{
 		Graphics2D::draw_sprite_RCS(
-		(int)SpriteID::HpGauge,
+			(int)SpriteID::HpFrame,
+			Vector2{ 47.5f,27.0f }, 0, 0, 1040, 110, Vector2::Zero, Vector2{ 0.3f,0.3f });
+		Graphics2D::draw_sprite_RCS(
+			(int)SpriteID::HpGauge,
 			Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	}
 	else if (m_numPlayer == 2)
+	{
 		Graphics2D::draw_sprite_RCS(
-		(int)SpriteID::HpGauge,
+			(int)SpriteID::HpFrame,
+			Vector2{ 687.5f,27.0f }, 0, 0, 1040, 110, Vector2::Zero, Vector2{ 0.3f,0.3f });
+		Graphics2D::draw_sprite_RCS(
+			(int)SpriteID::HpGauge,
 			Vector2{ 690.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	}
 	else if (m_numPlayer == 3)
+	{
 		Graphics2D::draw_sprite_RCS(
-		(int)SpriteID::HpGauge,
+			(int)SpriteID::HpFrame,
+			Vector2{ 47.5f,387.0f }, 0, 0, 1040, 110, Vector2::Zero, Vector2{ 0.3f,0.3f });
+		Graphics2D::draw_sprite_RCS(
+			(int)SpriteID::HpGauge,
 			Vector2{ 50.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	}
 	else if (m_numPlayer == 4)
+	{
 		Graphics2D::draw_sprite_RCS(
-		(int)SpriteID::HpGauge,
+			(int)SpriteID::HpFrame,
+			Vector2{ 687.5f,387.0f }, 0, 0, 1040, 110, Vector2::Zero, Vector2{ 0.3f,0.3f });
+		Graphics2D::draw_sprite_RCS(
+			(int)SpriteID::HpGauge,
 			Vector2{ 690.0f,390.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),
 			90, Vector2::Zero, Vector2{ 0.3f,0.3f });
+	}
 }
 
 void Syaro::react(Actor & other)

@@ -336,6 +336,9 @@
     <ClInclude Include="Scene\Fead\FeadInOut.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Title\TitlePerformance.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModelAsset\ModelAsset.cpp">
@@ -618,6 +621,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Fead\FeadInOut.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Title\TitlePerformance.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

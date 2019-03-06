@@ -3,6 +3,7 @@
 
 #include "../../CharacterID/CharacterID.h"
 
+//キャラクター選択状態保管
 class CharacterSelecter
 {
 public:

@@ -46,6 +46,7 @@ void ModeSelect::update(float deltaTime)
 	case ModeID::Duel:
 		if (input_.Trigger(PAD_INPUT_RIGHT))
 		{
+			Sound::play_se((int)SoundID_SE::SystemCursor);
 			sceneParameters_->Set_NextSceneID(SceneID::GameFour);
 			m_modeID = ModeID::Four;
 		}
@@ -53,6 +54,7 @@ void ModeSelect::update(float deltaTime)
 	case ModeID::Four:
 		if (input_.Trigger(PAD_INPUT_LEFT))
 		{
+			Sound::play_se((int)SoundID_SE::SystemCursor);
 			sceneParameters_->Set_NextSceneID(SceneID::GameDuel);
 			m_modeID = ModeID::Duel;
 		}

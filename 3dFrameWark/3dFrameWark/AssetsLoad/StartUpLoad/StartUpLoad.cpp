@@ -23,12 +23,16 @@ void StartUpLoad::Load()
 	CollisionMesh::initialize();
 	SkyBox::initialize();
 
-	SetUseASyncLoadFlag(TRUE);	
+	SetUseASyncLoadFlag(TRUE);
 
 	//ロード,タイトル
 	Graphics2D::load_sprite((int)SpriteID::BlackOutBack, "asset/2Dsprite/Scene/BlackOutBack.png");
 	Graphics2D::load_sprite((int)SpriteID::LoadGauge, "asset/2Dsprite/PlayerUI/HpGauge.png");
 	Graphics2D::load_sprite((int)SpriteID::TitleBack, "asset/2Dsprite/Title/TitleBack.png");
+	Graphics2D::load_sprite((int)SpriteID::TitleLogo, "asset/2Dsprite/Title/TitleLogo.png");
+	Graphics2D::load_sprite((int)SpriteID::TitleCharaBack, "asset/2Dsprite/Title/TitleCharaBack.png");
+	Graphics2D::load_sprite((int)SpriteID::TitleCharaBackFlash, "asset/2Dsprite/Title/TitleCharaBackFlash.png");
+	Graphics2D::load_sprite((int)SpriteID::PAS, "asset/2Dsprite/Title/PAS.png");
 
 	//モードセレクト
 	Graphics2D::load_sprite((int)SpriteID::Mode1on1_Act, "asset/2Dsprite/ModeSelect/Mode1on1_Act.png");
@@ -64,10 +68,13 @@ void StartUpLoad::Load()
 	Graphics2D::load_sprite((int)SpriteID::SelICO_4_3, "asset/2Dsprite/CharaSelect/ICO/4PICO_act3.png");
 
 	//BGM,SE
+	Sound::load_bgm((int)SoundID_BGM::Title, "asset/Sound/BGM/energy.mp3");
 	Sound::load_bgm((int)SoundID_BGM::ModeSelect, "asset/Sound/BGM/spadenoheitai.mp3");
 	Sound::load_bgm((int)SoundID_BGM::CharaSelect, "asset/Sound/BGM/chess.mp3");
-	
+
+	Sound::load_se((int)SoundID_SE::SystemStart, "asset/Sound/SE/System/decision18.mp3");
 	Sound::load_se((int)SoundID_SE::SystemSelect, "asset/Sound/SE/System/select.wav");
+	Sound::load_se((int)SoundID_SE::SystemCursor, "asset/Sound/SE/System/cursor4.mp3");
 	Sound::load_se((int)SoundID_SE::Chiya_Select, "asset/Sound/SE/Chiya/healer-guard2.mp3");
 	Sound::load_se((int)SoundID_SE::Rize_Select, "asset/Sound/SE/Rize/swordwoman-start2.mp3");
 	Sound::load_se((int)SoundID_SE::Syaro_Select, "asset/Sound/SE/Syaro/princess-greeting1.mp3");

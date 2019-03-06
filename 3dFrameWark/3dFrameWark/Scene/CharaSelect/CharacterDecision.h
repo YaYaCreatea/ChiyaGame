@@ -6,6 +6,7 @@
 
 #include "CharacterSelecter.h"
 
+//キャラクター決定操作
 class CharacterDecision
 {
 public:

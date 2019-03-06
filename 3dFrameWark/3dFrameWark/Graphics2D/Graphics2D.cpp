@@ -33,6 +33,13 @@ void Graphics2D::draw_sprite_RCS(int id, const Vector2 & position, int x, int y,
 	sprite_map_[id].draw(position, x, y, w, h, center, scale);
 }
 
+void Graphics2D::draw_sprite_RCS_Alpha(int id, const Vector2 & position, int x, int y, int w, int h, const Vector2 & center, const Vector2 & scale, int m_alpha)
+{
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_alpha);
+	sprite_map_[id].draw(position, x, y, w, h, center, scale);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
 void Graphics2D::draw_sprite_Frame(int id, const Vector2 & position, const Vector2 & scale)
 {
 	sprite_map_[id].draw(position, 0, 0, 640, 720, Vector2::Zero, scale);

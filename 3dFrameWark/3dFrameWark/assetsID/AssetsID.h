@@ -1,6 +1,7 @@
 #ifndef _ASSETS_ID_H_
 #define _ASSETS_ID_H_
 
+//キャラモデルアセットID
 enum class ModelCharaID
 {
 	Chiya,
@@ -10,6 +11,7 @@ enum class ModelCharaID
 	Boss,
 };
 
+//武器モデルアセットID
 enum class ModelWeaponID
 {
 	Spear,
@@ -17,14 +19,20 @@ enum class ModelWeaponID
 	Katana,
 };
 
+//2DスプライトアセットID
 enum class SpriteID
 {
+	TitleBack,
+	TitleLogo,
+	TitleCharaBack,
+	TitleCharaBackFlash,
+	PAS,
 	Frame_Chiya,
 	Frame_Rize,
 	Frame_Syaro,
 	Frame_Cocoa,
 	HpGauge,
-	TitleBack,
+	HpFrame,
 	Mode1on1_Act,
 	Mode1on1_Dact,
 	ModeFour_Act,
@@ -70,6 +78,7 @@ enum class SpriteID
 	BlackOutBack,
 };
 
+//ビルボードアセットID
 enum class BillBoardID
 {
 	Hit,
@@ -77,14 +86,17 @@ enum class BillBoardID
 	MagicShot
 };
 
+//BGMアセットID
 enum class SoundID_BGM
 {
+	Title,
 	ModeSelect,
 	CharaSelect,
 	GameBGM,
 	Result,
 };
 
+//SEアセットID
 enum class SoundID_SE
 {
 	Chiya_Select,
@@ -116,7 +128,9 @@ enum class SoundID_SE
 	Dash,
 	GunShot,
 	KatanaSlash,
+	SystemStart,
 	SystemSelect,
+	SystemCursor,
 };
 
 #endif

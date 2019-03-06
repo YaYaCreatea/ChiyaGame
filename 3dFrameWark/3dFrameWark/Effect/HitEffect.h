@@ -3,6 +3,7 @@
 
 #include "../Actor/Actor.h"
 
+//ヒットエフェクト
 class HitEffect :public Actor
 {
 public:

@@ -8,6 +8,7 @@ enum class WorkStateRize
 {
 	Work0,
 	Work1,
+	Work2,
 };
 
 class RizeWork
@@ -21,8 +22,10 @@ public:
 
 private:
 	WorkStateRize m_state;
-	float m_back;
-	float m_value;
+	float m_value0;
+	float m_value1;
+	float m_value2;
+	float m_value3;
 	float m_timer;
 };
 

@@ -4,6 +4,7 @@
 #include "../Actor/Actor.h"
 #include "EffectModel.h"
 
+//槍攻撃エフェクト
 class SpearEffect :public Actor
 {
 public:

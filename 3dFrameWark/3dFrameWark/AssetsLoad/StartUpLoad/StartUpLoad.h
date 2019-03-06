@@ -4,10 +4,19 @@
 class StartUpLoad
 {
 public:
+	//コンストラクタ
 	StartUpLoad();
+
+	//デストラクタ
 	~StartUpLoad();
+
+	//アセット読み込み
 	void Load();
+
+	//アセットアンロード
 	void UnLoad();
+
+	//読み込みアセット数取得
 	int get_loadNum()const;
 
 private:

@@ -4,6 +4,7 @@
 #include "../Actor/Actor.h"
 #include "EffectModel.h"
 
+//刀攻撃エフェクト
 class KatanaEffect :public Actor
 {
 public:

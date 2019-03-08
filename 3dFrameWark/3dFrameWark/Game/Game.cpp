@@ -9,6 +9,9 @@ Game::Game(int widht, int height, bool full_screen)
 
 int Game::run()
 {
+	//ウィンドウ名称設定
+	SetMainWindowText("ラビットクロニクル");
+
 	//ウィンドウサイズの設定
 	SetWindowSize(window_width_, window_height_);
 

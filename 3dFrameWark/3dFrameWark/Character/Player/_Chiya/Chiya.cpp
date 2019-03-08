@@ -42,7 +42,7 @@ Chiya::Chiya(IWorld & world,
 	int l_model, int l_weapon,
 	int l_numPlayer, int l_gMode
 )
-	:mesh_{ l_model,0 }, 
+	:mesh_{ l_model,0 },
 	shape_{ l_model },
 	input_{},
 	m_state{ PlayerStateName::Idle },
@@ -131,7 +131,7 @@ void Chiya::update(float deltaTime)
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
 		m_motion, m_cameraRoate);
 
-	
+
 
 	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
 
@@ -164,7 +164,7 @@ void Chiya::update(float deltaTime)
 		m_position + Vector3{ 0.0f,20.0f,0.0f },
 		3.0f, &m_position);
 
-	m_position = Vector3::Clamp(m_position, Vector3{ -165.0f,0.0f,-587.0f }, Vector3{ 173.0f,100.0f,603.0f });
+	m_position = Vector3::Clamp(m_position, Vector3{ -165.0f,0.0f,-550.0f }, Vector3{ 173.0f,100.0f,570.0f });
 
 	auto l_camera0 = world_->get_camera_chiya();
 	if (l_camera0 == nullptr)return;
@@ -224,7 +224,7 @@ void Chiya::draw() const
 	{
 		Graphics2D::draw_sprite_RCS(
 			(int)SpriteID::HpFrame,
-			Vector2{ 47.5f,27.0f }, 0, 0, 1040,110, Vector2::Zero, Vector2{ 0.3f,0.3f });
+			Vector2{ 47.5f,27.0f }, 0, 0, 1040, 110, Vector2::Zero, Vector2{ 0.3f,0.3f });
 		Graphics2D::draw_sprite_RCS(
 			(int)SpriteID::HpGauge,
 			Vector2{ 50.0f,30.0f }, 0, 0, (1020 / parameters_.Get_MaxHP())*parameters_.Get_HP(),

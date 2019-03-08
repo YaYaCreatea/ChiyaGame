@@ -79,10 +79,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(IncludePath)</IncludePath>
     <LibraryPath>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;C:\EffekseerForDXLib_141_319f\プロジェクトに追加すべきファイル_VC用;$(LibraryPath)</LibraryPath>
+    <TargetName>RabbitChronicle</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,6 +128,7 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

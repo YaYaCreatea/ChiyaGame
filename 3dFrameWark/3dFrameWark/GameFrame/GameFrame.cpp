@@ -13,7 +13,7 @@
 #include "../Scene/WinnerCircle/WinnerCircle.h"
 
 GameFrame::GameFrame()
-	:Game{ 1280,720,false }
+	:Game{ 1280,720,true }
 {
 }
 

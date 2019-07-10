@@ -21,12 +21,16 @@ void WinnerCircle::start()
 {
 	m_isEnd = false;
 	m_isNext = false;
+
+	// インプットの初期化
 	input_.initialize(DX_INPUT_PAD1);
 
 	Graphics3D::initialize();
 
+	// ワールドクラスの初期化
 	world_.initialize();
 
+	// 勝利したキャラクターを生成
 	if (winner_->Get_Winner() == CharaID::Chiya)
 	{
 		world_.add_actor(
@@ -63,19 +67,26 @@ void WinnerCircle::start()
 				(int)ModelCharaID::Cocoa)
 		);
 	}
+
+	// フェードパラメータの初期化
 	fead_.Initialize(0);
+
 	Sound::play_bgm((int)SoundID_BGM::Result);
 }
 
 void WinnerCircle::update(float deltaTime)
 {
+	// インプットの更新
 	input_.update();
 
+	//ワールドクラス更新
 	world_.update(deltaTime);
 
+	// 次へ
 	if (input_.Trigger(PAD_INPUT_1))
 		m_isNext = true;
 
+	// フェードインへ
 	if (m_isNext)
 	{
 		if (!fead_.IsFead())
@@ -91,6 +102,7 @@ void WinnerCircle::draw() const
 {
 	Graphics3D::clear();
 
+	// 勝利したキャラクターの描画
 	if (winner_->Get_Winner() == CharaID::Chiya)
 	{
 		world_.draw();
@@ -112,6 +124,7 @@ void WinnerCircle::draw() const
 		Graphics2D::draw_sprite((int)SpriteID::ResultBackCocoa, Vector2::Zero);
 	}
 
+	// 暗転画像の描画
 	fead_.DrawBack();
 }
 

@@ -5,6 +5,10 @@
 #include "../Sound/Sound.h"
 #include "../assetsID/AssetsID.h"
 
+/*
+	ココア攻撃エフェクト
+*/
+
 HandEffect::HandEffect(const Vector3 & l_position, const Matrix & matrix)
 	:effect_{ "asset/Effect/HandEff.mv1" }
 {
@@ -25,9 +29,11 @@ void HandEffect::update(float deltaTime)
 		return;
 	}
 
+	// エフェクトの更新
 	effect_.update(m_alpha);
 	effect_.transform(m_position, m_rotation, m_size);
 
+	// パラメーター更新
 	m_alpha -= m_speed * deltaTime;
 	m_speed = MathHelper::Clamp(m_speed + (deltaTime / 10.0f), 1.0f, 5.0f);
 	m_size = Vector3::Lerp(Vector3{ 0.5f,0.5f,0.5f }, Vector3{ 1.5f,1.5f,1.5f }, (80.0f - m_alpha) / 80.0f);

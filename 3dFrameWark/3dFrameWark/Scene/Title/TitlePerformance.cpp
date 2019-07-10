@@ -6,6 +6,7 @@
 #include "../../Graphics2D/Graphics2D.h"
 #include "../../Utility/MathHelper/MathHelper.h"
 
+// タイトル演出の初期化
 void TitlePerformance::Initialize()
 {
 	m_size = Vector2{ 2.0f,2.0f };
@@ -14,8 +15,10 @@ void TitlePerformance::Initialize()
 	m_t = 0.0f;
 }
 
+// タイトル演出の更新
 void TitlePerformance::Update(float deltaTime)
 {
+	// パラメーター更新
 	m_size = Vector2::Lerp(Vector2{ 2.0f,2.0f }, Vector2::One, m_t / 60.0f);
 	m_size2 = Vector2::Lerp(Vector2::One, Vector2{ 5.0f,5.0f }, (m_t - 60.0f) / 600.0f);
 	m_alpha = (int)MathHelper::Lerp(255, 0, (m_t - 60.0f) / 300.0f);
@@ -23,6 +26,7 @@ void TitlePerformance::Update(float deltaTime)
 	m_t += deltaTime * 4.0f;
 }
 
+// タイトル演出の初描画
 void TitlePerformance::Draw()const
 {
 	Graphics2D::draw_sprite((int)SpriteID::TitleBack, Vector2::Zero);

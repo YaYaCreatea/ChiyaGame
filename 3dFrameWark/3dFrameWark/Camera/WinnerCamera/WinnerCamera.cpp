@@ -21,6 +21,7 @@ WinnerCamera::WinnerCamera(
 
 	m_lookPos = Vector3::Zero;
 
+	// 各キャラクターごとのカメラワーク初期化
 	if (m_targetName == "Chiya")
 	{
 		m_group = ActorGroup::Chiya;
@@ -48,6 +49,7 @@ void WinnerCamera::update(float deltaTime)
 	auto l_player = world_->find_actor(m_group, m_targetName);
 	if (l_player == nullptr)return;
 
+	// 各キャラクターごとのカメラワーク更新処理
 	if (m_targetName == "Chiya")
 		chiyaWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
 	else if (m_targetName == "Rize")
@@ -58,6 +60,7 @@ void WinnerCamera::update(float deltaTime)
 		cocoaWork_.WorkUpdate(deltaTime, l_player->get_position(), m_position, m_lookPos, m_rotation);
 }
 
+// カメラの行列設定
 void WinnerCamera::draw() const
 {
 	Graphics3D::viewport(0, 0, 1280, 720);

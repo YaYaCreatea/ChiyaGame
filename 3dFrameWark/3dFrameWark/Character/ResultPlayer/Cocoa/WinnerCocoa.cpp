@@ -24,6 +24,7 @@ WinnerCocoa::WinnerCocoa(
 	m_position = l_position;
 	m_prevposition = m_position;
 
+	// カメラ生成
 	world_->add_camera_cocoa(new_actor<WinnerCamera>(world, Vector3{ 0.0f,0.0f,0.0f }, 0.0f, m_name));
 
 	Sound::play_se((int)SoundID_SE::Cocoa_Win);
@@ -31,12 +32,15 @@ WinnerCocoa::WinnerCocoa(
 
 void WinnerCocoa::update(float deltaTime)
 {
+	// アニメーション更新
 	if (m_timer <= (mesh_.get_motion_end_time()*2.0f) - 2.0f)
 	{
 		mesh_.change_motion(m_motion);
 		mesh_.update(deltaTime);
 	}
 	mesh_.transform(get_pose());
+
+	// シェイプ更新(タイマー)
 	shape_.update(m_timer, 110.0f);
 
 	m_timer += deltaTime;

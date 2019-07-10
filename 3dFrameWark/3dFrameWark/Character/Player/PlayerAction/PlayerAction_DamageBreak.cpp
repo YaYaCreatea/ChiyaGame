@@ -23,15 +23,16 @@ void PlayerAction_DamageBreak::ActionInitialize()
 
 void PlayerAction_DamageBreak::ActionUpdate(float deltaTime, Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose, int & l_motion, Matrix & l_cameraRotation)
 {
+	// ダメージエフェクト生成
 	if (!m_isHit)
 	{
 		world_->add_actor(ActorGroup::Effect, new_actor<HitEffect>(l_position));
 		m_isHit = true;
 	}
 
+	// 吹っ飛び時の回転,移動制御
 	l_prevposition = l_position;
 	Vector3 l_directionOffset{ -parameters_->Get_BreakDirection().x,0.0f,parameters_->Get_BreakDirection().z };
-
 	l_rotation = Matrix::CreateLookAt(l_position, l_position + l_directionOffset, l_pose.Up());
 	l_position += parameters_->Get_BreakDirection() * deltaTime;
 

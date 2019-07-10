@@ -17,8 +17,10 @@ void CharaSelect::start()
 {
 	m_isEnd = false;
 
+	// キャラクターセレクト情報初期化
 	charaSelecter_->initialize();
 
+	// キャラクターセレクト制御初期化
 	charaDecision_.Initialize();
 
 	m_sceneEndTimer = 120.0f;
@@ -30,9 +32,12 @@ void CharaSelect::update(float deltaTime)
 {
 	switch (sceneParameters_->Get_NextSceneID())
 	{
+	//1on1の時
 	case SceneID::GameDuel:
 		DuelSelect(deltaTime);
 		break;
+
+	//4人対戦の時
 	case SceneID::GameFour:
 		FourSelect(deltaTime);
 		break;
@@ -41,10 +46,11 @@ void CharaSelect::update(float deltaTime)
 
 void CharaSelect::draw() const
 {
+	// キャラクターのアイコンを描画
 	DrawCharacterICO();
 
+	// キャラクターセレクトアイコンを描画
 	charaDecision_.DrawDecisionICO_Duel();
-
 	if (sceneParameters_->Get_NextSceneID() == SceneID::GameFour)
 		charaDecision_.DrawDecisionICO_Four();
 }
@@ -64,10 +70,12 @@ void CharaSelect::end()
 	load_->UnLoad();
 }
 
+// 1on1時のセレクト制御
 void CharaSelect::DuelSelect(float deltaTime)
 {
 	charaDecision_.Decision_Duel(deltaTime);
 
+	// 1P,2P共既に選んでいたら
 	if (DuelSelected())
 	{
 		if (m_sceneEndTimer <= 0.0f)
@@ -79,10 +87,12 @@ void CharaSelect::DuelSelect(float deltaTime)
 	}
 }
 
+// 4人対戦時のセレクト制御
 void CharaSelect::FourSelect(float deltaTime)
 {
 	charaDecision_.Decision_Four(deltaTime);
 
+	// 1P,2P,3P,4P全員既に選んでいたら
 	if (FourSelected())
 	{
 		if (m_sceneEndTimer <= 0.0f)
@@ -94,6 +104,7 @@ void CharaSelect::FourSelect(float deltaTime)
 	}
 }
 
+// キャラクターのアイコンを描画
 void CharaSelect::DrawCharacterICO() const
 {
 	Graphics2D::draw_sprite((int)SpriteID::CharaSelectBack, Vector2::Zero);
@@ -103,6 +114,7 @@ void CharaSelect::DrawCharacterICO() const
 	Graphics2D::draw_sprite((int)SpriteID::CharaSelectCocoa, Vector2{ 950.0f,150.0f });
 }
 
+// 1P,2P共既に選んでいたら
 bool CharaSelect::DuelSelected() const
 {
 	if (charaSelecter_->Get_1PChara() != CharaID::None
@@ -113,6 +125,7 @@ bool CharaSelect::DuelSelected() const
 		return false;
 }
 
+// 1P,2P,3P,4P全員既に選んでいたら
 bool CharaSelect::FourSelected() const
 {
 	if (charaSelecter_->Get_1PChara() != CharaID::None

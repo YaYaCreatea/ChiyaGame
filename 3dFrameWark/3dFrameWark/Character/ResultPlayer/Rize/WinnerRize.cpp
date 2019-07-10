@@ -29,6 +29,7 @@ WinnerRize::WinnerRize(
 	m_position = l_position;
 	m_prevposition = m_position;
 
+	// カメラ生成
 	world_->add_camera_rize(new_actor<WinnerCamera>(world, Vector3{ 0.0f,25.0f,35.0f }, 0.0f, m_name));
 
 	Sound::play_se((int)SoundID_SE::Rize_Win);
@@ -36,8 +37,10 @@ WinnerRize::WinnerRize(
 
 void WinnerRize::update(float deltaTime)
 {
+	// 乳揺れ
 	oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
 
+	// アニメーション更新
 	if (m_timer <= (mesh_.get_motion_end_time()*2.0f) - 2.0f)
 	{
 		mesh_.change_motion(m_motion);
@@ -46,6 +49,8 @@ void WinnerRize::update(float deltaTime)
 	mesh_.transform(get_pose());
 	mesh_.transform(get_pose(), 120, Vector3{ m_pi.x,m_pi.y,m_pi.z });
 	mesh_.transform(get_pose(), 126, Vector3{ m_pi.x,m_pi.y,m_pi.z });
+
+	// シェイプ更新(タイマー)
 	shape_.update(m_timer, 120.0f);
 
 	m_timer += deltaTime;
@@ -65,6 +70,7 @@ void WinnerRize::handle_message(EventMessage message, void * param)
 {
 }
 
+// 武器描画
 void WinnerRize::draw_weapon() const
 {
 	StaticMesh::bind(m_weapon);
@@ -72,6 +78,7 @@ void WinnerRize::draw_weapon() const
 	StaticMesh::draw();
 }
 
+// 乳揺れ
 void WinnerRize::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
 {
 	const Vector3 stretch = m_pi - l_rest_position;

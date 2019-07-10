@@ -23,9 +23,11 @@ void ModeSelectCamera::initialize()
 //XV
 void ModeSelectCamera::update(float deltaTime)
 {
+	// ‰ñ“]§Œä
 	m_stageRotation *= Matrix::CreateRotationY(deltaTime / 10.0f);
 	m_stageRotation.NormalizeRotationMatrix();
 
+	// ˆÚ“®§Œä
 	m_position = m_stageRotation.Forward()*900.0f + Vector3{ 0.0f,400.0f,0.0f };
 }
 

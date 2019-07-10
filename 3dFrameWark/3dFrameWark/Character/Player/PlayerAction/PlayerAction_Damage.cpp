@@ -28,6 +28,7 @@ void PlayerAction_Damage::ActionUpdate(
 {
 	l_prevposition = l_position;
 
+	// ダメージエフェクト生成
 	if (!m_isHit)
 	{
 		world_->add_actor(ActorGroup::Effect, new_actor<HitEffect>(l_position));

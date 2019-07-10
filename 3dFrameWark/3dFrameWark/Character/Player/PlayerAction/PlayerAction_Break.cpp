@@ -38,6 +38,7 @@ void PlayerAction_Break::ActionUpdate(
 	Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose,
 	int & l_motion, Matrix & l_cameraRotation)
 {
+	// 千夜ブレイク攻撃のアクション制御
 	if (parameters_->Get_Name() == "Chiya")
 	{
 		l_prevposition = l_position;
@@ -63,6 +64,7 @@ void PlayerAction_Break::ActionUpdate(
 		}
 	}
 
+	// リゼブレイク攻撃のアクション制御
 	else if (parameters_->Get_Name() == "Rize")
 	{
 
@@ -133,6 +135,7 @@ void PlayerAction_Break::ActionUpdate(
 
 	}
 
+	// シャロブレイク攻撃のアクション制御
 	else if (parameters_->Get_Name() == "Syaro")
 	{
 		switch (m_breakState)
@@ -175,6 +178,7 @@ void PlayerAction_Break::ActionUpdate(
 
 	}
 
+	// ココアブレイク攻撃のアクション制御
 	else if (parameters_->Get_Name() == "Cocoa")
 	{
 		switch (m_breakState)

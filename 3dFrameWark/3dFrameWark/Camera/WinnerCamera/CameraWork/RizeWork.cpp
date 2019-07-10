@@ -17,6 +17,7 @@ void RizeWork::WorkInitialize()
 
 void RizeWork::WorkUpdate(float deltaTime, const Vector3 & l_chiyaPosition, Vector3 & l_position, Vector3 & l_lookPosition, Matrix & l_rotation)
 {
+	// カット0
 	if (m_state == WorkStateRize::Work0)
 	{
 		m_value0 = MathHelper::Lerp(40.0f, 22.0f, m_timer / 60.0f);
@@ -31,6 +32,8 @@ void RizeWork::WorkUpdate(float deltaTime, const Vector3 & l_chiyaPosition, Vect
 			return;
 		}
 	}
+
+	// カット1
 	else if (m_state == WorkStateRize::Work1)
 	{
 		m_value0 = 20.0f;
@@ -45,6 +48,8 @@ void RizeWork::WorkUpdate(float deltaTime, const Vector3 & l_chiyaPosition, Vect
 			return;
 		}
 	}
+
+	// カット2
 	else if (m_state == WorkStateRize::Work2)
 	{
 		m_value0 = MathHelper::Lerp(30.0f, 20.0f, m_timer / 360.0f);
@@ -53,14 +58,17 @@ void RizeWork::WorkUpdate(float deltaTime, const Vector3 & l_chiyaPosition, Vect
 		m_value3 = 14.0f;
 	}
 
+	// 移動制御
 	Vector3 l_forwardPos = (l_rotation.Forward().Normalize()* m_value0);
 	Vector3 l_up_rightPos = Vector3{ m_value1, m_value2, 0.0f };
-
 	l_position = l_chiyaPosition + l_forwardPos + l_up_rightPos;
+
+	// 視点設定
 	l_lookPosition = Vector3{
 		l_chiyaPosition.x,
 		l_chiyaPosition.y + m_value3,
 		l_chiyaPosition.z };
 
+	// タイマーの更新
 	m_timer += deltaTime;
 }

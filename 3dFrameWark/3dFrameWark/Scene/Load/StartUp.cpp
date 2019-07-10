@@ -41,12 +41,6 @@ void StartUp::draw() const
 		0, 0, 450 - ((450 / load_->get_loadNum())*GetASyncLoadNum()), 40
 	);
 	Graphics2D::draw_sprite((int)SpriteID::LoadFrame, Vector2{ 420.0f,320.0f });
-
-	//デバッグ表示(読み込み進捗)
-	//DrawFormatStringF(
-	//	640.0f, 500.0f, GetColor(255, 255, 255),
-	//	"(%d/%d)", load_->get_loadNum() - GetASyncLoadNum(), load_->get_loadNum()
-	//);
 }
 
 bool StartUp::is_end() const

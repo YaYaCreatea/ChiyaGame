@@ -35,6 +35,7 @@ FourCamera::FourCamera(
 	m_position = l_position;
 	m_lookPos = Vector3::Zero;
 
+	// アクターグループ設定
 	if (m_targetName == "Chiya")
 		m_group = ActorGroup::Chiya;
 	else if (m_targetName == "Rize")
@@ -57,6 +58,7 @@ void FourCamera::update(float deltaTime)
 
 	if (m_stateID == CameraStateID::Normal)
 	{
+		// 右スティックの割り当て
 		if (m_targetName == "Chiya")
 		{
 			if (m_numPlayer == 1)
@@ -102,23 +104,26 @@ void FourCamera::update(float deltaTime)
 				GetJoypadAnalogInputRight(&m_inputX, &m_inputY, DX_INPUT_PAD4);
 		}
 
+		// 回転制御
 		m_yawAngle += deltaTime * (m_inputX / 500);
 		m_pitchAngle =
 			MathHelper::Clamp(m_pitchAngle -= deltaTime * (m_inputY / 1000), -40.0f, 40.0f);
-
 		m_rotation = Matrix::CreateRotationX(m_pitchAngle) * Matrix::CreateRotationY(m_yawAngle);
 		m_rotation.NormalizeRotationMatrix();
 
+		// 移動制御
 		const Vector3& l_backPosition = -(m_rotation.Forward().Normalize()* 80.0f);
 		const Vector3& l_upPosition = Vector3{ 0.0f, 25.0f, 0.0f };
 		m_to_target = l_player->get_position() - m_position;
-		//m_position = l_player->get_position() + l_backPosition + l_upPosition;
 		move(l_player->get_position() + l_backPosition + l_upPosition, 0.8f, 0.2f, 2.0f);
+
+		// 視点設定
 		m_lookPos = Vector3{
 			l_player->get_position().x,
 			l_player->get_position().y + 16.0f,
 			l_player->get_position().z };
 
+		//カメラとステージのコリジョン
 		CollisionMesh::collide_line(m_position, m_lookPos, &m_position);
 	}
 }

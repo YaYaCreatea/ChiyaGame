@@ -5,6 +5,10 @@
 #include "../Sound/Sound.h"
 #include "../assetsID/AssetsID.h"
 
+/*
+	千夜用攻撃エフェクト
+*/
+
 KatanaEffect::KatanaEffect(const Vector3 & l_position, const Matrix & matrix, float l_pitch, float l_yaw)
 	:effect_{ "asset/Effect/KatanaSlash.mv1" }
 {
@@ -26,7 +30,10 @@ void KatanaEffect::update(float deltaTime)
 	if (m_alpha <= 0.0f)
 		m_isdead = true;
 
+	// エフェクト更新
 	effect_.update(m_alpha);
+
+	// パラメーター更新
 	m_alpha -= m_speed * deltaTime;
 	m_speed = MathHelper::Clamp(m_speed + (deltaTime / 10.0f), 1.0f, 5.0f);
 }

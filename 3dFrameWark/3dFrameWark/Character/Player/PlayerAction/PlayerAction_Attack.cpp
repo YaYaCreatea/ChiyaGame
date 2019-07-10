@@ -35,6 +35,7 @@ void PlayerAction_Attack::ActionUpdate(
 	Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose,
 	int & l_motion, Matrix & l_cameraRotation)
 {
+	// 各キャラクターの攻撃判定生成制御
 	if (!m_isSpawn)
 	{
 		if (parameters_->Get_Name() == "Chiya")
@@ -172,13 +173,14 @@ void PlayerAction_Attack::ActionUpdate(
 		}
 	}
 
+	// リゼ専用コンボ制御
 	if (input_->Trigger(PAD_INPUT_3))
 		m_isCombo = true;
-
 	if (input_->Stay(PAD_INPUT_3)
 		&& l_motion == (int)RizeAnmID::Combo2)
 		m_isCombo = true;
 
+	// 各キャラクターの次の状態,アニメーションの設定
 	if (parameters_->Get_StateTimer() >= parameters_->Get_EndTime()*2.0f)
 	{
 		if (m_isCombo)

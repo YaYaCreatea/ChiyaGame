@@ -10,16 +10,19 @@ AnimatedBlendShape::AnimatedBlendShape(int l_model)
 	m_shapeRateSmile = 0.0f;
 }
 
+// 更新処理(状態)
 void AnimatedBlendShape::update(PlayerStateName l_state)
 {
 	StateFaceUpdate(l_state);
 }
 
+// 更新処理(タイマー)
 void AnimatedBlendShape::update(float l_timer, float l_cut0, float l_cut1)
 {
 	TimerFaceUpdate(l_timer, l_cut0, l_cut1);
 }
 
+// 状態ごとのブレンドシェイブの設定
 void AnimatedBlendShape::StateFaceUpdate(PlayerStateName l_state)
 {
 	switch (l_state)
@@ -38,6 +41,7 @@ void AnimatedBlendShape::StateFaceUpdate(PlayerStateName l_state)
 	FaceAnimation();
 }
 
+// タイマーごとのブレンドシェイプの設定
 void AnimatedBlendShape::TimerFaceUpdate(float l_timer, float l_cut0, float l_cut1)
 {
 	if (l_timer <= l_cut0)
@@ -52,12 +56,14 @@ void AnimatedBlendShape::TimerFaceUpdate(float l_timer, float l_cut0, float l_cu
 	FaceAnimation();
 }
 
+// 攻撃、ダメージ時のブレンドシェイプの設定
 void AnimatedBlendShape::Set_ShapeRate(float l_attackRate, float l_damageRate)
 {
 	m_shapeRateAttack = l_attackRate;
 	m_shapeRateDamage = l_damageRate;
 }
 
+// 攻撃、ダメージ、笑顔時のブレンドシェイプの設定
 void AnimatedBlendShape::Set_ShapeRate(float l_attackRate, float l_damageRate, float l_smileRate)
 {
 	m_shapeRateAttack = l_attackRate;
@@ -65,6 +71,7 @@ void AnimatedBlendShape::Set_ShapeRate(float l_attackRate, float l_damageRate, f
 	m_shapeRateSmile = l_smileRate;
 }
 
+// ブレンドシェイプのアニメーション
 void AnimatedBlendShape::FaceAnimation()
 {
 	SkeletalMesh::bind(m_model);

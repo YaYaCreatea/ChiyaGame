@@ -21,10 +21,9 @@ void PlayerAction_Move::ActionUpdate(
 	Vector3& l_position, Vector3& l_velocity, Vector3& l_prevposition, Matrix& l_rotation, Matrix l_pose,
 	int& l_motion, Matrix& l_cameraRotation)
 {
+	// 攻撃に移行
 	if (input_->Trigger(PAD_INPUT_3))
 	{
-		//if (parameters_->Get_Name() == "Chiya")
-		//	l_motion = (int)ChiyaAnmID::Combo1;
 		if (parameters_->Get_Name() == "Chiya")
 		{
 			l_motion = (int)ChiyaAnmID::AttackHoming;
@@ -51,9 +50,9 @@ void PlayerAction_Move::ActionUpdate(
 		return;
 	}
 
+	// ジャンプに移行
 	if (input_->Trigger(PAD_INPUT_1))
 	{
-		//m_amausaGauge += 2.0f;
 		if (parameters_->Get_Name() == "Chiya")
 			l_motion = (int)ChiyaAnmID::Jump;
 		else if (parameters_->Get_Name() == "Rize")
@@ -68,6 +67,7 @@ void PlayerAction_Move::ActionUpdate(
 		return;
 	}
 
+	// ダッシュに移行
 	if (input_->Trigger(PAD_INPUT_6))
 	{
 		if (parameters_->Get_Name() == "Chiya")
@@ -84,6 +84,7 @@ void PlayerAction_Move::ActionUpdate(
 		return;
 	}
 
+	// 移動,アニメーション制御
 	l_velocity = Vector3::Zero;
 	float l_forward_speed{ 0.0f };
 	float l_side_speed{ 0.0f };
@@ -141,6 +142,7 @@ void PlayerAction_Move::ActionUpdate(
 			l_motion = (int)CocoaAnmID::Move;
 	}
 
+	// 静止時にアイドルに移行
 	if (l_forward_speed == 0.0f&&l_side_speed == 0.0f)
 	{
 		m_nextActionID = PlayerStateName::Idle;
@@ -148,20 +150,28 @@ void PlayerAction_Move::ActionUpdate(
 		return;
 	}
 
+	// 振り向き制御
 	face_to_orientation(deltaTime, l_position, l_prevposition, l_rotation, l_pose.Up());
 
+	// 入力移動制御
 	input_velocity(l_velocity, l_forward_speed, l_side_speed, l_cameraRotation);
 	l_velocity.Normalize();
 	l_position += l_velocity * deltaTime;	
 }
 
+// 入力移動制御
 void PlayerAction_Move::input_velocity(Vector3& l_velocity, float l_forward_speed, float l_side_speed, Matrix& l_cameraRotation)
 {
+	//l_velocity +=
+	//	((Vector3::Cross(l_cameraRotation.Right(), Vector3::Up)) *l_forward_speed)
+	//	+ (Vector3::Cross(Vector3::Up, (Vector3::Cross(l_cameraRotation.Right(), Vector3::Up)))*l_side_speed);
+
 	l_velocity +=
 		((Vector3::Cross(l_cameraRotation.Right(), Vector3::Up)) *l_forward_speed)
-		+ (Vector3::Cross(Vector3::Up, (Vector3::Cross(l_cameraRotation.Right(), Vector3::Up)))*l_side_speed);
+		+ (l_cameraRotation.Right()*l_side_speed);
 }
 
+// 振り向き制御
 void PlayerAction_Move::face_to_orientation(float deltaTime, Vector3& l_position, Vector3& l_prevposition, Matrix& l_rotation, Vector3 l_upAxis)
 {
 	Vector2 l_position2{ l_position.x,l_position.z };

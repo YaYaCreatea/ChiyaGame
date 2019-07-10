@@ -25,6 +25,7 @@ WinnerSyaro::WinnerSyaro(
 	m_position = l_position;
 	m_prevposition = m_position;
 
+	// カメラ生成
 	world_->add_camera_syaro(new_actor<WinnerCamera>(world, Vector3{ 0.0f,0.0f,0.0f }, 0.0f, m_name));
 
 	Sound::play_se((int)SoundID_SE::Syaro_Win);
@@ -32,12 +33,15 @@ WinnerSyaro::WinnerSyaro(
 
 void WinnerSyaro::update(float deltaTime)
 {
+	// アニメーション更新
 	if (m_timer <= (mesh_.get_motion_end_time()*2.0f) - 2.0f)
 	{
 		mesh_.change_motion(m_motion);
 		mesh_.update(deltaTime);
 	}
 	mesh_.transform(get_pose());
+
+	// シェイプ更新(タイマー)
 	shape_.update(m_timer, 55.0f);
 
 	m_timer += deltaTime;
@@ -57,6 +61,7 @@ void WinnerSyaro::handle_message(EventMessage message, void * param)
 {
 }
 
+// 武器描画
 void WinnerSyaro::draw_weapon() const
 {
 	StaticMesh::bind(m_weapon);

@@ -19,10 +19,14 @@ void ModeSelect::start()
 	sceneParameters_->Set_NextSceneID(SceneID::GameDuel);
 
 	m_isEnd = false;
+
+	// フェードパラメータ初期化
 	fead_.Initialize();
 
+	// インプットの初期化
 	input_.initialize(DX_INPUT_PAD1);
 
+	// カメラの初期化
 	camera_.initialize();
 
 	Sound::play_bgm((int)SoundID_BGM::ModeSelect);
@@ -33,8 +37,10 @@ void ModeSelect::update(float deltaTime)
 	if (!fead_.IsFead())
 		input_.update();
 
+	// カメラの更新
 	camera_.update(deltaTime);
 
+	// モードの決定
 	if (input_.Trigger(PAD_INPUT_1))
 	{
 		Sound::play_se((int)SoundID_SE::SystemSelect);
@@ -43,6 +49,7 @@ void ModeSelect::update(float deltaTime)
 
 	switch (m_modeID)
 	{
+	//選んでいるモードが1on1の時
 	case ModeID::Duel:
 		if (input_.Trigger(PAD_INPUT_RIGHT))
 		{
@@ -51,6 +58,7 @@ void ModeSelect::update(float deltaTime)
 			m_modeID = ModeID::Four;
 		}
 		break;
+	//選んでいるモードが4人対戦の時
 	case ModeID::Four:
 		if (input_.Trigger(PAD_INPUT_LEFT))
 		{
@@ -61,19 +69,23 @@ void ModeSelect::update(float deltaTime)
 		break;
 	}
 
+	// フェードアウト
 	fead_.FeadOut(deltaTime);
 }
 
 void ModeSelect::draw() const
 {
+	// 背景の描画
 	camera_.drawBack();
 
 	switch (m_modeID)
 	{
+	//選んでいるモードが1on1の時
 	case ModeID::Duel:
 		Graphics2D::draw_sprite((int)SpriteID::Mode1on1_Act, Vector2::Zero);
 		Graphics2D::draw_sprite((int)SpriteID::ModeFour_Dact, Vector2{ 640.0f,0.0f });
 		break;
+	//選んでいるモードが4人対戦の時
 	case ModeID::Four:
 		Graphics2D::draw_sprite((int)SpriteID::Mode1on1_Dact, Vector2::Zero);
 		Graphics2D::draw_sprite((int)SpriteID::ModeFour_Act, Vector2{ 640.0f,0.0f });
@@ -96,6 +108,4 @@ SceneID ModeSelect::next() const
 void ModeSelect::end()
 {
 	camera_.finalize();
-	//タイトル～モードセレクトのリソースアンロード
-	//load_->UnLoad();
 }

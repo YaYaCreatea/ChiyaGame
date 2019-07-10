@@ -23,6 +23,7 @@ Duel::Duel(CharacterSelecter& l_selecter, PlayLoad & l_load, WinnerCharacter& l_
 	load_ = &l_load;
 	winner_ = &l_winner;
 
+	// プレイヤーの枠UIの描画カメラの初期化
 	frameCamera_.initialize(l_selecter);
 }
 
@@ -36,8 +37,10 @@ void Duel::start()
 
 	Graphics3D::initialize();
 
+	// ワールドクラス初期化
 	world_.initialize();
 
+	// 1Pの選んだキャラクターの生成
 	if (charaSelecter_->Get_1PChara() == CharaID::Chiya)
 	{
 		m_numChiya = 1;
@@ -84,6 +87,7 @@ void Duel::start()
 		);
 	}
 
+	// 2Pの選んだキャラクターの生成
 	if (charaSelecter_->Get_2PChara() == CharaID::Chiya)
 	{
 		m_numChiya = 2;
@@ -129,6 +133,7 @@ void Duel::start()
 		);
 	}
 
+	// フェードパラメータ初期化
 	fead_.Initialize();
 
 	Sound::play_bgm((int)SoundID_BGM::GameBGM);
@@ -136,8 +141,11 @@ void Duel::start()
 
 void Duel::update(float deltaTime)
 {
+	// フェードアウト
 	fead_.FeadOut(deltaTime);
+	// ワールドクラス更新
 	world_.update(deltaTime);
+	// 決着のチェック
 	EndCheck();
 }
 
@@ -149,6 +157,7 @@ void Duel::draw() const
 	SkyBox::bind(0);
 	CollisionMesh::bind(0);
 
+	// 1Pのキャラクターのごとの描画
 	if (charaSelecter_->Get_1PChara() == CharaID::Chiya)
 		world_.draw();
 	else if (charaSelecter_->Get_1PChara() == CharaID::Rize)
@@ -158,6 +167,7 @@ void Duel::draw() const
 	else if (charaSelecter_->Get_1PChara() == CharaID::Cocoa)
 		world_.draw4();
 
+	// 2Pのキャラクターのごとの描画
 	if (charaSelecter_->Get_2PChara() == CharaID::Chiya)
 		world_.draw();
 	else if (charaSelecter_->Get_2PChara() == CharaID::Rize)
@@ -167,8 +177,10 @@ void Duel::draw() const
 	else if (charaSelecter_->Get_2PChara() == CharaID::Cocoa)
 		world_.draw4();
 
+	// キャラクターの枠UIの描画
 	frameCamera_.drawDuel();
 
+	// 暗転画像の描画
 	fead_.DrawBack();
 }
 
@@ -185,13 +197,10 @@ SceneID Duel::next() const
 void Duel::end()
 {
 	world_.clear();
-
-	//ゲームモードのリソースアンロード
-	//load_->UnLoad();
-
 	Graphics3D::finalize();
 }
 
+// 決着のチェック
 void Duel::EndCheck()
 {
 	auto l_chiya = world_.find_actor(ActorGroup::Chiya, "Chiya");

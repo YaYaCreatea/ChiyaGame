@@ -17,23 +17,28 @@ AttackBullet::AttackBullet(std::string l_name, const Vector3 & l_position, float
 	m_name = l_name;
 	m_position = l_position;
 
+	// 当たり判定の生成
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,m_radius,0.0f },Vector3{ 0.0f,m_radius,0.0f },m_radius };
 
+	// 回転設定
 	m_rotation.Forward(matrix.Forward());
 	m_rotation.Right(matrix.Right());
 
+	// SE再生
 	Sound::play_se((int)SoundID_SE::GunShot);
 }
 
 void AttackBullet::update(float deltaTime)
 {
+	// 移動制御
 	m_position += (m_rotation.Forward()*m_bulletSpeed)*deltaTime;
 
-
+	// 消滅チェック
 	if (m_timer <= 0.0f || StageReact())
 		m_isdead = true;
 	m_timer -= 1.0f*deltaTime;
 
+	// 回転値更新
 	m_angle += 0.1f*deltaTime;
 }
 

@@ -4,6 +4,10 @@
 
 #include "../Utility/MathHelper/MathHelper.h"
 
+/*
+	ヒットエフェクト
+*/
+
 HitEffect::HitEffect(const Vector3 & l_position)
 {
 	m_position = l_position;
@@ -16,6 +20,7 @@ void HitEffect::update(float deltaTime)
 	if (m_timer <= 0.0f)
 		m_isdead = true;
 
+	// パラメーター更新
 	m_size = MathHelper::Clamp(m_size + deltaTime, 17.0f, 20.0f);
 	m_timer -= deltaTime;
 }

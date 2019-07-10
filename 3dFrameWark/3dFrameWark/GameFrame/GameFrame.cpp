@@ -7,7 +7,6 @@
 #include "../Scene/ModeSelect/ModeSelect.h"
 #include "../Scene/CharaSelect/CharaSelect.h"
 #include "../Scene/Load/ToPlay.h"
-#include "../Scene/Play/GamePlay.h"
 #include "../Scene/Play/Duel.h"
 #include "../Scene/Play/Four.h"
 #include "../Scene/WinnerCircle/WinnerCircle.h"

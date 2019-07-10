@@ -54,45 +54,55 @@ Cocoa::Cocoa(IWorld & world,
 	m_numPlayer = l_numPlayer;
 	m_gameMode = l_gMode;
 
+	// 体力,パラメーター設定
 	parameters_.Initialize(m_name, 34);
 
+	// 1on1の場合
 	if (m_gameMode == 0)
 	{
 		if (m_numPlayer == 1)
 		{
+			//カメラ生成
 			world_->add_camera_cocoa(new_actor<DuelCamera>(world, m_position, 180.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD1);
 		}
 		else if (m_numPlayer == 2)
 		{
+			//カメラ生成
 			world_->add_camera_cocoa(new_actor<DuelCamera>(world, m_position, 0.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD2);
 		}
 	}
+	// 4人対戦の場合
 	else
 	{
 		if (m_numPlayer == 1)
 		{
+			//カメラ生成
 			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, 135.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD1);
 		}
 		else if (m_numPlayer == 2)
 		{
+			//カメラ生成
 			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, 0.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD2);
 		}
 		else if (m_numPlayer == 3)
 		{
+			//カメラ生成
 			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, 180.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD3);
 		}
 		else if (m_numPlayer == 4)
 		{
+			//カメラ生成
 			world_->add_camera_cocoa(new_actor<FourCamera>(world, m_position, -45.0f, m_name, m_numPlayer));
 			input_.initialize(DX_INPUT_PAD4);
 		}
 	}
 
+	// 状態の追加,設定
 	playerActions_[PlayerStateName::Idle].add(new_action<PlayerAction_Idle>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Move].add(new_action<PlayerAction_Move>(world, parameters_, input_));
 	playerActions_[PlayerStateName::Attack].add(new_action<PlayerAction_Attack>(world, parameters_, input_));
@@ -105,29 +115,34 @@ Cocoa::Cocoa(IWorld & world,
 	playerActions_[PlayerStateName::Dash].add(new_action<PlayerAction_Dash>(world, parameters_, input_));
 	playerActions_[m_state].initialize();
 
+	// 当たり判定生成
 	bodyCapsule_ = BoundingCapsule{ Vector3{ 0.0f,3.0f,0.0f },Vector3{0.0f,20.0f,0.0f},3.0f };
 }
 
 void Cocoa::update(float deltaTime)
 {
+	// インプット更新
 	input_.update();
 
+	// 重力反映
 	if (m_position.y > 0.0f&&m_state != PlayerStateName::Jump)
 	{
 		m_velocity.y += parameters_.Get_Gravity() * deltaTime;
 		m_position += m_velocity * deltaTime;
 	}
 
+	// ロックオン判定
 	lockOnCheck();
 
+	// 状態ごとの更新処理
 	playerActions_[m_state].update(
 		deltaTime, m_position, m_velocity, m_prevposition, m_rotation, get_pose(),
 		m_motion, m_cameraRoate);
 
-	//oppai_yure(m_position, 10.0f, 0.75f, 30.0f);
-
+	// 状態タイマー更新
 	parameters_.Add_StateTimer(1.0f*deltaTime);
 
+	// 次の状態のフラグチェック
 	if (playerActions_[m_state].Get_NextActionFlag())
 	{
 		playerActions_[m_state].NextAction(m_state, parameters_);
@@ -137,19 +152,21 @@ void Cocoa::update(float deltaTime)
 	//モーション変更
 	mesh_.change_motion(m_motion);
 
+	// アニメーションの終了時間設定
 	parameters_.Set_EndTime(mesh_.get_motion_end_time());
 
-	//アニメーション更新
+	// アニメーション更新
 	mesh_.update(deltaTime);
-
 	mesh_.transform(get_pose());
-	//mesh_.transform(get_pose(), 120, m_pi);
-	//mesh_.transform(get_pose(), 126, m_pi);
+
+	// ブレンドシェイプ更新
 	shape_.update(m_state);
+
+	// ダウンしたかの設定
 	set_IsDown(parameters_.Get_IsDown());
 
+	// キャラクターとステージのコリジョン
 	CollisionMesh::collide_capsule(m_position + Vector3{ 0.0f,3.0f,0.0f }, m_position + Vector3{ 0.0f,20.0f,0.0f }, 3.0f, &m_position);
-
 	m_position = Vector3::Clamp(m_position, Vector3{ -165.0f,0.0f,-550.0f }, Vector3{ 173.0f,100.0f,570.0f });
 
 	auto l_camera3 = world_->get_camera_cocoa();
@@ -161,6 +178,7 @@ void Cocoa::draw() const
 {
 	mesh_.draw();
 
+	// ロックオンエリアUIの描画
 	if (m_gameMode == 0)
 	{
 		if (!parameters_.Get_IsLockOn())
@@ -204,6 +222,7 @@ void Cocoa::draw() const
 		}
 	}
 
+	// HPゲージUIの描画
 	if (m_numPlayer == 1)
 	{
 		Graphics2D::draw_sprite_RCS(
@@ -250,6 +269,7 @@ void Cocoa::react(Actor & other)
 {
 	if (parameters_.Get_HP() > 0)
 	{
+		// 攻撃を受けた時
 		if (other.get_name() == "Attack")
 		{
 			input_.Vibration(500, 200);
@@ -274,6 +294,7 @@ void Cocoa::react(Actor & other)
 			return;
 		}
 
+		// ブレイク攻撃を受けた時
 		else if (other.get_name() == "BreakAttack")
 		{
 			input_.Vibration(600, 200);
@@ -307,6 +328,7 @@ void Cocoa::handle_message(EventMessage message, void * param)
 {
 }
 
+// 乳揺れ
 void Cocoa::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float l_friction, float l_mass)
 {
 	const Vector3 stretch = m_pi - l_rest_position;
@@ -316,6 +338,7 @@ void Cocoa::oppai_yure(const Vector3 & l_rest_position, float l_stiffness, float
 	m_pi += m_piVelo;
 }
 
+// ロックオン判定
 void Cocoa::lockOnCheck()
 {
 	auto l_chiya = world_->find_actor(ActorGroup::Chiya, "Chiya");

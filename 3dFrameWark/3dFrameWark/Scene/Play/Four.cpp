@@ -24,6 +24,7 @@ Four::Four(CharacterSelecter& l_selecter, PlayLoad & l_load, WinnerCharacter& l_
 	load_ = &l_load;
 	winner_ = &l_winner;
 
+	// プレイヤーの枠UIの描画カメラの初期化
 	frameCamera_.initialize(l_selecter);
 }
 
@@ -38,8 +39,10 @@ void Four::start()
 
 	Graphics3D::initialize();
 
+	// ワールドクラス初期化
 	world_.initialize();
 
+	// 1Pの選んだキャラクターの生成
 	if (charaSelecter_->Get_1PChara() == CharaID::Chiya)
 	{
 		m_numChiya = 1;
@@ -86,6 +89,7 @@ void Four::start()
 		);
 	}
 
+	// 2Pの選んだキャラクターの生成
 	if (charaSelecter_->Get_2PChara() == CharaID::Chiya)
 	{
 		m_numChiya = 2;
@@ -131,6 +135,7 @@ void Four::start()
 		);
 	}
 
+	// 3Pの選んだキャラクターの生成
 	if (charaSelecter_->Get_3PChara() == CharaID::Chiya)
 	{
 		m_numChiya = 3;
@@ -176,6 +181,7 @@ void Four::start()
 		);
 	}
 
+	// 4Pの選んだキャラクターの生成
 	if (charaSelecter_->Get_4PChara() == CharaID::Chiya)
 	{
 		m_numChiya = 4;
@@ -221,6 +227,7 @@ void Four::start()
 		);
 	}
 
+	// フェードパラメータ初期化
 	fead_.Initialize();
 
 	Sound::play_bgm((int)SoundID_BGM::GameBGM);
@@ -228,8 +235,11 @@ void Four::start()
 
 void Four::update(float deltaTime)
 {
+	// フェードアウト
 	fead_.FeadOut(deltaTime);
+	// ワールドクラス更新
 	world_.update(deltaTime);
+	// 決着のチェック
 	EndCheck();
 }
 
@@ -241,13 +251,16 @@ void Four::draw() const
 	SkyBox::bind(0);
 	CollisionMesh::bind(0);
 
+	// キャラクターのごとの描画
 	world_.draw();
 	world_.draw2();
 	world_.draw3();
 	world_.draw4();
 
+	// キャラクターの枠UIの描画
 	frameCamera_.drawFour();
 
+	// 暗転画像の描画
 	fead_.DrawBack();
 }
 
@@ -264,13 +277,10 @@ SceneID Four::next() const
 void Four::end()
 {
 	world_.clear();
-
-	//ゲームモードのリソースアンロード
-	//load_->UnLoad();
-
 	Graphics3D::finalize();
 }
 
+// 決着のチェック
 void Four::EndCheck()
 {
 	if (!world_.find_actor(ActorGroup::Chiya, "Chiya")->get_IsDown())

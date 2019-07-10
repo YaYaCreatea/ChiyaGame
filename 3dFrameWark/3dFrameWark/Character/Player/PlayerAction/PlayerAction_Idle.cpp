@@ -25,10 +25,9 @@ void PlayerAction_Idle::ActionUpdate(
 	l_velocity = Vector3{ 0.0f,l_velocity.y,0.0f };
 	l_prevposition = l_position;
 
+	// 攻撃に移行
 	if (input_->Trigger(PAD_INPUT_3))
 	{
-		//if (parameters_->Get_Name() == "Chiya")
-		//	l_motion = (int)ChiyaAnmID::Combo1;
 		if (parameters_->Get_Name() == "Chiya")
 		{
 			l_motion = (int)ChiyaAnmID::AttackHoming;
@@ -54,6 +53,7 @@ void PlayerAction_Idle::ActionUpdate(
 		return;
 	}
 
+	// ジャンプに移行
 	if (input_->Trigger(PAD_INPUT_1))
 	{
 		if (parameters_->Get_Name() == "Chiya")
@@ -70,6 +70,7 @@ void PlayerAction_Idle::ActionUpdate(
 		return;
 	}
 
+	// ダッシュに移行
 	if (input_->Trigger(PAD_INPUT_6))
 	{
 		if (parameters_->Get_Name() == "Chiya")
@@ -86,7 +87,7 @@ void PlayerAction_Idle::ActionUpdate(
 		return;
 	}
 
-
+	// アニメーションをアイドル状態に設定
 	if (parameters_->Get_Name() == "Chiya")
 		l_motion = (int)ChiyaAnmID::Idle;
 	else if (parameters_->Get_Name() == "Rize")
@@ -96,6 +97,7 @@ void PlayerAction_Idle::ActionUpdate(
 	else if (parameters_->Get_Name() == "Cocoa")
 		l_motion = (int)CocoaAnmID::Idle;
 
+	// 移動状態に移行
 	if (input_->Stay(PAD_INPUT_UP))
 	{
 		m_nextAction = true;

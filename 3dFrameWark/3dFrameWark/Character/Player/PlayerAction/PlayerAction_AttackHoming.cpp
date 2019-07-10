@@ -29,6 +29,7 @@ void PlayerAction_AttackHoming::ActionUpdate(
 	Vector3 & l_position, Vector3 & l_velocity, Vector3 & l_prevposition, Matrix & l_rotation, Matrix l_pose,
 	int & l_motion, Matrix & l_cameraRotation)
 {
+	// ロックオン状態時の近接攻撃キャラクターのアクション制御
 	if (parameters_->Get_IsLockOn())
 	{
 		if (parameters_->Get_Name() == "Chiya")
@@ -50,14 +51,18 @@ void PlayerAction_AttackHoming::ActionUpdate(
 			}
 		}
 
+		// 相手をホーミング
 		l_prevposition = l_position;
 		Vector3 l_directionOffset{ -parameters_->Get_LockOnDirection().x,0.0f,parameters_->Get_LockOnDirection().z };
 
 		l_rotation = Matrix::CreateLookAt(l_position, l_position - l_directionOffset, l_pose.Up());
 		l_position += (parameters_->Get_LockOnDirection()*m_speed) * deltaTime;
 	}
+
+	// ロックオン状態でないときの近接攻撃キャラクターのアクション制御
 	else
 	{
+		// 前方方向に移動
 		l_prevposition = l_position;
 		l_position += (l_pose.Forward()*m_speed) * deltaTime;
 
